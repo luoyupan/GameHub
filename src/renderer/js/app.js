@@ -110,9 +110,9 @@
     $('#viewHint').textContent = S.viewHint();
     head.hidden = false;
 
-    // 统计页和平台页都有自己的一整套控件，顶部那些"来源筛选/排序/视图"在这里没意义，收起来
+    // 统计页、平台页、联机页都有自己的一整套控件，顶部那些"来源筛选/排序/视图"在这里没意义，收起来
     const toolbar = $('#contentHead .ch-right');
-    if (toolbar) toolbar.hidden = S.view === 'stats' || S.view === 'platform';
+    if (toolbar) toolbar.hidden = S.view === 'stats' || S.view === 'platform' || S.view === 'net';
 
     body.innerHTML = '';
 
@@ -127,6 +127,13 @@
     if (S.view === 'platform') {
       $('#viewCount').textContent = '';
       window.PlatformView.render(body);
+      return;
+    }
+
+    /* ---------- 联机 ---------- */
+    if (S.view === 'net') {
+      $('#viewCount').textContent = '';
+      window.NetView.render(body);
       return;
     }
 
@@ -420,10 +427,13 @@
       n.classList.toggle('active', n.dataset.view === S.view);
     });
 
-    // 顶部标题栏的「游戏库 / 游戏平台」跟着当前视图高亮
+    // 顶部标题栏的「游戏库 / 游戏平台 / 联机」跟着当前视图高亮
     $$('.titlebar-nav .tb-nav-btn').forEach((n) => {
-      const want = n.dataset.nav === 'platform' ? 'platform' : 'library';
-      const on = (want === 'platform') ? S.view === 'platform' : S.view !== 'platform';
+      const nav = n.dataset.nav;
+      let on;
+      if (nav === 'platform') on = S.view === 'platform';
+      else if (nav === 'net') on = S.view === 'net';
+      else on = S.view !== 'platform' && S.view !== 'net';
       n.classList.toggle('active', on);
     });
   }
@@ -492,7 +502,7 @@
     // （原来这里的「待玩清单」是个没有绑定任何事件的空按钮，点下去毫无反应，
     //   索性换成真正有内容的「游戏平台」，跟侧栏入口保持一致。）
     $$('.titlebar-nav .tb-nav-btn').forEach((btn) => {
-      btn.onclick = () => goto(btn.dataset.nav === 'platform' ? 'platform' : 'home');
+      btn.onclick = () => goto(btn.dataset.nav === 'platform' ? 'platform' : btn.dataset.nav === 'net' ? 'net' : 'home');
     });
 
     $('#hiddenEntry').onclick = async () => {

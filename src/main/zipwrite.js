@@ -22,14 +22,19 @@ const fsp = require('fs/promises');
 const path = require('path');
 const zlib = require('zlib');
 
-/* ---------------- CRC32（查表法） ---------------- */
+/* ---------------- CRC32（查表法） ----------------
+ * ⚠ 建表时是 **右移 1 位** 移 8 次（不是一次移 8 位！）。
+ *   写错成 >>>8 的话表是错的，CRC 值也跟着错 ——
+ *   zip 头里的 CRC 一旦不对，系统解压 / 7-Zip 会直接报"CRC 校验失败"。
+ *   这里用标准测试向量钉死（见 tools/net-test.js 与 tools/modport-test.js）。
+ */
 let CRC_TABLE = null;
 function crc32(buf) {
   if (!CRC_TABLE) {
     CRC_TABLE = new Int32Array(256);
     for (let i = 0; i < 256; i++) {
       let c = i;
-      for (let k = 0; k < 8; k++) c = (c & 1) ? (0xEDB88320 ^ (c >>> 8)) : (c >>> 8);
+      for (let k = 0; k < 8; k++) c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1);
       CRC_TABLE[i] = c;
     }
   }

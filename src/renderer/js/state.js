@@ -183,6 +183,7 @@
       case 'category': return State.category || '分类';
       case 'stats': return '游玩统计';
       case 'platform': return '游戏平台';
+      case 'net': return '联机';
       default: return '游戏库';
     }
   }
@@ -192,6 +193,7 @@
     if (State.view === 'hidden' && State.hidden.unlocked) return '仅在此处可见 · 上锁后自动隐藏';
     if (State.view === 'stats') return '自动记录每次启动与游玩时长';
     if (State.view === 'platform') return '只读本机平台数据 · 不上传任何信息';
+    if (State.view === 'net') return '内网穿透 / P2P / 中转站 · 不提供任何官方中转站';
     if (State.view === 'recent') return '按最近启动时间排序';
     if (State.view === 'favorite') return '右键游戏可加入收藏';
     if (State.search.trim()) return `搜索「${State.search.trim()}」`;

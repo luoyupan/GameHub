@@ -23,6 +23,9 @@ const EVENTS = [
   'cover:progress',     // 批量获取封面的进度
   'platform:progress',  // 平台库同步进度
   'browser:event',      // 内置浏览器的动静（标签开关、下载进度等）
+  'net:state',          // 联机房间快照（延迟/丢包每秒刷新）
+  'net:event',          // 联机的日志 / 报错 / 聊天
+  'net:probe',          // 网络体检结果
   'toast'               // 主进程发来的提示消息
 ];
 
@@ -191,6 +194,30 @@ contextBridge.exposeInMainWorld('GameHub', {
     openExternal: (url) => ipcRenderer.invoke('browser:openExternal', url),
     /** 写入验证 Cookie（系统浏览器过完 Cloudflare 后搬通行证过来） */
     setCookie: (args) => ipcRenderer.invoke('browser:setCookie', args || {})
+  },
+
+  /* ---------------- 联机（内网穿透 / P2P / 中转站） ----------------
+   * ⚠ 三条铁律：密码永不上网；房间码里没有端口明文以外的东西；
+   *   GameHub 不提供任何官方中转站 —— 中转站地址由玩家自己填。 */
+  net: {
+    /** 网络体检：有没有公网 IPv6、IPv4 在不在 NAT 后面 */
+    probe: () => ipcRenderer.invoke('net:probe'),
+    /** 建房。args: { mode, name, pass, game, gamePort, family, relayHost, relayPort, tunnel } */
+    host: (args) => ipcRenderer.invoke('net:host', args || {}),
+    /** 加入房间。args: { code, pass, gamePort, tunnel, tunnelPort } */
+    join: (args) => ipcRenderer.invoke('net:join', args || {}),
+    /** 离开房间 */
+    leave: () => ipcRenderer.invoke('net:leave'),
+    /** 当前房间快照（含我自己的延迟 / 丢包） */
+    status: () => ipcRenderer.invoke('net:status'),
+    /** 只看一眼码是哪个房间，不进 */
+    parse: (code) => ipcRenderer.invoke('net:parse', code),
+    /** 内网穿透：把 域名:端口 封装成房间码 */
+    tunnelCode: (args) => ipcRenderer.invoke('net:tunnelCode', args || {}),
+    /** 内网穿透：测一下这个地址 TCP 连不连得通 */
+    testAddr: (args) => ipcRenderer.invoke('net:testAddr', args || {}),
+    /** 房间聊天 */
+    chat: (text) => ipcRenderer.invoke('net:chat', text)
   },
 
   /* ---------------- MOD 快速导入 / 打包 / MOD 码（对齐工具） ---------------- */

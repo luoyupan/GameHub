@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="css/platform.css" />
   <link rel="stylesheet" href="css/browser.css" />
   <link rel="stylesheet" href="css/modport.css" />
+  <link rel="stylesheet" href="css/net.css" />
   <!-- ⚠ appearance.css 必须放最后：它要覆盖各栏位的背景，
        并且定义 --fs-base 相关规则，加载早了会被后面的样式盖掉 -->
   <link rel="stylesheet" href="css/appearance.css" />
@@ -47,6 +48,9 @@
         <nav class="titlebar-nav" id="titlebarNav">
           <button class="tb-nav-btn active" data-nav="library">游戏库</button>
           <button class="tb-nav-btn" data-nav="platform">游戏平台</button>
+          <button class="tb-nav-btn" data-nav="net">联机</button>
+          <!-- 联机中的实时延迟 / 丢包徽标：切到别的页面也看得到自己卡不卡 -->
+          <span class="tb-net-badge" id="netBadge" hidden></span>
           <!-- 内置浏览器的标签页由 js/browserview.js 动态插到这后面 -->
         </nav>
       </div>
@@ -303,6 +307,7 @@
   <script src="js/detail.js"></script>
   <script src="js/statsview.js"></script>
   <script src="js/platformview.js"></script>
+  <script src="js/netview.js"></script>
   <!-- 内置浏览器（导航栏标签页）：modview 的「N 网找找」要用它，必须排在 app.js 前 -->
   <script src="js/browserview.js"></script>
   <script src="js/modals.js"></script>

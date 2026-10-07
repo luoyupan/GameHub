@@ -133,6 +133,25 @@
     /** 手动指定这款游戏的 MOD 目录（不传 dir 会弹选择框） */
     modSetModDir: (args) => safe(raw.mod.setModDir, args || {}),
 
+    /* ---------------- 联机（内网穿透 / P2P / 中转站） ---------------- */
+    /** 网络体检：公网 IPv6？IPv4 在不在 NAT 后面？ */
+    netProbe: () => safe(raw.net.probe),
+    /** 建房。args: { mode, name, pass, game, gamePort, family, relayHost, relayPort, tunnel } */
+    netHost: (args) => safe(raw.net.host, args || {}),
+    /** 加入房间。args: { code, pass, gamePort, tunnel, tunnelPort } */
+    netJoin: (args) => safe(raw.net.join, args || {}),
+    netLeave: () => safe(raw.net.leave),
+    /** 房间快照（含我自己的实时延迟 / 丢包） */
+    netStatus: () => safe(raw.net.status),
+    /** 只看一眼房间码属于哪个房间 */
+    netParse: (code) => safe(raw.net.parse, code),
+    /** 内网穿透：把 域名:端口 封装成房间码 */
+    netTunnelCode: (args) => safe(raw.net.tunnelCode, args || {}),
+    /** 内网穿透：测这个地址 TCP 通不通 */
+    netTestAddr: (args) => safe(raw.net.testAddr, args || {}),
+    /** 房间聊天 */
+    netChat: (text) => safe(raw.net.chat, text),
+
     /* ---------------- MOD 快速导入 / 打包 / MOD 码（对齐工具） ---------------- */
     /** 拖入的路径数组 → 解压/复制进该游戏的 MOD 目录 */
     modImportDrop: (args) => safe(raw.modPort.importDrop, args || {}),

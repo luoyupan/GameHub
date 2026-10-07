@@ -35,6 +35,9 @@ const modpaths = require('./src/main/modpaths');
 const unzip = require('./src/main/unzip');
 const zipwrite = require('./src/main/zipwrite');
 const modport = require('./src/main/modport');
+const netprobe = require('./src/main/net/netprobe');
+const netcodecs = require('./src/main/net/codecs');
+const netroomsvc = require('./src/main/net/roomsvc');
 
 /* ==================================================================
  *  全局单例
@@ -1707,6 +1710,126 @@ function registerBrowserIpc() {
     await shell.openExternal(u);
     return { ok: true };
   });
+
+  /* ================================================================
+   *  联机（内网穿透 / P2P / 中转站）
+   * ================================================================ */
+
+  /** 网络体检：有没有公网 IPv6、IPv4 在不在 NAT 后面 */
+  ipcMain.handle('net:probe', async () => {
+    try {
+      const r = await netprobe.probeNetwork();
+      if (r && r.ok) lastProbe = r;      // 存一份，界面进来就能直接显示结论
+      return r;
+    } catch (e) { return { ok: false, error: (e && e.message) || String(e) }; }
+  });
+
+  /** 建房。args: { mode, name, pass, game, gamePort, family, relayHost, relayPort, publicHost, publicPort, tunnel } */
+  ipcMain.handle('net:host', async (_e, args = {}) => {
+    const room = ensureRoom();
+    if (room.active) return { ok: false, error: '已经在一个房间里了，先退出再建' };
+    const r = await room.host(args);
+    if (r && r.ok) emitNetState();
+    return r;
+  });
+
+  /** 加入。args: { code, pass, gamePort, tunnel, tunnelPort } */
+  ipcMain.handle('net:join', async (_e, args = {}) => {
+    const room = ensureRoom();
+    if (room.active) return { ok: false, error: '已经在一个房间里了，先退出再加' };
+    const r = await room.join(String(args.code || ''), String(args.pass || ''), args);
+    if (r && r.ok) emitNetState();
+    return r;
+  });
+
+  /** 离开房间 */
+  ipcMain.handle('net:leave', async () => {
+    const room = ensureRoom();
+    const r = room.leave();
+    emitNetState();
+    return r;
+  });
+
+  /** 当前房间快照（界面刷新 / 重新打开联机页时取一次） */
+  ipcMain.handle('net:status', () => {
+    const room = ensureRoom();
+    const snap = room.snapshot();
+    snap.probe = lastProbe;
+    return { ok: true, room: snap };
+  });
+
+  /** 解析一个房间码（只看不进，用来先确认"这码是哪个房间"） */
+  ipcMain.handle('net:parse', (_e, code) => {
+    const info = netcodecs.parseRoomCode(code);
+    if (!info) return { ok: false, error: '房间码无效' };
+    return { ok: true, info };
+  });
+
+  /** 内网穿透模式：用地址直接生成一个码（不建房，只做"地址 → 码"的封装） */
+  ipcMain.handle('net:tunnelCode', (_e, args = {}) => {
+    const host = String(args.host || '').trim();
+    const port = Number(args.port);
+    const name = String(args.name || '').trim();
+    if (!name) return { ok: false, error: '房间名不能为空' };
+    if (!host || !(port > 0 && port <= 65535)) return { ok: false, error: '穿透地址要写成 域名:端口 或 IP:端口' };
+    const code = netcodecs.buildRoomCode({
+      mode: 'tunnel', name, host, port,
+      gamePort: Number(args.gamePort) || null,
+      hasPass: !!args.pass, game: String(args.game || '').trim() || null
+    });
+    if (!code) return { ok: false, error: '这个地址里有些字符不能进码' };
+    return { ok: true, code, info: netcodecs.parseRoomCode(code) };
+  });
+
+  /**
+   * 内网穿透模式：测一下这个地址连不连得通（TCP 握手 5 秒超时）。
+   * 只能测 TCP —— UDP 没有"握手"这回事，连不通也是静默丢包。
+   */
+  ipcMain.handle('net:testAddr', (_e, args = {}) => {
+    const host = String(args.host || '').trim();
+    const port = Number(args.port);
+    if (!host || !(port > 0 && port <= 65535)) return { ok: false, error: '地址不完整' };
+    return new Promise((res) => {
+      const s = require('net').connect({ host, port });
+      const t0 = Date.now();
+      const done = (v) => { try { s.destroy(); } catch { } res(v); };
+      s.setTimeout(5000);
+      s.on('connect', () => done({ ok: true, ms: Date.now() - t0 }));
+      s.on('timeout', () => done({ ok: false, error: '连接超时（5 秒）—— 地址不通或端口没放行' }));
+      s.on('error', (e) => done({ ok: false, error: (e && e.message) || '连不上' }));
+    });
+  });
+
+  /** 房间内聊天 */
+  ipcMain.handle('net:chat', (_e, text) => ensureRoom().chat(String(text || '')));
+}
+
+/* ==================================================================
+ *  联机：房间单例与事件转发
+ * ================================================================== */
+
+/** 当前房间（全局只有一个 —— 一台机器同一时间只联一个机） */
+let netRoom = null;
+/** 最近一次网络体检结果（建房前后都要参考） */
+let lastProbe = null;
+
+function ensureRoom() {
+  if (netRoom) return netRoom;
+  netRoom = new netroomsvc.NetRoom();
+  netRoom.on('state', () => emitNetState());
+  netRoom.on('log', (m) => emit('net:event', { kind: 'log', message: String(m) }));
+  netRoom.on('error', (e) => emit('net:event', { kind: 'error', message: (e && e.message) || String(e) }));
+  netRoom.on('chat', (c) => emit('net:event', { kind: 'chat', from: c.from, name: c.name, text: c.text }));
+  netRoom.on('left', () => emit('net:event', { kind: 'left' }));
+  return netRoom;
+}
+
+/** 把房间快照推给界面（延迟/丢包每秒都在变，靠这个实时刷新） */
+function emitNetState() {
+  if (!netRoom) return;
+  const snap = netRoom.snapshot();
+  snap.probe = lastProbe;
+  emit('net:state', snap);
 }
 
 /* ==================================================================
@@ -3958,6 +4081,55 @@ async function runScreenshot() {
         })()`,
         // 只关弹窗 —— 全程没有真的删任何东西，不需要还原
         cleanup: `(() => { try { window.Modals.closeModal(); } catch (e) {} })()`
+      },
+      /* 新增：联机页 —— 三种模式卡 + P2P 体检结论。
+       * 等体检出来再拍：体检是问 STUN 的，通常 1～3 秒，
+       * 不等的话拍到的就是"还没体检"的空块，看不出真实结论。 */
+      {
+        name: '32-联机-P2P体检',
+        script: `(async () => {
+          try { window.Modals.closeModal(); } catch (e) {}
+          try { window.Detail.close(); } catch (e) {}
+          window.App.goto('net');
+          await new Promise(r => setTimeout(r, 400));
+          const p2p = [...document.querySelectorAll('.net-mode')].find(m => m.dataset.mode === 'p2p');
+          if (!p2p) throw new Error('没找到 P2P 模式卡');
+          p2p.click();
+          for (let i = 0; i < 60 && !document.querySelector('.np-vtext'); i++) {
+            await new Promise(r => setTimeout(r, 250));
+          }
+          await new Promise(r => setTimeout(r, 500));
+          const v = document.querySelector('.np-vtext');
+          if (!v) throw new Error('体检结论一直没出来');
+          document.getElementById('contentBody').scrollTop = 0;
+          return { 结论: v.textContent, 条目: document.querySelectorAll('.np-item').length };
+        })()`
+      },
+      /* 新增：联机页 —— 内网穿透模式 + 生成出来的房间码。
+       * 用固定假地址摆拍，纯粹为了展示"地址 → 码"这一段的样子。 */
+      {
+        name: '33-联机-内网穿透',
+        script: `(async () => {
+          window.App.goto('net');
+          await new Promise(r => setTimeout(r, 400));
+          const tn = [...document.querySelectorAll('.net-mode')].find(m => m.dataset.mode === 'tunnel');
+          if (!tn) throw new Error('没找到内网穿透模式卡');
+          tn.click();
+          await new Promise(r => setTimeout(r, 350));
+          document.getElementById('tnName').value = '周末帕鲁车';
+          document.getElementById('tnAddr').value = 'palu.frp.cn:12345';
+          const gen = [...document.querySelectorAll('#contentBody .nf-actions button')]
+            .find(b => /生成房间码/.test(b.textContent));
+          if (!gen) throw new Error('没找到生成按钮');
+          gen.click();
+          for (let i = 0; i < 30 && !document.getElementById('tnCode'); i++) {
+            await new Promise(r => setTimeout(r, 200));
+          }
+          const c = document.getElementById('tnCode');
+          if (!c) throw new Error('房间码没生成');
+          document.getElementById('contentBody').scrollTop = 0;
+          return { 码前缀: c.textContent.slice(0, 16) };
+        })()`
       },
     ];
 
