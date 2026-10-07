@@ -243,10 +243,10 @@
         if ((!fPlaceholder || !fPlaceholder.isConnected) && root.parentNode) {
           fPlaceholder = document.createElement('div');
           fPlaceholder.className = 'bh-float-ph';
-          fPlaceholder.innerHTML = '<span>🌐 浏览器已浮出</span>';
+          fPlaceholder.innerHTML = '<span>🌐 浏览器已浮出成独立窗口（原位置）</span>';
           const back = document.createElement('button');
           back.type = 'button';
-          back.textContent = '点此收回';
+          back.textContent = '↩ 收回内嵌';
           back.onclick = () => fSetMode('dock');
           fPlaceholder.appendChild(back);
           root.parentNode.insertBefore(fPlaceholder, root);
@@ -288,17 +288,15 @@
     });
     grip.addEventListener('dblclick', (e) => { e.preventDefault(); fMaximize(); });
 
-    // 工具条空白处：按住拖 = 移动浮层位置（dock 态拖一下也会浮出来）
+    // 工具条空白处：按住拖 = 移动浮层位置。
+    // ⚠ 只在已经是浮层时才允许 —— 内嵌态一点空白就浮出太容易误触
+    //   （主人反馈：点 N 网"直接打开浏览器了"，就是点按钮时指尖偏到
+    //   按钮之间的缝隙触发的）。内嵌态想变大请拖右下角 ◢ 抓手。
     fBar.addEventListener('pointerdown', (e) => {
+      if (fMode === 'dock') return;
       if (e.target.closest('button, input, .bh-target')) return;
       const r = root.getBoundingClientRect();
-      const baseL = r.left, baseT = r.top;
-      if (fMode === 'dock') {
-        fApply(baseL, baseT, Math.max(r.width, 560), Math.max(r.height, 400));
-        fSetMode('float');
-      } else {
-        fApply(baseL, baseT, r.width, r.height);
-      }
+      fApply(r.left, r.top, r.width, r.height);
       const bl = parseFloat(root.style.left), bt = parseFloat(root.style.top);
       fDrag(e, (dx, dy) => {
         root.style.left = Math.round(Math.max(-rootW() + 120, Math.min(bl + dx, innerWidth - 120))) + 'px';
