@@ -34,3 +34,4 @@ desktop.ini
 # ---- 环境变量（如果把自己的 Epic 凭据放这里）----
 .env
 .env.local
+live.out

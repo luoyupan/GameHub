@@ -1,5 +1,0 @@
-
-[步骤] 开标签 …
-[attach] {"tabId":"bt1","wcId":2} → {"ok":true}
-[server] GET /
-[server] GET /mod.zip
