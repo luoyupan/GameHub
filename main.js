@@ -29,7 +29,7 @@ const platforms = require('./src/main/platforms');
 const { createEpicAuth, paintLoginResult } = require('./src/main/epicauth');
 const { createMods, steamWorkshopWebUrl, steamWorkshopClientUrl, nexusSearchUrl } = require('./src/main/mods');
 const uninstall = require('./src/main/uninstall');
-const { createBrowserService } = require('./src/main/browser');
+const { createBrowserTabs } = require('./src/main/browser');
 const modpaths = require('./src/main/modpaths');
 const unzip = require('./src/main/unzip');
 
@@ -1415,11 +1415,13 @@ function registerModIpc() {
   });
 
   /**
-   * 在**内置浏览器**里打开 N 网（或任意站点）给这款游戏找 MOD。
+   * 在**内置浏览器**（主界面导航栏里的标签页）里打开 N 网给这款游戏找 MOD。
    *
    * 和 mod:openNexus 的区别：那个是丢给系统浏览器，下载完用户自己找文件；
-   * 这个是在软件内打开，下载会被 GameHub 接管，直接落到这款游戏的 MOD 目录。
-   * 所以这里要把 gameId 塞进 context —— 浏览器靠它知道"这个文件该给谁"。
+   * 这个在软件内打开，下载会被 GameHub 接管，直接落到这款游戏的 MOD 目录。
+   *
+   * 这里只负责把「打开哪、会下到哪」算好返回，webview 由渲染层创建
+   * （v1 是独立弹窗，实际用下来不要弹窗、要集合进导航栏 —— 见 browser.js 头注释）。
    */
   ipcMain.handle('mod:browse', async (_e, args = {}) => {
     const gameId = String(args.id || '').trim();
@@ -1427,14 +1429,26 @@ function registerModIpc() {
     const name = String(args.name || (g && g.name) || '').trim();
     if (!name) return { ok: false, error: '没有游戏名，搜不了' };
 
-    const url = args.url || nexusSearchUrl(name);
-    const svc = ensureBrowser();
-    if (!svc) return { ok: false, error: '内置浏览器没能启动' };
+    const url = String(args.url || nexusSearchUrl(name));
+    if (!/^https?:\/\//i.test(url)) return { ok: false, error: '不支持的地址' };
 
-    return svc.open(url, {
+    const s = store.getSettings();
+    const md = s.modDownload || {};
+    const d = (md.mode === 'custom' && md.customDir)
+      ? { ok: true, dir: md.customDir, label: '设置里指定的文件夹', note: '' }
+      : (g ? decideModDownloadDir(g, s) : { ok: false });
+
+    return {
+      ok: true,
+      url,
       title: `给「${name}」找 MOD`,
-      context: { gameId: gameId || '', gameName: name }
-    });
+      target: {
+        dir: (d && d.ok && d.dir) || '',
+        label: (d && d.label) || '',
+        note: (d && d.note) || '',
+        exists: !!(d && d.exists)
+      }
+    };
   });
 
   /**
@@ -1480,26 +1494,20 @@ function registerModIpc() {
 }
 
 /* ==================================================================
- *  IPC：内置浏览器（供 browser.html 那个窗口用）
+ *  IPC：内置浏览器（主界面导航栏里的标签页形态）
  * --------------------------------------------------------------------
- *  这些通道只服务于浏览器窗口自己的工具条，
- *  能力面刻意做得极窄 —— 详见 preload-browser.js 里的说明。
+ *  webview 在渲染层，主进程只收「标签 ↔ guest webContents」的登记，
+ *  以及把单个链接丢给系统浏览器这两件事。
  * ================================================================== */
 function registerBrowserIpc() {
-  const findWin = (e) => BrowserWindow.fromWebContents(e.sender);
-
-  ipcMain.handle('browser:minimize', (e) => {
-    const w = findWin(e); if (w) w.minimize();
-  });
-
-  ipcMain.handle('browser:maximize', (e) => {
-    const w = findWin(e);
-    if (!w) return;
-    if (w.isMaximized()) w.unmaximize(); else w.maximize();
-  });
-
-  ipcMain.handle('browser:close', (e) => {
-    const w = findWin(e); if (w) w.close();
+  /**
+   * 渲染层报告：标签 tabId 的 webview 挂上来了，guest 的
+   * webContents id 是 wcId。下载钩子按它反查这条下载该给谁。
+   */
+  ipcMain.handle('browser:attach', (_e, args = {}) => {
+    const svc = ensureBrowser();
+    if (!svc) return { ok: false, error: '浏览器服务没起来' };
+    return svc.attach(String(args.tabId || ''), Number(args.wcId));
   });
 
   ipcMain.handle('browser:openExternal', async (_e, url) => {
@@ -1519,8 +1527,7 @@ function ensureBrowser() {
   if (browser) return browser;
   if (!win || win.isDestroyed()) return null;
 
-  browser = createBrowserService({
-    parent: win,
+  browser = createBrowserTabs({
     onLog: (m) => console.log('[GameHub][浏览器] ' + m),
     /**
      * 下载落点决策 —— 整个功能的价值所在。
@@ -1564,42 +1571,14 @@ function ensureBrowser() {
       if (r.canceled || !r.filePath) return { cancel: true };
       return { dir: path.dirname(r.filePath) };
     },
-    /**
-     * 窗口页面就绪 → 把「这个窗口的下载会落到哪」推给它的界面层。
-     * 早于这个时机推会丢（页面还没执行到监听那行）。
-     */
-    onReady: (id, rec) => {
-      const s = store.getSettings();
-      const md = s.modDownload || {};
-      const ctx = (rec && rec.context) || {};
-      const g = ctx.gameId ? store.findGame(ctx.gameId) : null;
-
-      let target = null;
-      if (md.mode === 'custom' && md.customDir) {
-        target = { dir: md.customDir, label: '设置里指定的文件夹', source: 'custom' };
-      } else if (md.mode === 'ask') {
-        target = { dir: '', label: '每次下载时询问', source: 'ask' };
-      } else if (g) {
-        const d = decideModDownloadDir(g, s);
-        target = { dir: d.ok ? d.dir : '', label: d.label || '', source: d.source || '', note: d.note || '' };
-      }
-
-      browser.sendTo(id, 'browser:download-target', {
-        gameName: ctx.gameName || (g && g.name) || '',
-        dir: (target && target.dir) || '',
-        label: (target && target.label) || '',
-        source: (target && target.source) || '',
-        note: (target && target.note) || ''
-      });
-    },
 
     onEvent: (ev) => {
-      // 浏览器侧的动静转发给主界面，方便以后做"下载中心"之类的东西
+      // 浏览器侧的动静转发给渲染层（标签条 / 下载进度条都在那边）
       emit('browser:event', ev);
 
       // 下载完成 → 按设置自动解压到落点目录
-      if (ev && ev.type === 'download-done' && ev.download && ev.download.state === 'completed') {
-        afterDownload(ev.download).catch((e) => {
+      if (ev && ev.type === 'download-done' && ev.state === 'completed') {
+        afterDownload(ev).catch((e) => {
           console.warn('[GameHub][浏览器] 下载后处理失败：' + (e && e.message || e));
         });
       }

@@ -651,29 +651,27 @@
    * 打开前先问一次"会下载到哪"，让用户有机会发现目录不对、改成自己指定的。
    */
   async function openNexus(g) {
-    // 先看一眼会落到哪 —— 认不出的情况要提醒用户
-    let target = null;
-    try {
-      const t = await window.API.modDownloadTarget({ id: g.id });
-      if (t && t.ok) target = t;
-    } catch (_) { /* 拿不到就当没提示，不影响打开 */ }
-
-    if (target && target.ok && target.dir) {
-      window.App.toast(
-        `MOD 将下载到：${target.dir}　（${target.label || ''}）`,
-        target.exists ? 'success' : 'warn',
-        5200
-      );
-    } else if (target && !target.ok) {
-      window.App.toast('没认出这款游戏的 MOD 目录，下载时会让你自己选', 'warn', 4500);
+    // 主进程把「打开哪、会下到哪」一起算好；目录认不出时 target.dir 为空，
+    // 下载时会退化成弹窗让你选，绝不会硬放到猜错的地方
+    const r = await window.API.modBrowse({ id: g.id, name: g.name });
+    if (!r || !r.ok) {
+      // 内置浏览器起不来就退回系统浏览器，别让用户点了没反应
+      const fb = await window.API.modOpenNexus({ name: g.name });
+      if (fb && fb.ok) { window.App.toast('内置浏览器不可用，已用系统浏览器打开', 'warn', 4500); return; }
+      window.App.toast((r && r.error) || '打开 N 网失败', 'error');
+      return;
     }
 
-    const r = await window.API.modBrowse({ id: g.id, name: g.name });
-    if (r && r.ok) { window.App.toast('已在内置浏览器打开 N 网，下载会直接进 MOD 目录', 'success'); return; }
-    // 内置浏览器起不来就退回系统浏览器，别让用户点了没反应
-    const fb = await window.API.modOpenNexus({ name: g.name });
-    if (fb && fb.ok) { window.App.toast('内置浏览器不可用，已用系统浏览器打开', 'warn', 4500); return; }
-    window.App.toast((r && r.error) || '打开 N 网失败', 'error');
+    // 开在主界面顶部导航栏里（不弹独立窗口），下载会被接管到这款游戏的 MOD 目录
+    window.BrowserTabs.open({
+      url: r.url,
+      title: r.title || g.name,
+      context: { gameId: g.id, gameName: g.name },
+      target: r.target || null
+    });
+    if (r.target && r.target.dir) {
+      window.App.toast(`MOD 将下载到：${r.target.dir}`, r.target.exists === false ? 'warn' : 'success', 4500);
+    }
   }
 
   /**

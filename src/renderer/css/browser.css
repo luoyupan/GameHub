@@ -1,183 +1,201 @@
 /* ============================================================
-   GameHub - 内置浏览器窗口样式  (css/browser.css)
+   GameHub - 内置浏览器·内嵌标签页  (css/browser.css)
    ------------------------------------------------------------
-   配色沿用主界面的深色主题，让它看起来是 GameHub 的一部分，
-   而不是突然弹出一个陌生窗口。
+   v1 是独立弹窗，带自己的一套 --br-* 变量；改成导航栏标签页后
+   直接住在主界面里，所以全部改用主题变量（theme.css），
+   深浅主题自动跟随，不用再养一套色板。
    ============================================================ */
 
-:root {
-  --br-bg: #0e1420;
-  --br-bar: #131b2b;
-  --br-line: rgba(255, 255, 255, 0.08);
-  --br-fg: #e8eef8;
-  --br-dim: #8fa0bb;
-  --br-accent: #4f9cf9;
-  --br-ok: #34d399;
+/* ---------------- 宿主：盖住内容区 ---------------- */
+/* 默认藏起来；激活时由 .content.browser-active 放出来，
+   同时把底下两层（头部 + 游戏墙）收掉 —— 不靠 z-index 硬压，
+   免得和弹出层那套层叠上下文打架。 */
+.browser-host { display: none; }
+.content.browser-active .browser-host {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  background: var(--bg-2);
+  /* 头部柔光 .content::before 会透上来，盖一层自己的底色 */
+  position: relative;
+  z-index: 1;
 }
+.content.browser-active > .content-head,
+.content.browser-active > .content-body { display: none; }
 
-* { box-sizing: border-box; }
-
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  overflow: hidden;
-  background: var(--br-bg);
-  color: var(--br-fg);
-  font: 13px/1.5 "Microsoft YaHei UI", "Microsoft YaHei", "Segoe UI", system-ui, sans-serif;
-  user-select: none;
-}
-
-.br-root { display: flex; flex-direction: column; height: 100%; }
-
-/* ---------------- 标题栏 ---------------- */
-.br-bar {
+/* ---------------- 工具条 ---------------- */
+.bh-toolbar {
   display: flex;
   align-items: center;
-  height: 34px;
-  flex: 0 0 34px;
-  background: var(--br-bar);
-  border-bottom: 1px solid var(--br-line);
-}
-.br-drag {
-  flex: 1;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  padding: 0 12px;
-  -webkit-app-region: drag;
+  gap: 4px;
+  padding: 6px 10px;
+  flex: 0 0 auto;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-3);
   min-width: 0;
 }
-.br-title {
-  font-size: 12.5px;
-  color: var(--br-dim);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.br-winbtns { display: flex; -webkit-app-region: no-drag; }
-.br-wb {
-  width: 44px;
-  height: 34px;
-  border: 0;
+.bh-btn {
+  flex: 0 0 auto;
+  width: 28px;
+  height: 26px;
+  border: none;
+  border-radius: 6px;
   background: transparent;
-  color: var(--br-dim);
-  font-size: 13px;
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1;
   cursor: pointer;
+  transition: background 0.15s ease;
 }
-.br-wb:hover { background: rgba(255, 255, 255, 0.08); color: var(--br-fg); }
-.br-wb-close:hover { background: #e04b4b; color: #fff; }
+.bh-btn:hover { background: var(--bg-4); }
+.bh-btn:active { background: var(--accent-soft); }
 
-/* ---------------- 导航条 ---------------- */
-.br-nav {
+.bh-addr {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 26px;
+  padding: 0 10px;
+  border: 1px solid var(--line-2);
+  border-radius: 13px;
+  background: var(--bg-1);
+  color: var(--text);
+  font-size: 12px;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+.bh-addr:focus { border-color: var(--accent-line); }
+.bh-addr::placeholder { color: var(--text-3); }
+
+/* 「MOD 将下载到」徽标：点下载之前就能确认目录对不对 */
+.bh-target {
+  flex: 0 1 auto;
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 6px 10px;
-  flex: 0 0 auto;
-  background: #101828;
-  border-bottom: 1px solid var(--br-line);
-}
-.br-btn {
-  width: 30px;
-  height: 28px;
-  border: 1px solid var(--br-line);
+  max-width: 42%;
+  padding: 3px 10px;
   border-radius: 6px;
-  background: #182234;
-  color: var(--br-fg);
-  font-size: 15px;
-  line-height: 1;
-  cursor: pointer;
-  flex: 0 0 auto;
-}
-.br-btn:hover { background: #1f2b41; }
-.br-btn:disabled { opacity: 0.4; cursor: default; }
-
-.br-addr {
-  flex: 1;
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-line);
+  font-size: 11px;
   min-width: 0;
-  height: 28px;
-  padding: 0 10px;
-  border: 1px solid var(--br-line);
-  border-radius: 14px;
-  background: #0c121e;
-  color: var(--br-fg);
-  font-size: 12.5px;
-  outline: none;
-  user-select: text;
+  cursor: help;
 }
-.br-addr:focus { border-color: var(--br-accent); }
-
-/* ---------------- 下载落点提示 ---------------- */
-/* 这条是重点：N 网页面本身不会告诉你文件会存到哪，
-   在这里常驻显示，用户点下载前就能确认目录对不对。 */
-.br-target {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 12px;
-  flex: 0 0 auto;
-  background: rgba(79, 156, 249, 0.10);
-  border-bottom: 1px solid var(--br-line);
-  font-size: 12px;
+.bh-target-label { color: var(--accent); font-weight: 600; flex: 0 0 auto; }
+.bh-target-path {
+  flex: 1 1 auto;
   min-width: 0;
-}
-.br-target-label { color: var(--br-accent); flex: 0 0 auto; font-weight: 600; }
-.br-target-path {
-  flex: 1;
-  min-width: 0;
-  color: var(--br-fg);
+  color: var(--text);
   font-family: Consolas, "Cascadia Mono", monospace;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   user-select: text;
 }
-.br-target-src { flex: 0 0 auto; color: var(--br-dim); font-size: 11px; }
-/* 没有固定落点（每次询问模式）时，路径也用弱化色，别看着像已经定了 */
-.br-target-path.dim { color: var(--br-dim); font-style: italic; }
+.bh-target-path.dim { color: var(--text-3); font-style: italic; }
 
 /* ---------------- 下载进度 ---------------- */
-.br-dl {
-  flex: 0 0 auto;
-  padding: 6px 12px 8px;
-  background: #101828;
-  border-bottom: 1px solid var(--br-line);
-}
-.br-dl[hidden] { display: none; }
-.br-dl-row {
+.bh-dl {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
   gap: 10px;
-  font-size: 12px;
-  margin-bottom: 5px;
+  padding: 5px 12px;
+  flex: 0 0 auto;
+  background: var(--accent-soft);
+  border-bottom: 1px solid var(--line);
+  font-size: 11.5px;
+  min-width: 0;
 }
-.br-dl-name {
-  color: var(--br-fg);
-  white-space: nowrap;
+.bh-dl[hidden] { display: none; }
+.bh-dl-name {
+  flex: 0 0 auto;
+  max-width: 34%;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--text);
+  font-weight: 600;
 }
-.br-dl-stat { color: var(--br-dim); flex: 0 0 auto; font-variant-numeric: tabular-nums; }
-.br-dl-track {
+.bh-dl-track {
+  flex: 1 1 auto;
   height: 4px;
   border-radius: 2px;
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--bg-4);
   overflow: hidden;
 }
-.br-dl-fill {
+.bh-dl-fill {
   height: 100%;
   width: 0;
   border-radius: 2px;
-  background: var(--br-accent);
-  transition: width 0.2s ease;
+  background: var(--accent-grad);
+  transition: width 0.25s ease;
 }
-.br-dl-fill.done { background: var(--br-ok); }
+.bh-dl-fill.done { background: var(--ok); }
+.bh-dl-stat {
+  flex: 0 0 auto;
+  color: var(--text-3);
+  font-variant-numeric: tabular-nums;
+}
 
-/* ---------------- 网页区 ---------------- */
-.br-view {
+/* ---------------- webview 区 ---------------- */
+.bh-views {
+  position: relative;
   flex: 1 1 auto;
   min-height: 0;
-  width: 100%;
-  background: #fff;
+  background: #fff;   /* 网页自己的底色，避免加载时闪出深色帧 */
 }
+.bh-view {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+.bh-view[hidden] { display: none; }
+
+/* ---------------- 导航栏里的浏览器标签 ----------------
+   ⚠ 刻意不用 .tb-nav-btn 类：app.js 会给那个类的按钮绑
+   「回游戏库」的点击事件，混用会把浏览器标签点没。 */
+.titlebar-nav .bh-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  max-width: 190px;
+  height: 24px;
+  padding: 0 6px 0 8px;
+  margin-left: 2px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-3);
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.titlebar-nav .bh-tab:hover { background: var(--bg-4); color: var(--text); }
+.titlebar-nav .bh-tab.active {
+  background: var(--accent-soft);
+  color: var(--text);
+  box-shadow: inset 0 0 0 1px var(--accent-line);
+}
+.bh-tab-icon { flex: 0 0 auto; font-size: 11px; }
+.bh-tab-title {
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.bh-tab-close {
+  flex: 0 0 auto;
+  width: 15px;
+  height: 15px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  font-size: 9px;
+  opacity: 0.55;
+}
+.bh-tab-close:hover { background: var(--line-3); opacity: 1; }

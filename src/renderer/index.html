@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self'; img-src 'self' file: data: https:; style-src 'self' 'unsafe-inline'; script-src 'self';" />
+        content="default-src 'self'; img-src 'self' file: data: https:; style-src 'self' 'unsafe-inline'; script-src 'self'; frame-src https: http:;" />
   <title>GameHub · 本地游戏集合启动器</title>
   <link rel="stylesheet" href="css/theme.css" />
   <link rel="stylesheet" href="css/layout.css" />
   <link rel="stylesheet" href="css/components.css" />
   <link rel="stylesheet" href="css/stats.css" />
   <link rel="stylesheet" href="css/platform.css" />
+  <link rel="stylesheet" href="css/browser.css" />
   <!-- ⚠ appearance.css 必须放最后：它要覆盖各栏位的背景，
        并且定义 --fs-base 相关规则，加载早了会被后面的样式盖掉 -->
   <link rel="stylesheet" href="css/appearance.css" />
@@ -42,9 +43,10 @@
           <span class="brand-name">GameHub</span>
           <span class="brand-sub">本地游戏集合启动器</span>
         </div>
-        <nav class="titlebar-nav">
+        <nav class="titlebar-nav" id="titlebarNav">
           <button class="tb-nav-btn active" data-nav="library">游戏库</button>
           <button class="tb-nav-btn" data-nav="platform">游戏平台</button>
+          <!-- 内置浏览器的标签页由 js/browserview.js 动态插到这后面 -->
         </nav>
       </div>
 
@@ -218,6 +220,39 @@
 
         <!-- 游戏墙 -->
         <div class="content-body" id="contentBody"></div>
+
+        <!-- ======================================================
+             内置浏览器（内嵌标签页形态）
+             ------------------------------------------------------
+             不弹独立窗口了：点「N 网找找」在导航栏开一个标签，
+             这块宿主盖在内容区上。webview 由 js/browserview.js 动态建。
+             ⚠ webview 的 partition 必须是 persist:gamehub-browser，
+             跟 src/main/browser.js 的 SESSION_PARTITION 一致，
+             否则主进程的下载钩子收不到 —— 下载接管整个失效。
+             ====================================================== -->
+        <div class="browser-host" id="browserHost" hidden>
+          <div class="bh-toolbar">
+            <button class="bh-btn" id="bhBack" title="后退">‹</button>
+            <button class="bh-btn" id="bhFwd" title="前进">›</button>
+            <button class="bh-btn" id="bhReload" title="刷新">⟳</button>
+            <input class="bh-addr" id="bhAddr" type="text" spellcheck="false" placeholder="输入网址后回车" />
+            <button class="bh-btn" id="bhExt" title="用系统浏览器打开">↗</button>
+            <div class="bh-target" id="bhTarget" title="按各游戏的 MOD 目录规则自动落位">
+              <span class="bh-target-label">MOD 将下载到</span>
+              <span class="bh-target-path" id="bhTargetPath">（未指定）</span>
+            </div>
+          </div>
+
+          <!-- 下载进度（有下载时才出现） -->
+          <div class="bh-dl" id="bhDl" hidden>
+            <span class="bh-dl-name" id="bhDlName"></span>
+            <div class="bh-dl-track"><div class="bh-dl-fill" id="bhDlFill"></div></div>
+            <span class="bh-dl-stat" id="bhDlStat"></span>
+          </div>
+
+          <!-- 每个标签一个 webview，在这里堆叠、按激活与否显示 -->
+          <div class="bh-views" id="bhViews"></div>
+        </div>
       </main>
     </div>
 
@@ -267,6 +302,8 @@
   <script src="js/detail.js"></script>
   <script src="js/statsview.js"></script>
   <script src="js/platformview.js"></script>
+  <!-- 内置浏览器（导航栏标签页）：modview 的「N 网找找」要用它，必须排在 app.js 前 -->
+  <script src="js/browserview.js"></script>
   <script src="js/modals.js"></script>
   <script src="js/app.js"></script>
 </body>

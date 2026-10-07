@@ -435,6 +435,8 @@
     const S = window.State;
     if (view !== 'category') S.category = null;
     S.view = view;
+    // 切回游戏库视图时收起内置浏览器（有开着的标签就先留着，不销毁）
+    if (window.BrowserTabs) window.BrowserTabs.hideAll();
     renderSidebar();
     renderContent();
     $('#contentBody').scrollTop = 0;
@@ -443,6 +445,7 @@
   function gotoCategory(name) {
     window.State.view = 'category';
     window.State.category = name;
+    if (window.BrowserTabs) window.BrowserTabs.hideAll();
     renderSidebar();
     renderContent();
     $('#contentBody').scrollTop = 0;

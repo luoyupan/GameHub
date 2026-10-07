@@ -22,7 +22,7 @@ const EVENTS = [
   'hidden:locked',      // 隐藏空间被自动上锁
   'cover:progress',     // 批量获取封面的进度
   'platform:progress',  // 平台库同步进度
-  'browser:event',      // 内置浏览器的动静（窗口开关、下载进度等）
+  'browser:event',      // 内置浏览器的动静（标签开关、下载进度等）
   'toast'               // 主进程发来的提示消息
 ];
 
@@ -176,6 +176,17 @@ contextBridge.exposeInMainWorld('GameHub', {
     downloadTarget: (args) => ipcRenderer.invoke('mod:downloadTarget', args || {}),
     /** 给这款游戏手动指定 MOD 目录（传 dir 为空则弹选择框） */
     setModDir: (args) => ipcRenderer.invoke('mod:setModDir', args || {})
+  },
+
+  /* ---------------- 内置浏览器（导航栏标签页） ---------------- */
+  browser: {
+    /**
+     * 渲染层报告：标签 tabId 的 webview 挂上来了，guest 的
+     * webContents id 是 wcId。下载钩子按它反查归属，必须登记。
+     */
+    attach: (args) => ipcRenderer.invoke('browser:attach', args || {}),
+    /** 把单个链接丢给系统浏览器打开（工具条的 ↗ 按钮） */
+    openExternal: (url) => ipcRenderer.invoke('browser:openExternal', url)
   },
 
   /* ---------------- 隐藏空间 ---------------- */
