@@ -1,0 +1,476 @@
+/* ============================================================
+   GameHub - 外观自定义：背景 / 材质 / 字体  (css/appearance.css)
+   ------------------------------------------------------------
+   左侧栏(.sidebar) 与右侧内容区(.content) 各自可以设置：
+     · 一张自己的图片（可调透明度、模糊、压暗、填充方式）
+     · 磨砂玻璃 / 亚克力 / 玻璃 三种材质
+     · 或者保持主题自带的纯色底（默认）
+
+   实现思路：
+     背景不画在元素自己的 background 上，而是画在 ::before（图片层）
+     和 ::after（压暗遮罩）两个伪元素上。
+     好处是内容层完全不用动 —— 伪元素天然位于子元素下方，
+     文字的层级、图标的点击区域都不会受影响，
+     也不会出现"改了背景色，结果按钮的 hover 底变色"这类连锁反应。
+
+   ⚠ 关于 backdrop-filter：
+     磨砂/亚克力/玻璃都需要"背后有东西可模糊"才看得出效果。
+     所以启用材质时会给 .app 加 .has-material，
+     铺一层氛围渐变光作为被模糊的对象（见文件末尾）。
+   ============================================================ */
+
+/* ---------------- 两个栏位共用同一套背景规则 ---------------- */
+
+.sidebar,
+.content {
+  position: relative;
+  isolation: isolate;          /* 把 z-index 关在本区域内，别串到外面去 */
+}
+
+/* ⚠ 背景层用「负」z-index 沉到内容下面，而不是把内容抬成 z-index:1。
+ *
+ *   原因：内容区里本来就有需要"浮在后面的内容之上"的东西 ——
+ *   比如顶栏那个「⋮ 更多选项」下拉。一旦给 .content 的每个直接子元素
+ *   （顶栏、卡片区）都写上 z-index:1，两者就落到同一层级上，
+ *   DOM 顺序靠后的卡片区反而盖住了顶栏里的菜单。
+ *   让背景负下去、内容保持自然层级，才不会有这种互相压的问题。 */
+.sidebar::before,
+.content::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  /* ⚠ height: auto 不能省！
+   *   layout.css 里 .content::before 原本是「顶部一层柔光」，
+   *   它写死了 height: 220px。两层规则用的是同一个伪元素，
+   *   而我们这个文件是后加载的，只会覆盖「我们写了的属性」——
+   *   没写 height 的话，那个 220px 会留下来，
+   *   于是背景图只在内容区顶上铺了 220px，下面全是空的。 */
+  height: auto;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+  background-image: var(--bg-img, none);
+  background-size: var(--bg-size, cover);
+  background-position: center;
+  background-repeat: var(--bg-repeat, no-repeat);
+  filter: blur(var(--bg-blur, 0px));
+  /* 模糊会把图片边缘化开、露出栏位底色，稍微放大一点把边填满 */
+  transform: scale(var(--bg-zoom, 1));
+  transition: opacity var(--dur-slow) var(--ease);
+}
+
+/* ::after —— 压暗遮罩，保证图片上的文字始终读得清 */
+.sidebar::after,
+.content::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+  /* 上下加重、中间留一点透 —— 顶部护住标题与工具条、底部护住状态栏，
+     中间才让背景图露出来。用匀色遮罩的话，要么整片太花，要么整片太闷。 */
+  background: linear-gradient(
+    180deg,
+    rgba(4, 7, 12, 0.99) 0%,
+    rgba(4, 7, 12, 0.90) 8%,
+    rgba(4, 7, 12, 0.62) 19%,
+    rgba(4, 7, 12, 0.54) 74%,
+    rgba(4, 7, 12, 0.90) 100%
+  );
+  transition: opacity var(--dur-slow) var(--ease);
+}
+
+html[data-theme='light'] .sidebar::after,
+html[data-theme='light'] .content::after {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.99) 0%,
+    rgba(255, 255, 255, 0.94) 8%,
+    rgba(255, 255, 255, 0.70) 19%,
+    rgba(255, 255, 255, 0.62) 74%,
+    rgba(255, 255, 255, 0.94) 100%
+  );
+}
+
+/* ---------------- ① 图片背景 ---------------- */
+
+.sidebar.bg-image,
+.content.bg-image {
+  background: transparent;
+}
+
+.sidebar.bg-image::before,
+.content.bg-image::before {
+  opacity: var(--bg-opacity, 0.55);
+}
+
+.sidebar.bg-image::after,
+.content.bg-image::after {
+  opacity: var(--bg-dim, 0.35);
+}
+
+/* ---------------- ② 材质背景 ----------------
+ * 四种材质的共同约束：**必须有实体感**。
+ * 纯半透明叠深色底会看起来像个"透明窟窿"，用户会以为程序背景丢了 ——
+ * 所以每种材质都给了：一层底色 + 一层纵向高光 + 内嵌高光边，
+ * 让面板看起来是"一块玻璃"，而不是"一块空缺"。 */
+
+.sidebar.bg-material,
+.content.bg-material {
+  background: transparent;
+}
+
+/* 磨砂玻璃：强模糊 + 轻微降饱和，像隔着一层毛玻璃 */
+.sidebar.bg-material[data-material='frosted'],
+.content.bg-material[data-material='frosted'] {
+  backdrop-filter: blur(34px) saturate(126%);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.012) 42%, rgba(255, 255, 255, 0.032)),
+    var(--mat-frosted);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.11),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.035);
+}
+
+/* 亚克力：中等模糊 + 提饱和 + 提亮，接近 Windows 11 亚克力观感 */
+.sidebar.bg-material[data-material='acrylic'],
+.content.bg-material[data-material='acrylic'] {
+  backdrop-filter: blur(25px) saturate(178%) brightness(1.10);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.016) 46%, rgba(255, 255, 255, 0.042)),
+    var(--mat-acrylic);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+/* 玻璃：轻模糊 + 明显的厚度与高光边 */
+.sidebar.bg-material[data-material='glass'],
+.content.bg-material[data-material='glass'] {
+  backdrop-filter: blur(15px) saturate(148%);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.022) 46%, rgba(255, 255, 255, 0.05)),
+    var(--mat-glass);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 1px 0 0 rgba(255, 255, 255, 0.075),
+    inset -1px 0 0 rgba(255, 255, 255, 0.055),
+    inset 0 -10px 24px -13px rgba(0, 0, 0, 0.38),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.055);
+}
+
+/* 液态玻璃（Liquid Glass）
+   ----------------------------------------------------------------
+   和上面三种的区别在于「有体积」：
+     · 左上角一片柔和的镜面高光（像液体表面反光）
+     · 右下角一道冷色反射 + 左下一点暖色微光（液体的环境色）
+     · 底部一层内阴影把面板"压出厚度"
+   这几种光叠起来，看上去像一滴凝固的液体贴在那儿，
+   而不是一块平板玻璃 —— 这就是液态玻璃的关键观感。 */
+.sidebar.bg-material[data-material='liquid'],
+.content.bg-material[data-material='liquid'] {
+  backdrop-filter: blur(27px) saturate(205%) brightness(1.16) contrast(1.03);
+  background:
+    /* 顶部那道窄亮边 —— 玻璃边缘的折射高光，是"液态"最关键的一笔 */
+    linear-gradient(180deg,
+      rgba(255, 255, 255, 0.26) 0px,
+      rgba(255, 255, 255, 0.09) 2px,
+      rgba(255, 255, 255, 0.015) 26px,
+      transparent 70px),
+    /* 左上镜面高光 */
+    radial-gradient(132% 62% at 9% -15%, rgba(255, 255, 255, 0.40), rgba(255, 255, 255, 0.08) 46%, transparent 69%),
+    /* 右下冷色反射 */
+    radial-gradient(92% 55% at 105% 113%, rgba(150, 205, 255, 0.24), transparent 63%),
+    /* 左下暖色微光，让"液体"两端有色温差 */
+    radial-gradient(72% 42% at 26% 119%, rgba(255, 190, 150, 0.12), transparent 67%),
+    /* 玻璃底色 */
+    linear-gradient(152deg, rgba(255, 255, 255, 0.125), rgba(255, 255, 255, 0.028) 48%, rgba(255, 255, 255, 0.085)),
+    var(--mat-liquid);
+  box-shadow:
+    /* 液体表面的强高光 */
+    inset 0 1px 0 rgba(255, 255, 255, 0.70),
+    inset 1px 0 0 rgba(255, 255, 255, 0.26),
+    inset -1px 0 0 rgba(255, 255, 255, 0.18),
+    /* 底部内阴影，压出体积 */
+    inset 0 -17px 32px -17px rgba(0, 0, 0, 0.50),
+    /* 整体内发光 */
+    inset 0 0 42px rgba(255, 255, 255, 0.085),
+    /* 外投影，让面板从背景上"浮"起来 */
+    0 12px 44px rgba(0, 0, 0, 0.34);
+}
+
+/* 浅色主题下把高光与阴影调淡，否则会显得脏 */
+html[data-theme='light'] .sidebar.bg-material[data-material='glass'],
+html[data-theme='light'] .content.bg-material[data-material='glass'] {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -10px 24px -13px rgba(16, 32, 64, 0.10),
+    inset 0 0 0 1px rgba(16, 32, 64, 0.06);
+}
+
+html[data-theme='light'] .sidebar.bg-material[data-material='liquid'],
+html[data-theme='light'] .content.bg-material[data-material='liquid'] {
+  background:
+    radial-gradient(132% 62% at 9% -15%, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.35) 46%, transparent 69%),
+    radial-gradient(92% 55% at 105% 113%, rgba(170, 215, 255, 0.45), transparent 63%),
+    radial-gradient(72% 42% at 26% 119%, rgba(255, 205, 170, 0.30), transparent 67%),
+    linear-gradient(152deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.28) 48%, rgba(255, 255, 255, 0.42)),
+    var(--mat-liquid);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    inset 0 -17px 32px -17px rgba(16, 32, 64, 0.13),
+    inset 0 0 42px rgba(255, 255, 255, 0.5),
+    0 12px 44px rgba(16, 32, 64, 0.16);
+}
+
+/* ---------------- 氛围光：材质需要"背后有东西"才成立 ----------------
+ * 这里刻意做得比较浓 —— 半透明的材质面板叠在深色底上时，
+ * 背景光太弱就完全看不出"透"的感觉，材质就白设了。
+ * 实际观感是：窗口左上偏蓝、右下偏青、中间一点紫，像有光源在照。 */
+
+.app.has-material {
+  background:
+    radial-gradient(920px 540px at 6% -12%, rgba(79, 156, 249, 0.46), transparent 58%),
+    radial-gradient(780px 500px at 98% 110%, rgba(34, 211, 238, 0.38), transparent 60%),
+    radial-gradient(640px 420px at 66% 36%, rgba(139, 92, 246, 0.26), transparent 66%),
+    var(--bg-0);
+}
+
+html[data-theme='light'] .app.has-material {
+  background:
+    radial-gradient(920px 540px at 6% -12%, rgba(79, 156, 249, 0.34), transparent 58%),
+    radial-gradient(780px 500px at 98% 110%, rgba(14, 165, 183, 0.30), transparent 60%),
+    radial-gradient(640px 420px at 66% 36%, rgba(139, 92, 246, 0.18), transparent 66%),
+    var(--bg-0);
+}
+
+/* ---------------- 字体 ---------------- */
+
+body {
+  font-size: var(--fs-base, 13.5px);
+}
+
+/* 让几个"正文级"的字号也跟随基础字号一起变，
+   否则只调 --fs-base 的话，卡片标题、侧栏项这些写死的 px 不会跟着动。 */
+.side-item .si-label,
+.gcard-title,
+.gcard .g-name,
+.detail-title,
+.side-title {
+  font-size: 1em;
+}
+
+/* 界面缩放的可视反馈：拖动滑块时给个平滑过渡 */
+html {
+  transition: none;
+}
+
+/* ============================================================
+   透出桌面（Windows 11 系统材质）
+   ------------------------------------------------------------
+   ⚠ 先明确一件事：**页面里的 backdrop-filter 永远看不到桌面。**
+     它只能采样"页面内已经画出来的东西"。所以想让窗口真的透出桌面，
+     只能让 Windows 的 DWM 去合成 —— 也就是主进程里那个
+     win.setBackgroundMaterial()（见 main.js 的 applyDesktopMaterial）。
+
+   所以这里做的只有一件事：**把页面自己的底色放掉**，
+   给系统材质腾出透出来的空间。页面只要有一层不透明底色，
+   系统材质就被盖得严严实实，等于白开。
+   ============================================================ */
+
+html[data-desktop-material] body,
+html[data-desktop-material] .app {
+  background: transparent;
+}
+
+/* 模板自带的氛围光同样会挡住系统材质，一并去掉 */
+html[data-desktop-material] .app.has-material {
+  background: transparent;
+}
+
+/* ⚠ 关键一步：把四种玻璃材质的「底色」换成透视版。
+ *
+ *   不开透出桌面时材质底下是深色页面底，底色淡了面板就成了空洞；
+ *   开了之后底下是桌面，底色还压在 0.8 就把系统材质糊死了 ——
+ *   用户选了"亚克力"却只看到一块深灰，功能等于没生效。
+ *
+ *   注意这里只换底色那一个 var，折射高光 / 镜面光 / 内嵌高光边
+ *   全都原样保留 —— 那几层是"玻璃感"的来源，留着才像玻璃。 */
+html[data-desktop-material] {
+  --mat-frosted: var(--mat-frosted-see);
+  --mat-acrylic: var(--mat-acrylic-see);
+  --mat-glass: var(--mat-glass-see);
+  --mat-liquid: var(--mat-liquid-see);
+}
+
+/* 只动液态玻璃那道「外投影」：不开透出桌面时它是把面板从深底上"抬"起来的关键，
+   放了透之后底下就是桌面，那层黑影会糊在桌面上显得脏。
+   内嵌的折射高光 / 底部内阴影是"液态"的体积感来源，全部保留不动。 */
+html[data-desktop-material] .sidebar.bg-material[data-material='liquid'],
+html[data-desktop-material] .content.bg-material[data-material='liquid'] {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.70),
+    inset 1px 0 0 rgba(255, 255, 255, 0.26),
+    inset -1px 0 0 rgba(255, 255, 255, 0.18),
+    inset 0 -17px 32px -17px rgba(0, 0, 0, 0.34),
+    inset 0 0 42px rgba(255, 255, 255, 0.085);
+}
+
+/* 「跟随主题」的栏位本来是不透明的，会把系统材质挡掉。
+   开了透出桌面之后让它也放一点通透 —— 否则用户开了开关却什么都没变，
+   会以为功能坏了。 */
+html[data-desktop-material] .sidebar:not(.bg-image):not(.bg-material) {
+  background: rgba(13, 19, 32, 0.55);
+}
+html[data-desktop-material] .content:not(.bg-image):not(.bg-material) {
+  background: rgba(19, 27, 43, 0.52);
+}
+html[data-theme='light'][data-desktop-material] .sidebar:not(.bg-image):not(.bg-material) {
+  background: rgba(255, 255, 255, 0.55);
+}
+html[data-theme='light'][data-desktop-material] .content:not(.bg-image):not(.bg-material) {
+  background: rgba(255, 255, 255, 0.58);
+}
+
+/* 顶部标题栏与底部状态栏也跟着放透，否则上下两条实色会很突兀 */
+html[data-desktop-material] .titlebar {
+  background: rgba(13, 19, 32, 0.45);
+}
+html[data-desktop-material] .statusbar {
+  background: rgba(10, 15, 25, 0.42);
+}
+html[data-theme='light'][data-desktop-material] .titlebar {
+  background: rgba(255, 255, 255, 0.5);
+}
+html[data-theme='light'][data-desktop-material] .statusbar {
+  background: rgba(255, 255, 255, 0.45);
+}
+
+/* ============================================================
+   设置面板里的新控件（滑块 / 图片预览 / 字体选择）
+   ============================================================ */
+
+/* ---------------- 滑块行 ---------------- */
+.range-row {
+  margin-bottom: 16px;
+}
+.range-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 7px;
+}
+.range-head .rl {
+  font-size: calc(var(--fs-base) * 0.926);
+  font-weight: 600;
+  color: var(--text-2);
+}
+.range-head .rv {
+  font-size: calc(var(--fs-base) * 0.889);
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+  min-width: 46px;
+  text-align: right;
+}
+.range-hint {
+  font-size: calc(var(--fs-base) * 0.852);
+  color: var(--text-3);
+  margin-top: 6px;
+  line-height: 1.55;
+}
+
+input[type='range'].gh-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 20px;
+  background: transparent;
+  cursor: pointer;
+}
+input[type='range'].gh-range::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 3px;
+  background: var(--line-2);
+}
+input[type='range'].gh-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  margin-top: -5px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--bg-1);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+  transition: transform var(--dur) var(--ease);
+}
+input[type='range'].gh-range::-webkit-slider-thumb:hover {
+  transform: scale(1.18);
+}
+input[type='range'].gh-range:focus {
+  outline: none;
+}
+input[type='range'].gh-range:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 4px var(--accent-soft);
+}
+
+/* ---------------- 背景图预览 ---------------- */
+.bg-preview {
+  position: relative;
+  width: 100%;
+  height: 112px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background-color: var(--bg-2);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.bg-preview.is-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-style: dashed;
+  color: var(--text-3);
+  font-size: calc(var(--fs-base) * 0.889);
+}
+.bg-preview-actions {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+/* ---------------- 字体选择 ---------------- */
+.font-picker {
+  display: flex;
+  gap: 8px;
+}
+.font-picker select {
+  flex: 1;
+  min-width: 0;
+}
+.font-preview {
+  margin-top: 9px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  color: var(--text);
+  line-height: 1.6;
+  overflow: hidden;
+}
+.font-preview .fp-big {
+  font-size: calc(var(--fs-base) * 1.333);
+  font-weight: 700;
+  margin-bottom: 3px;
+}
+.font-preview .fp-sub {
+  font-size: calc(var(--fs-base) * 0.926);
+  color: var(--text-2);
+}
+

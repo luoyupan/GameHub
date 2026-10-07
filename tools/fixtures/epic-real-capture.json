@@ -1,0 +1,6592 @@
+{
+ "_note": "真实抓取自 Epic 库服务 + 目录服务的裁剪副本，用于回归测试。勿手改。",
+ "_capturedAt": "2026-10-05",
+ "library": [
+  {
+   "namespace": "2a09fb19b47f46dfb11ebd382f132a8f",
+   "catalogItemId": "88f4bb0bb06e4962a2042d5e20fb6ace",
+   "appName": "63a665088eb1480298f1e57943b225d8",
+   "productId": "fb40e48d8e454558a2e02ad7f9a991ff",
+   "sandboxName": "Marvel's Guardians of the Galaxy",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "2a09fb19b47f46dfb11ebd382f132a8f",
+   "catalogItemId": "b2666e211d334d15a0c29188d0abb6c8",
+   "appName": "9596620d263b40c083ddf1f0c662c8ff",
+   "productId": "fb40e48d8e454558a2e02ad7f9a991ff",
+   "sandboxName": "Marvel's Guardians of the Galaxy",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "f4a904fcef2447439c35c4e6457f3027",
+   "catalogItemId": "761fe09295aa422e8199cebaacf51675",
+   "appName": "Boga",
+   "productId": "da519d41698b4854815db7371210c3a1",
+   "sandboxName": "Death Stranding",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "f4a904fcef2447439c35c4e6457f3027",
+   "catalogItemId": "678578f8abe84265b0d5f81c1997c6da",
+   "appName": "5bf67f3153364181b54cb9e40ca7fa82",
+   "productId": "da519d41698b4854815db7371210c3a1",
+   "sandboxName": "Death Stranding",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "f4a904fcef2447439c35c4e6457f3027",
+   "catalogItemId": "c7bad4fcef1e4188b36732ed4bdf8103",
+   "appName": "84067e3ec8f149b2bbf2342d7a136065",
+   "productId": "da519d41698b4854815db7371210c3a1",
+   "sandboxName": "Death Stranding",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "f4a904fcef2447439c35c4e6457f3027",
+   "catalogItemId": "0a19424d974643f6ae6227a3ed66af2b",
+   "appName": "c311b22f878749449886949eeb588999",
+   "productId": "da519d41698b4854815db7371210c3a1",
+   "sandboxName": "Death Stranding",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "f4a904fcef2447439c35c4e6457f3027",
+   "catalogItemId": "01ced6494f3046e48b9bbb7d2874b703",
+   "appName": "f8bf1e29bbef480a9b28115ad0d644a0",
+   "productId": "da519d41698b4854815db7371210c3a1",
+   "sandboxName": "Death Stranding",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "c986e75258a146fba03a920dba852ca9",
+   "catalogItemId": "18d3c0e34d85461e90474b3a69afea1e",
+   "appName": "051eaac0842c46d7a5a62858ad534d5a",
+   "productId": "370dbdf8c5e44dc09eac477fd43e8aee",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "afe2527e29b94db48b2eef984e34d81a",
+   "catalogItemId": "1860f41341d1499fa4a06ae064340bbe",
+   "appName": "verdi",
+   "productId": "175e781d820144ce966f1c1942b64b57",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "fa702d34a37248ba98fb17f680c085e3",
+   "catalogItemId": "b1b4e0b67a044575820cb5e63028dcae",
+   "appName": "adeae8bbfc94427db57c7dfecce3f1d4",
+   "productId": "00c12caef508413d992b3b5e0764aaef",
+   "sandboxName": "shoal Production",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "538de058a6d9490ea151c4cd111cc01b",
+   "catalogItemId": "07a27e25fdce469fa023695acff0cc88",
+   "appName": "ecfdc10170eb49b6b61cf16b3aa36d56",
+   "productId": "f1aab02fc5f84feb995260f163a1f2fe",
+   "sandboxName": "Tannenberg",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "bd46d4ce259349e5bd8b3ded20274737",
+   "catalogItemId": "2ebf02003ebc4df0b8b0034e9df0aac4",
+   "appName": "ca02598c9a5c4d5491d6431ce8e8d6e7",
+   "productId": "7b1bb546bd6547a4a7c2c4db55ca6c74",
+   "sandboxName": "Chivalry 2",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "bd46d4ce259349e5bd8b3ded20274737",
+   "catalogItemId": "4c4a6c0767304c9d830f3f36f2b29018",
+   "appName": "Peppermint",
+   "productId": "7b1bb546bd6547a4a7c2c4db55ca6c74",
+   "sandboxName": "Chivalry 2",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "db6d869788bd4aa59f9ccb26c91a0153",
+   "catalogItemId": "7ae00498170d40a18952e3542b7cdd08",
+   "appName": "c7cb232d49d347aabfa73d583660d7ee",
+   "productId": "7ec1d897ec2c4228b5b2bb63cc447456",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "3428aaab2c674c98b3acb789dcfaa548",
+   "catalogItemId": "e03e450ae07b41049e90ca620a8e054e",
+   "appName": "ee9a44b4530942499ef1c8c390731fce",
+   "productId": "ed80f363e6074857afbd5171d4c5a50e",
+   "sandboxName": "Fallout: New Vegas",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "3428aaab2c674c98b3acb789dcfaa548",
+   "catalogItemId": "a92cc9f6e89f40c28950016d8c8202f3",
+   "appName": "b290229eb58045cbab9501640f3278f3",
+   "productId": "ed80f363e6074857afbd5171d4c5a50e",
+   "sandboxName": "Fallout: New Vegas",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "3428aaab2c674c98b3acb789dcfaa548",
+   "catalogItemId": "45f8c6bb48f443cda04fae360c9d1f05",
+   "appName": "562d4a2c1b3147b089a7c453e3ddbcbe",
+   "productId": "ed80f363e6074857afbd5171d4c5a50e",
+   "sandboxName": "Fallout: New Vegas",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "3428aaab2c674c98b3acb789dcfaa548",
+   "catalogItemId": "99319f67f7a146a583ab433db3206fe7",
+   "appName": "c8dae1ab0570475a8b38a9041e614840",
+   "productId": "ed80f363e6074857afbd5171d4c5a50e",
+   "sandboxName": "Fallout: New Vegas",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "3428aaab2c674c98b3acb789dcfaa548",
+   "catalogItemId": "9d6e337d893346fa897ba823042718fd",
+   "appName": "4fa3d8d9b2cb4714a19a38d1a598be8f",
+   "productId": "ed80f363e6074857afbd5171d4c5a50e",
+   "sandboxName": "Fallout: New Vegas",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "3428aaab2c674c98b3acb789dcfaa548",
+   "catalogItemId": "8639c764126147a49fba4e79d4b12e3c",
+   "appName": "7dcfb9cd9d134728b2646466c34c7b3b",
+   "productId": "ed80f363e6074857afbd5171d4c5a50e",
+   "sandboxName": "Fallout: New Vegas",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "3428aaab2c674c98b3acb789dcfaa548",
+   "catalogItemId": "dabb52e328834da7bbe99691e374cb84",
+   "appName": "5daeb974a22a435988892319b3a4f476",
+   "productId": "ed80f363e6074857afbd5171d4c5a50e",
+   "sandboxName": "Fallout: New Vegas",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "5db7394e65044dd1bb083ee983e2b3a5",
+   "catalogItemId": "1709353a08384d518fe56f25732eb9dd",
+   "appName": "7179f095efcc4f92a950a6d9dbd9c602",
+   "productId": "8bb8c132358f498dbef0e4a2e96f9b67",
+   "sandboxName": "Severed Steel",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "71d19da3678943098859baa9c4c39f95",
+   "catalogItemId": "38649a203d904405ab9068e09dc5be91",
+   "appName": "e0fa47ae79514345823bff209ae29451",
+   "productId": "6e5918b1394e4bfd8a38ac393a868616",
+   "sandboxName": "MtWilliamson",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "95d0b9561be1464cb43bd029e94cf526",
+   "catalogItemId": "1044c51716c4423e83da5818d289057e",
+   "appName": "ea8df71f923649a193ab1c1fded7e1b3",
+   "productId": "b9e519677b414d768fda648c4c8b5123",
+   "sandboxName": "Ghostrunner",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "ff50f85ed609454e80ac46d9496da34d",
+   "catalogItemId": "9c7c10e8e1a648f8a9e35f28a1d45900",
+   "appName": "f7a0ebb44f93430fb1c4388a395eba96",
+   "productId": "07abcf5229294be1bd84fd475313bfae",
+   "sandboxName": "Dysprosium",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "9c59efaabb6a48f19b3485d5d9416032",
+   "catalogItemId": "709536796ff5489a97c4574b9d6bda24",
+   "appName": "c390e58246ea4a778acd26473a489b48",
+   "productId": "0b43b779c42a46f2a520d8aa5ea0fe7c",
+   "sandboxName": "Lego Star Wars: The Skywalker Saga",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "9c59efaabb6a48f19b3485d5d9416032",
+   "catalogItemId": "e8c72d870a3645fcbc5534271210c8a5",
+   "appName": "7b40d89dd2cb4f439e00d4ab81188f3b",
+   "productId": "0b43b779c42a46f2a520d8aa5ea0fe7c",
+   "sandboxName": "Lego Star Wars: The Skywalker Saga",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "d602fd70876141ba9bf4d54809c423d1",
+   "catalogItemId": "a43e7276399947b8b7b38b29f4f75a7d",
+   "appName": "591e049d72b349daa64784a171379357",
+   "productId": "4cd367be077240478a3322784b413c27",
+   "sandboxName": "The Evil Within",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "d1a3ff292b2f4ee289a83d7a91ae3458",
+   "catalogItemId": "e5c0d43b05a0405b802234841da67fd1",
+   "appName": "57ad8e72d9a446dea9ef5cac2770a0b8",
+   "productId": "87d7bb624bc94364853bd4b225041bc6",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "4311a0ee99724086b1a4f261b827d038",
+   "catalogItemId": "79c724d2efc4468db6f23655fde6969c",
+   "appName": "dcfccf8d965a4f2281dddf9fead042de",
+   "productId": "9ee44015e141422b8e1da9382ba4b511",
+   "sandboxName": "Homeworld Remastered Collection",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "4b5f1eb366dc45f0920d397c01b291ba",
+   "catalogItemId": "ade772fcce3a41cf97279032c10b0041",
+   "appName": "AukPuzzle1",
+   "productId": "ff0ade54077543a99f000452c374d481",
+   "sandboxName": "Q.U.B.E. 2",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "4b5f1eb366dc45f0920d397c01b291ba",
+   "catalogItemId": "8d644d777e5042c187c03530b965dc17",
+   "appName": "AukGlove",
+   "productId": "ff0ade54077543a99f000452c374d481",
+   "sandboxName": "Q.U.B.E. 2",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "4b5f1eb366dc45f0920d397c01b291ba",
+   "catalogItemId": "b36ab3b81c844ee2a908c7d28451337a",
+   "appName": "AukPuzzle2",
+   "productId": "ff0ade54077543a99f000452c374d481",
+   "sandboxName": "Q.U.B.E. 2",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "4b5f1eb366dc45f0920d397c01b291ba",
+   "catalogItemId": "8c8ee5e50c7c42a7b59a9ee8c31c0330",
+   "appName": "AukSoundtrack",
+   "productId": "ff0ade54077543a99f000452c374d481",
+   "sandboxName": "Q.U.B.E. 2",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "4b5f1eb366dc45f0920d397c01b291ba",
+   "catalogItemId": "a86bbe049ef14f519c69fdc27615d7f4",
+   "appName": "Auk",
+   "productId": "ff0ade54077543a99f000452c374d481",
+   "sandboxName": "Q.U.B.E. 2",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "676a89b2e8344c9db39a79724150cba6",
+   "catalogItemId": "6b5d6216a086463db74848c8460eb50e",
+   "appName": "ad8aff099d2a445599f9797a24e9ff93",
+   "productId": "a2f2a8a46ff648928b50bcc776bf9857",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "36336ee97ec543bbae85abaca618182b",
+   "catalogItemId": "143a549f67034d079e14dca66c0d05b3",
+   "appName": "Honeycreeper",
+   "productId": "a3d939efc70848baaf996f6040d9cb19",
+   "sandboxName": "Diabotical",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "a7e2a2c51b9149c097b771926ed91877",
+   "catalogItemId": "d712d3b11cab4347b327b65baa4ebb95",
+   "appName": "bf4808b3395b43fb80afbe6773e1661f",
+   "productId": "81906699123e4f2582b3a0fc07c32904",
+   "sandboxName": "F.I.S.T.: Forged In Shadow Torch",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "80d3aeb1d7c3434981e0bcbc47700a83",
+   "catalogItemId": "93aba3588eac4dac86a1b578f6e10186",
+   "appName": "da0103e959e54d139d0c109ded3b3672",
+   "productId": "fb2fda60ee794abca215ebf06fc50b9f",
+   "sandboxName": "Europa Universalis IV",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "80d3aeb1d7c3434981e0bcbc47700a83",
+   "catalogItemId": "bd4fa2bd2a9948608379512b12d1738c",
+   "appName": "c195b58b0379438bb31a5b99d365d56c",
+   "productId": "fb2fda60ee794abca215ebf06fc50b9f",
+   "sandboxName": "Europa Universalis IV",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "5a6d34ba28bc45d081d9311c3885feef",
+   "catalogItemId": "4acdb0d6e5884177bfc75dcdebfb7bab",
+   "appName": "76233c0af0a441c7bd541e7d7ab3cde1",
+   "productId": "dc57439aac3c481aaa52ccb443a4d01a",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "2c42520d342a46d7a6e0cfa77b4715de",
+   "catalogItemId": "9421139e63f34d6281c18698b54d1e63",
+   "appName": "04a54ed532ce4fbfbf8fd5833f60def0",
+   "productId": "ec72fbf877284381a51d0d19d5358df9",
+   "sandboxName": "Dying Light",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "2c42520d342a46d7a6e0cfa77b4715de",
+   "catalogItemId": "5821c65a103144548f3b55e8ce011292",
+   "appName": "71816b992ef04030b1c58af6b9845fe5",
+   "productId": "ec72fbf877284381a51d0d19d5358df9",
+   "sandboxName": "Dying Light",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "2c42520d342a46d7a6e0cfa77b4715de",
+   "catalogItemId": "c7475b5731fb483283651c9d67b86adb",
+   "appName": "f653266870894ee1acbb5250e3b04bd1",
+   "productId": "ec72fbf877284381a51d0d19d5358df9",
+   "sandboxName": "Dying Light",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "c7f9346e3db148fca6dd63e9dd8451bd",
+   "catalogItemId": "7333ebed726f408e8f3bfa650488d32e",
+   "appName": "4f0c34d469bb47b2bcf5b377f47ccfe3",
+   "productId": "cacddb2d596043bf9678a8d00b87069e",
+   "sandboxName": "theHunter: Call of the Wild",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "8211dc6089af4542926b7a8137b9079e",
+   "catalogItemId": "ea08171c6a0144a293d0c77f1996e69c",
+   "appName": "1d74dcbca79540efb52cab2ff026215f",
+   "productId": "3173085c161c4e70ad15966abf74e56f",
+   "sandboxName": "tommes Production",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "a1a52b1a570e4ee3ab3b2a8ca930753e",
+   "catalogItemId": "d1e09eb6c1e447f98d5792f73f33d88c",
+   "appName": "3047a2d268da49588bbd22c806cde4de",
+   "productId": "af503dd7e8b64218b69c22a9003de268",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "70d9536d99af4c70a55e4c23989f4225",
+   "catalogItemId": "f189478ffa5e45a78e4102ae6f4c139c",
+   "appName": "7a555b9dd80a4992a6ea33fe3f6b13c8",
+   "productId": "977ce2dee0fe437d90d2a67adf9917d8",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "a3100205e194489088c7625c8c5c1596",
+   "catalogItemId": "bbd8be51c11945dc8690b030d5b37e09",
+   "appName": "dbb0b84f31244c7584490d205b74010c",
+   "productId": "5f711e24b6534e32981f910a38e20756",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "315e6807f6684c279fc286d0fc36a44f",
+   "catalogItemId": "d9a609c6106046eab55014955f31448b",
+   "appName": "e87a43f695bc409ca8858206678ac7e7",
+   "productId": "6aac3071aeae452990a71aac0a1fbc30",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "3bbc147c5f134b7cab059cb2b3bb0dd7",
+   "catalogItemId": "06287dfc56f941179aa9b75f26e569b3",
+   "appName": "7763cb8916654651a50593a813ae7c38",
+   "productId": "4a2dcb55ecca496aaaf328f60263bb56",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "46d340566781448ebdc2cb576f91d3b6",
+   "catalogItemId": "8292ce89bcfe4a6badab60f8269928ab",
+   "appName": "19a750a7d7974f9291c0584feedb94b0",
+   "productId": "11e5900e5dea4d70a35239c81bcda19e",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "35eda4ff87f94a7491dc28175b8f3b4f",
+   "catalogItemId": "17371e07abfe45adbdbd62c651ed6b68",
+   "appName": "ff1d9bf6b1304cb9a12b8754afa78ae5",
+   "productId": "08813e055af64315b8a55b2e521f4e04",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "e209b2d1d5384f639335f64e3e6c4bb8",
+   "catalogItemId": "7f3def68aae042268d0b5ef9a20f1ca4",
+   "appName": "c9b51edbca4d496cb39c6871f510620b",
+   "productId": "9fc46d94c255471c956f5d304079f731",
+   "sandboxName": "Homeworld Deserts of Kharak",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "04e4108a1fec4845bd2744e8d554c9a6",
+   "catalogItemId": "66f8c4bf50d1416c8ddf1d48cc95e4b2",
+   "appName": "98614687b212444c9ff0d42095f56cb3",
+   "productId": "38d7f3e2a3854e9fa4c31456b87c899f",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "05ae696a3c5f49af91a7433547460c21",
+   "catalogItemId": "74447f48d95a4cdbbf77ef4f248ff19c",
+   "appName": "16a37a0080e3414aafb30f1cc8390f6c",
+   "productId": "17ff6d68ac4f4ca6a89728bb7d93b21c",
+   "sandboxName": "Redout 2",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "5c5b2b01c8ce475d86cdd2c76fd11f7b",
+   "catalogItemId": "d08fae14b2a24a7ca9d70994a8a0ea9c",
+   "appName": "2eaba703e63e4ed8bd2919ed552021d6",
+   "productId": "c47ffdc5b1cb42fc83bd9ea42861b800",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "14d712e338ee4fe5b5304d959cd75cd2",
+   "catalogItemId": "56e23ceb7e1544f0a8f1f50154403ac2",
+   "appName": "a2b2ed0324c44902b9058e23dedc76e3",
+   "productId": "5322b3f13f7f4b6f86789b09c5460304",
+   "sandboxName": "Spelldrifter",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "cea01263911a4e179a5e3892ef710930",
+   "catalogItemId": "435f086b9e2e4da9882d36585cd998c5",
+   "appName": "30647199e65341c2be84d81fa6964ff0",
+   "productId": "f12a1b6884a4432dbd042e98a7eda29c",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "277788d421e748e580ca0972c339f1a6",
+   "catalogItemId": "8360037803f94fca8bbfcf74ee49571f",
+   "appName": "1f695dfd76d8438d8dd4046fe75daab0",
+   "productId": "581b8af82db34e5c98f5dae3ed5b9904",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "615a4dc5c85c4c28a390dda4298acd80",
+   "catalogItemId": "144f7dd94c37467dbfaa47a55855d9e1",
+   "appName": "61e074e998044594b7bb566fe111687b",
+   "productId": "83ddef361d0c45c2bef72e07c2a5f567",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "9f101e25b1a9427a9e6971d2b21c5f82",
+   "catalogItemId": "cc3ef6c189f64abc8b6930b1fbcdbd5c",
+   "appName": "cf6c487e39a14113b75d1f625fed1da7",
+   "productId": "a6aeec29591b4b56b4383b4d2d7d0e1e",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "eca9a86adffa4605b8250d383fc01098",
+   "catalogItemId": "9ee12f049a214208afb3236018bcc168",
+   "appName": "cccdbadd66124f609ba706a9c4c73756",
+   "productId": "2f47837cc5d047768889831e359038b7",
+   "sandboxName": "Deceive Inc",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "ee9fad7056a94957b3a4d8c457000337",
+   "catalogItemId": "9335e563c3b24fe9bad3a935f3ef5546",
+   "appName": "4656facc740742a39e265b026e13d075",
+   "productId": "e35e2b0c2411423fb6cd97c1dda51e07",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "ca4058f18b0a4a9e9e2ccc28f7f33000",
+   "catalogItemId": "8f328dced20e41d29b6f1fceed8f2164",
+   "appName": "Eel",
+   "productId": "88801317bf794eaba96d893fa7d0c5c3",
+   "sandboxName": "Kingdom Come: Deliverance",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "50118b7f954e450f8823df1614b24e80",
+   "catalogItemId": "38ec4849ea4f4de6aa7b6fb0f2d278e1",
+   "appName": "0a2d9f6403244d12969e11da6713137b",
+   "productId": "d42d7101bb7a41c09a810ee418b7d3d0",
+   "sandboxName": "Fall Guys",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "87c84bc5f43d4fe69ad8f3ccde0594b0",
+   "catalogItemId": "341b8e920c0d401d98be61a26b78b08c",
+   "appName": "2fb8273dcf6f41e4899c0c881e047053",
+   "productId": "2b1817c6d57d40d294b8dd4288f95a2f",
+   "sandboxName": "blunderbuss Production",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "4a681a809a094e2c8dcc68353c68fed6",
+   "catalogItemId": "59fdf842adb843c1a07d714c410e107d",
+   "appName": "e3c0d11648554383b33da58d075fd101",
+   "productId": "3251b927449a471c883aab00c076d63c",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "308cbcb523ad4937a8c509d10e9b688a",
+   "catalogItemId": "5072135b902d472891107c66d12116b0",
+   "appName": "f452ea20ae1b43698209998b56c2cc1c",
+   "productId": "a962500418604c7aa653b563beffdb50",
+   "sandboxName": "Farming Simulator 2022",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "0f58cd1c026441f49371d663a710fe83",
+   "catalogItemId": "fd06338c5faa41968d6130b4927e3e17",
+   "appName": "6b994d7f4f2a4e85a54d5c2ede6d2fed",
+   "productId": "ea27a075d84b4e6493093e978ac8c2c2",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "456d95ca54814c8d98db2f52346ff5de",
+   "catalogItemId": "4e76076db8e7438ba1cff559f71bc4be",
+   "appName": "02fac38ee2614c8ba276b1ea7c1acd7c",
+   "productId": "d6701c7927cb4a2c981df31134d92bb2",
+   "sandboxName": "Dungeon Of Naheulbeuk",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "a0c5d9d8a9a940e8a8f63118c7323210",
+   "catalogItemId": "ba2934e0e75a4f9193cac4107d5ea904",
+   "appName": "2c3dd568cada4c229753f550a44dcf2b",
+   "productId": "3dca140d862e4ed8a0d4f921e10a1737",
+   "sandboxName": "Risotto",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "ad43401ad02840c2b2bee5f1f1a59988",
+   "catalogItemId": "6bb8533f10c84c49946d32727690c3e1",
+   "appName": "440abc2d035f494a9bf172ed29f9fa2f",
+   "productId": "da63fc81ff4b4226af6afda82c0aec3a",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "0d23bb77ee2f45b7a571bde68caddb09",
+   "catalogItemId": "d5326cb42d704158bab2dc1629295838",
+   "appName": "Cormorant",
+   "productId": "e9b00dcbdbed48278bebb3cfeb08a454",
+   "sandboxName": "Saints Row",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "0d89655f53884b09b241b60c07e684af",
+   "catalogItemId": "c8e3c334b682458a8489cfa06063d7f6",
+   "appName": "da5b18cb1e7a452196c3142f2c1d7dd3",
+   "productId": "0992042f7f0149bfafa42e75c7dfdf04",
+   "sandboxName": "Warhammer 40k Gladius",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "e33138cc2b964d38a42a812b83b6507e",
+   "catalogItemId": "6b06cffad08e4f47a8200e06e7fe6101",
+   "appName": "002b00085aeb49b1a3f3c42e3f918f2f",
+   "productId": "148df842b2b14082be6b004f59a2765b",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "428115def4ca4deea9d69c99c5a5a99e",
+   "catalogItemId": "06bd477f9fbe4259a1421fb3f559aa46",
+   "appName": "592c359fb0e0413fb46dee2d24448eb4",
+   "productId": "de7336b1e38842bea19189200c317175",
+   "sandboxName": "Destiny 2",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "71e6bd85af1841f598526da595f22a62",
+   "catalogItemId": "dff2626bd13b457387875f9ba12f3309",
+   "appName": "0006475a83f143ba807174654bc09d38",
+   "productId": "82093add2c92433abf5e4975c4e259c4",
+   "sandboxName": "HOT WHEELS UNLEASHED™",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "ea73c08ac633414584e281f838b3a78c",
+   "catalogItemId": "c7397d2fcea94f0babca92475f52bbe3",
+   "appName": "49550aa9fcd74552ae07c4e9f2c262fe",
+   "productId": "4ae43da8b7c74066be91f9bf3049f3f9",
+   "sandboxName": "Marvel's Midnight Suns",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "cb8afc06acb14f6a8cf3ab01f4b361ce",
+   "catalogItemId": "055dcd4c95a54ff58edb145ddbec3e3e",
+   "appName": "d366ae16e31b41869cf26c6ee309e7f3",
+   "productId": "b81fe381034045f88953a7c432f37bbc",
+   "sandboxName": "Soulstice",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "basil",
+   "catalogItemId": "26734c6c01984fd882d72a18e81df681",
+   "appName": "Basil",
+   "productId": "3e58c89f762b4686a936770223b5a6e9",
+   "sandboxName": "Human Resource Machine",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "1c943de0163f4f0982f34dc0fc37dce9",
+   "catalogItemId": "748e5691a85a4158b3da33faabb37e43",
+   "appName": "70f92598b33d42e290e411f07397aeee",
+   "productId": "7d154d418a91400db2611275df5837d1",
+   "sandboxName": "Munster",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "d93cf08971eb4920862a95870a051f81",
+   "catalogItemId": "e34731008ad54f77927bd837e5547a40",
+   "appName": "11ba63f98ce94a38b631104a12c7adab",
+   "productId": "bf6f7c896b214dd891aa10debb6fbf50",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "bd9fd28ca1214868922f2ab41d6d3b65",
+   "catalogItemId": "c17465f604fe411a8dca86089cd68898",
+   "appName": "3a0cae9455844390ad00505a704d641e",
+   "productId": "4c998fd4568946c7875a6d5ab11979fc",
+   "sandboxName": "Beyond Blue",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "moose",
+   "catalogItemId": "e42eca8e2aeb48da9ccc5d5ecc212b62",
+   "appName": "Moose",
+   "productId": "prod-moose",
+   "sandboxName": "Super Meat Boy Forever",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "ac98aa34584648f2b71152e509191c1c",
+   "catalogItemId": "fe90738ef51c4da39fb9efc8720b6a5a",
+   "appName": "4aff63ad39cb4fe7a61720d59a4cebc6",
+   "productId": "1b7ed414b5e44d38ade6a2ea9f65bcca",
+   "sandboxName": "Dakar Desert Rally",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "6a8dfa6e441e4f2f9048a98776c6077d",
+   "catalogItemId": "49c4bf5c6fd24259b87d0bcc96b6009f",
+   "appName": "7786b355a13b47a6b3915335117cd0b2",
+   "productId": "764b2d57552c436590f50318bd7587f9",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "5e427319eea1401ab20c6cd78a4163c4",
+   "catalogItemId": "7af64df31e274da5b78adbb056c9ebed",
+   "appName": "6278dd278d714aeb88239a423fa0f8be",
+   "productId": "fb4ba0df267d4584bec2465528cc3323",
+   "sandboxName": "Call of the Sea",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "ff8c96d781824ba1ae62d18d207fc52e",
+   "catalogItemId": "9b106e9bf35d4a7e8cefa750bd26e759",
+   "appName": "0055e45ce7654c55aade646467349e83",
+   "productId": "80c76cf826c44084b64cfe48b5f83ffa",
+   "sandboxName": "Mortal Shell",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "ff8c96d781824ba1ae62d18d207fc52e",
+   "catalogItemId": "f261a461e9224e09a4f888e19a3b633b",
+   "appName": "f0ac8218ef7d4b5aabec153e3f193db6",
+   "productId": "80c76cf826c44084b64cfe48b5f83ffa",
+   "sandboxName": "Mortal Shell",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "jackal",
+   "catalogItemId": "2f415248cb524eaf950a16e55d315dac",
+   "appName": "Jackal",
+   "productId": "prod-jackal",
+   "sandboxName": "Dauntless",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "78683b0edafd4a978a5ab61a7f6b0594",
+   "catalogItemId": "d4220f91bb3046a49c2cedd2a8101243",
+   "appName": "fd51551d919847beb178985f6daf0306",
+   "productId": "82c712f6ff824ed0a3ed7ef346165880",
+   "sandboxName": "Tunche",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "253d451b16364a22907dd01b7e928fb6",
+   "catalogItemId": "54ff4322184a4c3086ee6da0a2d20f79",
+   "appName": "bb406082b69a47208489d3616b22b5c2",
+   "productId": "96ad5f6929154081a74ddde885cc2a3b",
+   "sandboxName": "Horizon Chase Turbo",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "a940fa38f001486a9884640924119576",
+   "catalogItemId": "f3ac42b603f546ccbd0f0240ba120143",
+   "appName": "f9685170f7b142909c661a080bd9e60c",
+   "productId": "4515173972ae4444a2582bc690c150bd",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "efc30c2078a2499ab979d198255e2e4b",
+   "catalogItemId": "1cb5e018771c43ee96aa553b450e9f95",
+   "appName": "8337d1f975514d35ad0c1176e8a29f26",
+   "productId": "8ecb2895d94f4c64a743c1c4f056743f",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "1d6b5762a1d643a4830481c44d59abfb",
+   "catalogItemId": "b55e326929b44a7b913693ea8ae79d00",
+   "appName": "8e4f8dc250364e30aef276555bba1734",
+   "productId": "2ae760629a384d5199cbefc612db7ac8",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "2cdc5a2758a6445d8d4f399ecb469aaf",
+   "catalogItemId": "b8c897b0f6ff46ca857f422dab301832",
+   "appName": "077d2507a5fe4073bf0dd69485f425f5",
+   "productId": "a323e5521a98467dbbd24aa9bb3ee9a4",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "2a14cf8a83b149919a2399504e5686a6",
+   "catalogItemId": "52a1bd5e5a7240269b8514ff94db8f54",
+   "appName": "huddle",
+   "productId": "9e59bd1fac90426880f8448b396e764d",
+   "sandboxName": "huddle Production",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "d923c737f0d243ccab407605ea40d39e",
+   "catalogItemId": "d173657a4a504d9eb5a10c53c4626f29",
+   "appName": "a7594e61a4f24e6d9495ea959749598e",
+   "productId": "c06cc46c27954f55974e9e7a4f3b3849",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "964f58c4c2074404bf9c359483ab1a48",
+   "catalogItemId": "c8ce15a561cc480e9c43c3297e80c90c",
+   "appName": "456f53b28c384f02865874299f956501",
+   "productId": "74cf7dbeb04e4b899b027ca04ab316f3",
+   "sandboxName": "Midnight Ghost Hunt",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "23499f64e5304139b514c3e674c5c0d6",
+   "catalogItemId": "b3dde22db4e14b4cb644271f02038e25",
+   "appName": "4a31c45c04e243cc97f3e47bc663fb18",
+   "productId": "7472ec268e344e77a85e95976c0ffc6d",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "23499f64e5304139b514c3e674c5c0d6",
+   "catalogItemId": "baa5252ae48e48aea6a649cfc5253012",
+   "appName": "25a83a57cf5f487d98e073b8a92e1f8d",
+   "productId": "7472ec268e344e77a85e95976c0ffc6d",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "23499f64e5304139b514c3e674c5c0d6",
+   "catalogItemId": "1505d7fab80143bfb3458228e9a8d17e",
+   "appName": "987f387bd9324f1391cc87cd07348bf7",
+   "productId": "7472ec268e344e77a85e95976c0ffc6d",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "23499f64e5304139b514c3e674c5c0d6",
+   "catalogItemId": "c5d553e831a548ccacd7334998cd2e17",
+   "appName": "574977bf807c4c3cabfe8ab19708205c",
+   "productId": "7472ec268e344e77a85e95976c0ffc6d",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "23499f64e5304139b514c3e674c5c0d6",
+   "catalogItemId": "b317c844b85b4ef087f4f7b92cdcaad5",
+   "appName": "b65e183e8f204281b8eb1bbbb6f7a98a",
+   "productId": "7472ec268e344e77a85e95976c0ffc6d",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "23499f64e5304139b514c3e674c5c0d6",
+   "catalogItemId": "aeffbc8710e4472a867a6bba6ad5b687",
+   "appName": "1360dbfe60a04beaab046f50c42f51f0",
+   "productId": "7472ec268e344e77a85e95976c0ffc6d",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "23499f64e5304139b514c3e674c5c0d6",
+   "catalogItemId": "5e51bb450ffa442483a686f4a9b3a8f4",
+   "appName": "b681fecb34194e8a97ef6d69cbf71ca6",
+   "productId": "7472ec268e344e77a85e95976c0ffc6d",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "23499f64e5304139b514c3e674c5c0d6",
+   "catalogItemId": "a004546d145b4173b9da5ce8594eef05",
+   "appName": "d94a06ef698942669bd001b2dd0fb3ee",
+   "productId": "7472ec268e344e77a85e95976c0ffc6d",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "23499f64e5304139b514c3e674c5c0d6",
+   "catalogItemId": "1f3ac7f08a3845c18ffd16bc20f5649f",
+   "appName": "370325fee5104176a6e5329936656965",
+   "productId": "7472ec268e344e77a85e95976c0ffc6d",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "23499f64e5304139b514c3e674c5c0d6",
+   "catalogItemId": "fe35d875265c4698ad5ef1efd66183d1",
+   "appName": "c4e284ae71ed49a285cc00dfce564e03",
+   "productId": "7472ec268e344e77a85e95976c0ffc6d",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "23499f64e5304139b514c3e674c5c0d6",
+   "catalogItemId": "91cdc33a1d944e3983693e6d3af16d96",
+   "appName": "9c162cd16b7c44b9abfa21296343dfea",
+   "productId": "7472ec268e344e77a85e95976c0ffc6d",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "2b09519576cb4276bfd8df52f5288e4a",
+   "catalogItemId": "5fee571eae9d43e798ea022d632232fa",
+   "appName": "0fcb6881984f4e9ab91f5e22e4bf844c",
+   "productId": "a391c82c2bdc46cbaa107272f2fc90dd",
+   "sandboxName": "Bus Simulator 21",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "75d74aeb36024d95b8a30bad40dc19c3",
+   "catalogItemId": "f39049d62f8e4db5ab307453983213d0",
+   "appName": "fe4168b810314c2fb93f1803e2fe431e",
+   "productId": "f2a16892090a4ce5aa034f36acc24ac4",
+   "sandboxName": "Call of the Wild The Angler",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "a93cd6111251461c953776a0c4ea4d80",
+   "catalogItemId": "d0083c0713b140709d92ac02b179cbf2",
+   "appName": "007ff8f4e30845a687e66aa77eb3e965",
+   "productId": "e5d12f6d14514964a97cb98002f0eeea",
+   "sandboxName": "Ghostwire Tokyo",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "ca0530b485754032be50cb6f27be0c2c",
+   "catalogItemId": "84686da593b24598803ffbe7f9b1bb5e",
+   "appName": "a1e2ce30defe4a9187ebc14fc9d2bd8b",
+   "productId": "92c026011354448d86e10febefdd4f9a",
+   "sandboxName": "Kerbal Space Program",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "b7b42e2078524ab386a8b2a9856ef557",
+   "catalogItemId": "c80a76de890145edbe0d41679dbccc66",
+   "appName": "d36336f190094951873ed6138ac208d8",
+   "productId": "535f2bc5c4fb43798c8e65fefce6f990",
+   "sandboxName": "Sifu",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "affc33b82405457595a032f00284abd2",
+   "catalogItemId": "b51279fe75d841dd9a0dcb1a1b85bf4b",
+   "appName": "Finch",
+   "productId": "ebd2fa52958444689a11360007c60b05",
+   "sandboxName": "Killing Floor 2",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "affc33b82405457595a032f00284abd2",
+   "catalogItemId": "cfebb3c4f1d84ded8d7cda5350d1f8b8",
+   "appName": "3223ccf6ac9b4189bd4e144c047d33fb",
+   "productId": "ebd2fa52958444689a11360007c60b05",
+   "sandboxName": "Killing Floor 2",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "25b5ab5928784a74a502f6a84bb8b49f",
+   "catalogItemId": "bd12aa292a6b401286908fe1fa312f83",
+   "appName": "923130ebb546417b9d3115507f752d34",
+   "productId": "f98517036ab5480ebd9c68d7249188b4",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "27aa2ebdcda14b3bb8a669aab73ca55f",
+   "catalogItemId": "b9e3c7e855044cbb82c82ea939241db7",
+   "appName": "4d0ff75b922447649057c237c0bd1545",
+   "productId": "4901c0755f8a4f2c8ade77a4877d97ea",
+   "sandboxName": "boysenberry Production",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "708f57aaa04b42ef885be16c8288f0ac",
+   "catalogItemId": "d303a92b6c4d4e25808a92a0a9ca3950",
+   "appName": "cc3213f280df4b428e85b771c09d1891",
+   "productId": "5fe2542e232b4014a5f2f3619598bd19",
+   "sandboxName": "Ghostrunner 2",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "ca05bd340e84436ebea4a0c0ca55befa",
+   "catalogItemId": "3ac2d869235f4a2bb93090b95c1dc1c3",
+   "appName": "0eeaae41305043f7a465310eb2cbaff9",
+   "productId": "d3aec59bfafa4dd392d5c9b01abbaefd",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "7e508f543b05465abe3a935960eb70ac",
+   "catalogItemId": "48353a502e72433298f25827e03dbff0",
+   "appName": "40cb42e38c0b4a14a1bb133eb3291572",
+   "productId": "a53f91e55c6840018cb5de0b204f1ad9",
+   "sandboxName": "Idle Champions of the Forgotten Realms",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "766e1b59c32c447093add5efbc1a4858",
+   "catalogItemId": "19884196ffca4ad0b56486a76773e5f9",
+   "appName": "d2da64bd4c4e422da4b1a88041492a3a",
+   "productId": "4d04d9e25e4740ac9aba2b8e8c9a5ddf",
+   "sandboxName": "Dishonored - Definitive Edition",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "040baa2d100d465caf428c688cc3cdba",
+   "catalogItemId": "ddcae2cac7f94a5e9f19e8f7a24b4878",
+   "appName": "4237ffc575c94a0e89ef9ab7dd884ad5",
+   "productId": "9da72b3af32d4818b502369a4aac5aac",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "0e76e53e157d416ab598342ed3a9dd5a",
+   "catalogItemId": "e7873d67c5f14949978e44306867cfc8",
+   "appName": "d68f964c809145b682e1d768aa126f31",
+   "productId": "34c962aeaa0d4da08b11f368e65a83bd",
+   "sandboxName": "RPG in a Box",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "b13f6a1e5121469d8a825947b759339d",
+   "catalogItemId": "40c4367909484809909f6c1e82e2023f",
+   "appName": "f38de9fa4c6d43eabac080942cb394a1",
+   "productId": "0963df3e35894e3facf7814c92862efb",
+   "sandboxName": "Never Alone",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "9696e0c7c26841789a152588c744d506",
+   "catalogItemId": "f1599d3f6e494642a88242bec0d3d838",
+   "appName": "329064225aaf4df29c4658f141173905",
+   "productId": "8ae16e8a55fa4f3897fa726a90dbd750",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "fn",
+   "catalogItemId": "4fe75bbc5a674f4f9b356b5c90567da5",
+   "appName": "Fortnite",
+   "productId": "prod-fn",
+   "sandboxName": "Fortnite",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "fn",
+   "catalogItemId": "0b41f0192f7f4f2691684581aedc0778",
+   "appName": "aa31f9e94e844b299ca757d1d0b97a09",
+   "productId": "prod-fn",
+   "sandboxName": "Fortnite",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "fn",
+   "catalogItemId": "b619cf61a4144d67bd753dc990637e7c",
+   "appName": "94bc5ec13f8f438c97fdbef3e9019e27",
+   "productId": "prod-fn",
+   "sandboxName": "Fortnite",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "c03a3687567a4cf3910ea5ec7279664e",
+   "catalogItemId": "4c0313f2f6b9409bb8974948c2dabcfc",
+   "appName": "bf363d9625a5406f904d925f3e613327",
+   "productId": "9adab56f7e8a48d6b5e137983460dbff",
+   "sandboxName": "ScourgeBringer",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "900054606a74444badf56b2f2abd7c69",
+   "catalogItemId": "6e159ce574a74cdcb537626b2b1b6807",
+   "appName": "f3a0b50da2dd4226b8308c7e5fa1fbb6",
+   "productId": "717e784a701e49bba02e27f7774e966a",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "wombat",
+   "catalogItemId": "ec6ed5344a904ea78729113d80818d18",
+   "appName": "Wombat",
+   "productId": "prod-wombat",
+   "sandboxName": "World War Z",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "7dee3ddeac7d427eb35def472be64d9c",
+   "catalogItemId": "b9f16025674b4a4d93c30d666c3c9c9d",
+   "appName": "3206dba3f9b14fd3b01c18f9dcbc864a",
+   "productId": "524e461c5cd04677b563cc723f9da02c",
+   "sandboxName": "DEATHLOOP",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "e97659b501af4e3981d5430dad170911",
+   "catalogItemId": "864c7bc2c2394f7dbd1b534aa068ff56",
+   "appName": "fa4240e57a3c46b39f169041b7811293",
+   "productId": "1fe6c9f68a644626a4e400c56ad4ef6d",
+   "sandboxName": "Hogwarts Legacy",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "cfd5606247d5400480bb7dccec626f1a",
+   "catalogItemId": "534237ea5aac4ea9973b916a0bf180bc",
+   "appName": "311021f116f243a0b3e8d2dc2b6b90f9",
+   "productId": "ea39630551474fdab17e71a31e1e9db5",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "8041f9a6e26348efaca2f7d28bb811ab",
+   "catalogItemId": "a3a2dcc16c2f4d928c2bd1e412e198da",
+   "appName": "bb9fca58dae446b8af86c668dd7a7234",
+   "productId": "50b4d2b4f87d440997ebfbb3a1005dca",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "c4c7d3cd0a2f4ea2bf7d4a57e46e8d68",
+   "catalogItemId": "cf7b858799184d94a2920426e728b2ed",
+   "appName": "a9999cf992d74279b410a0ac9608e153",
+   "productId": "f2f1008125d14145a848fe58a6afc56c",
+   "sandboxName": "BrilliantRose",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "0bb1bf6df5784815a0c62120f8a82b25",
+   "catalogItemId": "13092063f71b4331b488bbe22d0a083e",
+   "appName": "6ee8fe4d83fe49e49cbb79741616ec3b",
+   "productId": "63c94a59a4b84942a5ea12a818ad13d0",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "c5f6069e7dd644dab009294f0fddc7a7",
+   "catalogItemId": "93e3dd361ab14ee9919914fa1ae199a2",
+   "appName": "828b2ff07ee548f59b7e172b4b4c9686",
+   "productId": "f24f7e149dc64df18f14dfab4f6dae4d",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "0f3f352865294c3ea5e10454f24fde85",
+   "catalogItemId": "6538249d5bc84eb69715c5ab78ca712d",
+   "appName": "61cc250618f94809a3ef6837c8d69445",
+   "productId": "b8b5f8ab6b7e45f69d6618aaf71960cc",
+   "sandboxName": "Garden Story",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "6a70006d598948bfa6c71ceb334ad635",
+   "catalogItemId": "485ac991cae2480f9887daefb5c9bd48",
+   "appName": "69c5351eacc540fd8850e12e90726e59",
+   "productId": "b2a9fa2635af450ba7767472589fabea",
+   "sandboxName": "3 out of 10, EP 5: \"The Rig Is Up!\"",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "6430e58041234e41b8f81f68f01450ed",
+   "catalogItemId": "581c8d4fd9574884bff66cbdbaa42def",
+   "appName": "3e02273b543f4ff0a1c24d3b534a9ac3",
+   "productId": "0fac3450d5b24587a1d25b5c94676f99",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "d06b51d350914826bfbbf7f8d1fed56f",
+   "catalogItemId": "b4a56169dbf54207bc9cb58529f2a75a",
+   "appName": "0ad0ed7b851c46378f9fcac07b72b548",
+   "productId": "66d8f537f1aa4636985ff868d51651eb",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "6b0541b5d9aa476cbf407643ab3b1d7d",
+   "catalogItemId": "96571224db9a4dae8414e06050230e51",
+   "appName": "256ba8bdd1ff4c26a0b2d3776d1a1bf6",
+   "productId": "cc1afd157b8f408bb1a0591c67127808",
+   "sandboxName": "The Callisto Protocol",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "f4bbbc20a6b74295ac82b7c258739bff",
+   "catalogItemId": "c647731680bf427ca0d3f9fa41e5fed4",
+   "appName": "d86f9cb568014746a15f66025dcc5733",
+   "productId": "21974220d4f64342aaa1f41d890a5421",
+   "sandboxName": "3 Out of 10 Episode 3: Pivot Like a Champion",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "35d137e3d82640ed9811d302e8067ecd",
+   "catalogItemId": "76bb027fef044b2ea5e82d30b7335fed",
+   "appName": "0074f9a4082041f1869d9d6f26b99521",
+   "productId": "24397552e51f404d8f89e93ed383d35a",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "09f00180b25347bdb65ac0b7378756b7",
+   "catalogItemId": "22f9ae4d7e9844ed82ace6d125e1ccf9",
+   "appName": "a7270bff1bad44298091dd61c6c7bc00",
+   "productId": "79460c9ca0ac41f1bff52983d803a2d7",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "85c72a063b884d249a554fee9f71125d",
+   "catalogItemId": "26047d36df5e48aeaa570d1577f44b95",
+   "appName": "9b1148db19dc457aa1adf9f21ac6f0ff",
+   "productId": "4985026f56654289a4a1fa848f41c4c9",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "817686bfef41431b918f71c5bb3c5db7",
+   "catalogItemId": "861fda0fe0214224bfa4d00353cc8646",
+   "appName": "769f2fee68e9477180da900ccccbbcf0",
+   "productId": "3dafb7abbfc34385ba581cad1424865a",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "2d7949724dd348f79b8e4084e029f8e3",
+   "catalogItemId": "11d8ff921ede45b8bcb87e084d3a7e0c",
+   "appName": "80510c874abe43149f3db85756351da6",
+   "productId": "b61d8ed9ff724cfe969ee79b41e604a5",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "02c14a01b7044db98de3f3a10813a42e",
+   "catalogItemId": "1708848cdb2842d2bc2ce3b536b26b0d",
+   "appName": "5fc579fbef6a4bf99171861b68b8fcb2",
+   "productId": "17941f406ec14df1abbec8a6bed848ea",
+   "sandboxName": "Humankind",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "0f4a572a3c1541319db70c3737d3a123",
+   "catalogItemId": "b8d3e844044f4770a8167990b3ac3427",
+   "appName": "4ad17ed617f44a4dbf7e8a960484c619",
+   "productId": "eb819c8ea9864363acaeea6cba0232e1",
+   "sandboxName": "th20v2 Production",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "955298a66e774a858d59e4fb83562c1b",
+   "catalogItemId": "9dc0fe43863a419dbb2fa4e1563a70a7",
+   "appName": "91eac4ac00304bcc9d7d4a55a95894b3",
+   "productId": "ca4cbfe5a72249b48656cdde1804f434",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "9c5bbf5fa33d410b955b857c58f41c5c",
+   "catalogItemId": "0b360023d85043fd8d89651ebe203ae0",
+   "appName": "1317e4e3b3ed40c289dde85b194347d3",
+   "productId": "51afa767065b4cb4bce5f23cb1e34e27",
+   "sandboxName": "3 Out of 10 Episode 2: Foundation 101",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "6c5ce18b887f421aa9497ec7542afd23",
+   "catalogItemId": "cf02a03da55b4777844820fa28f27708",
+   "appName": "81fbec1949fb4458bbe5c2711d0d64f6",
+   "productId": "10a55229d552428ab7778f4862bf5dc0",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "ff52981b1d9947978153c7a7f8bc6d90",
+   "catalogItemId": "a10c5b9efef64535b9e290dc3755c189",
+   "appName": "7334aba246154b63857435cb9c7eecd5",
+   "productId": "9003e1ade0b14e8688b08030e7a335fd",
+   "sandboxName": "Disco Elysium",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "2485eccb13d14250a0a5649e8ed63a3b",
+   "catalogItemId": "b5ceb05aec154822a24582c27c4835c9",
+   "appName": "5919f2a03ba34e36b8e7de60acc26736",
+   "productId": "65963abab56541eda0887402d505167e",
+   "sandboxName": "Live",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  },
+  {
+   "namespace": "487df1dfd24b44c381a2a376fbf78946",
+   "catalogItemId": "034973e5bc3b4aa8af5247eba80c6f46",
+   "appName": "c98c934106994f2d8afc36c3f1872549",
+   "productId": "45eb6916194142e3a8c0fb7242601057",
+   "sandboxName": "Dublin",
+   "sandboxType": "PUBLIC",
+   "recordType": "APPLICATION"
+  }
+ ],
+ "bulk": {
+  "2a09fb19b47f46dfb11ebd382f132a8f": {
+   "b2666e211d334d15a0c29188d0abb6c8": {
+    "id": "b2666e211d334d15a0c29188d0abb6c8",
+    "namespace": "2a09fb19b47f46dfb11ebd382f132a8f",
+    "title": "Marvel's Guardians of the Galaxy: Social-Lord Outfit",
+    "mainGameItem": {
+     "id": "88f4bb0bb06e4962a2042d5e20fb6ace"
+    },
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/salesEvent/salesEvent/EGS_MarvelsGuardiansoftheGalaxy_EidosMontral_S3_2560x1440-6aecbc6825954678a5a4f3b625988b19"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/b2666e211d334d15a0c29188d0abb6c8-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   },
+   "88f4bb0bb06e4962a2042d5e20fb6ace": {
+    "id": "88f4bb0bb06e4962a2042d5e20fb6ace",
+    "namespace": "2a09fb19b47f46dfb11ebd382f132a8f",
+    "title": "Marvel's Guardians of the Galaxy",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/salesEvent/salesEvent/EGS_MarvelsGuardiansoftheGalaxyWide_2560x1440-6aecbc6825954678a5a4f3b625988b19"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/88f4bb0bb06e4962a2042d5e20fb6ace-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "f4a904fcef2447439c35c4e6457f3027": {
+   "761fe09295aa422e8199cebaacf51675": {
+    "id": "761fe09295aa422e8199cebaacf51675",
+    "namespace": "f4a904fcef2447439c35c4e6457f3027",
+    "title": "Death Stranding",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/f4a904fcef2447439c35c4e6457f3027/item/EGS_KojimaProductions_DeathStranding_S1-2560x1440-e56d3a322a94fd7dd18b9c93ee080d01.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/761fe09295aa422e8199cebaacf51675-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   },
+   "0a19424d974643f6ae6227a3ed66af2b": {
+    "id": "0a19424d974643f6ae6227a3ed66af2b",
+    "namespace": "f4a904fcef2447439c35c4e6457f3027",
+    "title": "SELECTIONS OF TITAN ART BOOK",
+    "mainGameItem": {
+     "id": "678578f8abe84265b0d5f81c1997c6da"
+    },
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/f4a904fcef2447439c35c4e6457f3027/item/EGS_KojimaProductions_DeathStranding_S1-2560x1440-e56d3a322a94fd7dd18b9c93ee080d01.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/0a19424d974643f6ae6227a3ed66af2b-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   },
+   "678578f8abe84265b0d5f81c1997c6da": {
+    "id": "678578f8abe84265b0d5f81c1997c6da",
+    "namespace": "f4a904fcef2447439c35c4e6457f3027",
+    "title": "Death Stranding Content",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/f4a904fcef2447439c35c4e6457f3027/item/EGS_KojimaProductions_DeathStranding_S1-2560x1440-e56d3a322a94fd7dd18b9c93ee080d01.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/678578f8abe84265b0d5f81c1997c6da-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   },
+   "c7bad4fcef1e4188b36732ed4bdf8103": {
+    "id": "c7bad4fcef1e4188b36732ed4bdf8103",
+    "namespace": "f4a904fcef2447439c35c4e6457f3027",
+    "title": "DEATH STRANDING DIGITAL SOUNDTRACK",
+    "mainGameItem": {
+     "id": "678578f8abe84265b0d5f81c1997c6da"
+    },
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/f4a904fcef2447439c35c4e6457f3027/item/EGS_KojimaProductions_DeathStranding_S1-2560x1440-e56d3a322a94fd7dd18b9c93ee080d01.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/c7bad4fcef1e4188b36732ed4bdf8103-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   },
+   "01ced6494f3046e48b9bbb7d2874b703": {
+    "id": "01ced6494f3046e48b9bbb7d2874b703",
+    "namespace": "f4a904fcef2447439c35c4e6457f3027",
+    "title": "HD Wallpaper",
+    "mainGameItem": {
+     "id": "678578f8abe84265b0d5f81c1997c6da"
+    },
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/f4a904fcef2447439c35c4e6457f3027/item/EGS_KojimaProductions_DeathStranding_S1-2560x1440-e56d3a322a94fd7dd18b9c93ee080d01.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/01ced6494f3046e48b9bbb7d2874b703-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "c986e75258a146fba03a920dba852ca9": {
+   "18d3c0e34d85461e90474b3a69afea1e": {
+    "id": "18d3c0e34d85461e90474b3a69afea1e",
+    "namespace": "c986e75258a146fba03a920dba852ca9",
+    "title": "Cat Quest",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/370dbdf8c5e44dc09eac477fd43e8aee/cat-quest-17l5f.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/18d3c0e34d85461e90474b3a69afea1e-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "afe2527e29b94db48b2eef984e34d81a": {
+   "1860f41341d1499fa4a06ae064340bbe": {
+    "id": "1860f41341d1499fa4a06ae064340bbe",
+    "namespace": "afe2527e29b94db48b2eef984e34d81a",
+    "title": "《龙腾世纪：审判》年度版",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/175e781d820144ce966f1c1942b64b57/dragon-age-inquisition-game-of-the-year-edition-1l7v1.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/1860f41341d1499fa4a06ae064340bbe-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "fa702d34a37248ba98fb17f680c085e3": {
+   "b1b4e0b67a044575820cb5e63028dcae": {
+    "id": "b1b4e0b67a044575820cb5e63028dcae",
+    "namespace": "fa702d34a37248ba98fb17f680c085e3",
+    "title": "Fallout 3: Game of the Year Edition",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/item/fa702d34a37248ba98fb17f680c085e3/EGS_Fallout3GameoftheYearEdition_BethesdaGameStudios_S1_2560x1440-073f5b4cf358f437a052a3c29806efa0"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/b1b4e0b67a044575820cb5e63028dcae-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "538de058a6d9490ea151c4cd111cc01b": {
+   "07a27e25fdce469fa023695acff0cc88": {
+    "id": "07a27e25fdce469fa023695acff0cc88",
+    "namespace": "538de058a6d9490ea151c4cd111cc01b",
+    "title": "Tannenberg",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/salesEvent/salesEvent/EGS_Tannenberg_M2HBlackmillGames_S1_2560x1440-ac40112254aee2c0d5b1f9e488c41a11"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/07a27e25fdce469fa023695acff0cc88-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "bd46d4ce259349e5bd8b3ded20274737": {
+   "2ebf02003ebc4df0b8b0034e9df0aac4": {
+    "id": "2ebf02003ebc4df0b8b0034e9df0aac4",
+    "namespace": "bd46d4ce259349e5bd8b3ded20274737",
+    "title": "Chivalry 2 - Public Testing",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/salesEvent/salesEvent/public testing EGS 2560 x 1440 library_2560x1440-ecdbbd73fe497057d156aa4f3980599d"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/2ebf02003ebc4df0b8b0034e9df0aac4-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   },
+   "4c4a6c0767304c9d830f3f36f2b29018": {
+    "id": "4c4a6c0767304c9d830f3f36f2b29018",
+    "namespace": "bd46d4ce259349e5bd8b3ded20274737",
+    "title": "Chivalry 2",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/item/bd46d4ce259349e5bd8b3ded20274737/EGS_Chivalry2_TornBannerStudios_S1_2560x1440-4248ed263080045c7cb13960711c5f58"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/4c4a6c0767304c9d830f3f36f2b29018-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "db6d869788bd4aa59f9ccb26c91a0153": {
+   "7ae00498170d40a18952e3542b7cdd08": {
+    "id": "7ae00498170d40a18952e3542b7cdd08",
+    "namespace": "db6d869788bd4aa59f9ccb26c91a0153",
+    "title": "KILL KNIGHT",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/7ec1d897ec2c4228b5b2bb63cc447456/kill-knight-365qs.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/7ae00498170d40a18952e3542b7cdd08-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "3428aaab2c674c98b3acb789dcfaa548": {
+   "99319f67f7a146a583ab433db3206fe7": {
+    "id": "99319f67f7a146a583ab433db3206fe7",
+    "namespace": "3428aaab2c674c98b3acb789dcfaa548",
+    "title": "Fallout New Vegas®: Old World Blues",
+    "mainGameItem": {
+     "id": "dabb52e328834da7bbe99691e374cb84"
+    },
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/item/3428aaab2c674c98b3acb789dcfaa548/EGS_FalloutNewVegasOldWorldBlues_ObsidianEntertainment_DLC_S1_2560x1440-b1c4ed3bfd58ac4fdcdb39abe211520e"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/99319f67f7a146a583ab433db3206fe7-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   },
+   "9d6e337d893346fa897ba823042718fd": {
+    "id": "9d6e337d893346fa897ba823042718fd",
+    "namespace": "3428aaab2c674c98b3acb789dcfaa548",
+    "title": "Fallout New Vegas®: Lonesome Road™",
+    "mainGameItem": {
+     "id": "dabb52e328834da7bbe99691e374cb84"
+    },
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/item/3428aaab2c674c98b3acb789dcfaa548/EGS_FalloutNewVegasLonesomeRoad_ObsidianEntertainment_DLC_S1_2560x1440-70f92b25f1aa8c106df8b25c36928357"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/9d6e337d893346fa897ba823042718fd-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   },
+   "a92cc9f6e89f40c28950016d8c8202f3": {
+    "id": "a92cc9f6e89f40c28950016d8c8202f3",
+    "namespace": "3428aaab2c674c98b3acb789dcfaa548",
+    "title": "Fallout New Vegas®: Dead Money",
+    "mainGameItem": {
+     "id": "dabb52e328834da7bbe99691e374cb84"
+    },
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/item/3428aaab2c674c98b3acb789dcfaa548/EGS_FalloutNewVegasDeadMoney_ObsidianEntertainment_DLC_S1_2560x1440-35ae7b5682fe809f0969216f2fc1ef3d"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/a92cc9f6e89f40c28950016d8c8202f3-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   },
+   "8639c764126147a49fba4e79d4b12e3c": {
+    "id": "8639c764126147a49fba4e79d4b12e3c",
+    "namespace": "3428aaab2c674c98b3acb789dcfaa548",
+    "title": "Fallout New Vegas®: Gun Runners’ Arsenal™",
+    "mainGameItem": {
+     "id": "dabb52e328834da7bbe99691e374cb84"
+    },
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/item/3428aaab2c674c98b3acb789dcfaa548/EGS_FalloutNewVegasGunRunnersArsenal_ObsidianEntertainment_DLC_S1_2560x1440-95a139056a0367ca4437551739e6808d"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/8639c764126147a49fba4e79d4b12e3c-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   },
+   "e03e450ae07b41049e90ca620a8e054e": {
+    "id": "e03e450ae07b41049e90ca620a8e054e",
+    "namespace": "3428aaab2c674c98b3acb789dcfaa548",
+    "title": "Fallout New Vegas: Courier's Stash",
+    "mainGameItem": {
+     "id": "dabb52e328834da7bbe99691e374cb84"
+    },
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/item/3428aaab2c674c98b3acb789dcfaa548/EGS_FalloutNewVegasCouriersStash_ObsidianEntertainment_DLC_S1_2560x1440-46e9b5ccf792f5f3805e962d78262808"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/e03e450ae07b41049e90ca620a8e054e-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   },
+   "45f8c6bb48f443cda04fae360c9d1f05": {
+    "id": "45f8c6bb48f443cda04fae360c9d1f05",
+    "namespace": "3428aaab2c674c98b3acb789dcfaa548",
+    "title": "Fallout New Vegas®: Honest Hearts",
+    "mainGameItem": {
+     "id": "dabb52e328834da7bbe99691e374cb84"
+    },
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/item/3428aaab2c674c98b3acb789dcfaa548/EGS_FalloutNewVegasHonestHearts_ObsidianEntertainment_DLC_S1_2560x1440-2b49ce170fd0235b8e6d45554d0e4f4f"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/45f8c6bb48f443cda04fae360c9d1f05-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   },
+   "dabb52e328834da7bbe99691e374cb84": {
+    "id": "dabb52e328834da7bbe99691e374cb84",
+    "namespace": "3428aaab2c674c98b3acb789dcfaa548",
+    "title": "Fallout: New Vegas",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/item/3428aaab2c674c98b3acb789dcfaa548/EGS_FalloutNewVegas_ObsidianEntertainment_S1_2560x1440-7d7f9ea355650139d9ec6cc3cff97f5f"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/dabb52e328834da7bbe99691e374cb84-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "5db7394e65044dd1bb083ee983e2b3a5": {
+   "1709353a08384d518fe56f25732eb9dd": {
+    "id": "1709353a08384d518fe56f25732eb9dd",
+    "namespace": "5db7394e65044dd1bb083ee983e2b3a5",
+    "title": "Severed Steel",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/item/5db7394e65044dd1bb083ee983e2b3a5/EGS_SeveredSteel_GreylockStudio_S1_2560x1440-7563487f2c1135a79b72a4d2c198d544"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/1709353a08384d518fe56f25732eb9dd-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "71d19da3678943098859baa9c4c39f95": {
+   "38649a203d904405ab9068e09dc5be91": {
+    "id": "38649a203d904405ab9068e09dc5be91",
+    "namespace": "71d19da3678943098859baa9c4c39f95",
+    "title": "A Plague Tale: Innocence",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/salesEvent/salesEvent/1bbe911a-6c89-490c-9230-cdd99c3be4b5_2560x1440-1c47786e1130e040a090368a1551a627"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/38649a203d904405ab9068e09dc5be91-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "95d0b9561be1464cb43bd029e94cf526": {
+   "1044c51716c4423e83da5818d289057e": {
+    "id": "1044c51716c4423e83da5818d289057e",
+    "namespace": "95d0b9561be1464cb43bd029e94cf526",
+    "title": "Ghostrunner",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn1.epicgames.com/95d0b9561be1464cb43bd029e94cf526/item/GR_Portrait_Offer_1200x1600-1200x1600-a7811e23904db375486535513d10412f.jpg"
+     },
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn.example/1044c51716c4423e83da5818d289057e-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "ff50f85ed609454e80ac46d9496da34d": {
+   "9c7c10e8e1a648f8a9e35f28a1d45900": {
+    "id": "9c7c10e8e1a648f8a9e35f28a1d45900",
+    "namespace": "ff50f85ed609454e80ac46d9496da34d",
+    "title": "Loop Hero",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/ff50f85ed609454e80ac46d9496da34d/item/EGS_TheLichhasthrowntheworldintoatimelessloop_FourQuarters_S1-2560x1440-dd971b1a2d79b2984c22a3b7c66c60da.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/9c7c10e8e1a648f8a9e35f28a1d45900-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "9c59efaabb6a48f19b3485d5d9416032": {
+   "709536796ff5489a97c4574b9d6bda24": {
+    "id": "709536796ff5489a97c4574b9d6bda24",
+    "namespace": "9c59efaabb6a48f19b3485d5d9416032",
+    "title": "LEGO® Star Wars™: The Skywalker Saga",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn1.epicgames.com/item/9c59efaabb6a48f19b3485d5d9416032/EGS_LEGOStarWarsTheSkywalkerSaga_TTGames_S2_1200x1600-fba27b1ae598e355c3ad42d04d9025ba"
+     },
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn.example/709536796ff5489a97c4574b9d6bda24-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   },
+   "e8c72d870a3645fcbc5534271210c8a5": {
+    "id": "e8c72d870a3645fcbc5534271210c8a5",
+    "namespace": "9c59efaabb6a48f19b3485d5d9416032",
+    "title": "LEGO® Star Wars™: Classic Obi-Wan",
+    "mainGameItem": {
+     "id": "709536796ff5489a97c4574b9d6bda24"
+    },
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/item/9c59efaabb6a48f19b3485d5d9416032/EN_TTGames_LSWSS_Obi_Wan_CP_S3_2560x1440_22_0311 (1)_2560x1440-cf290c43f32bc30b613f187e051b4f6f"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/e8c72d870a3645fcbc5534271210c8a5-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "d602fd70876141ba9bf4d54809c423d1": {
+   "a43e7276399947b8b7b38b29f4f75a7d": {
+    "id": "a43e7276399947b8b7b38b29f4f75a7d",
+    "namespace": "d602fd70876141ba9bf4d54809c423d1",
+    "title": "The Evil Within",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/item/d602fd70876141ba9bf4d54809c423d1/EGS_TheEvilWithin_TangoGameworks_S1_2560x1440-16b7f817d8803517fbecbf3f175ac997"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/a43e7276399947b8b7b38b29f4f75a7d-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "d1a3ff292b2f4ee289a83d7a91ae3458": {
+   "e5c0d43b05a0405b802234841da67fd1": {
+    "id": "e5c0d43b05a0405b802234841da67fd1",
+    "namespace": "d1a3ff292b2f4ee289a83d7a91ae3458",
+    "title": "Tandem A Tale of Shadows",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt/2b91eec1-2b29-4bc5-8649-5a27dc4a171d/tandem-a-tale-of-shadows-offer-633449e1.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/e5c0d43b05a0405b802234841da67fd1-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "4311a0ee99724086b1a4f261b827d038": {
+   "79c724d2efc4468db6f23655fde6969c": {
+    "id": "79c724d2efc4468db6f23655fde6969c",
+    "namespace": "4311a0ee99724086b1a4f261b827d038",
+    "title": "Homeworld Remastered Collection",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/item/4311a0ee99724086b1a4f261b827d038/EGS_HomeworldRemasteredCollection_GearboxSoftware_S1_2560x1440-67229666a0af0fc7234542a7a7cbed78"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/79c724d2efc4468db6f23655fde6969c-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "4b5f1eb366dc45f0920d397c01b291ba": {
+   "ade772fcce3a41cf97279032c10b0041": {
+    "id": "ade772fcce3a41cf97279032c10b0041",
+    "namespace": "4b5f1eb366dc45f0920d397c01b291ba",
+    "title": "Puzzle Pack 1",
+    "mainGameItem": {
+     "id": "a86bbe049ef14f519c69fdc27615d7f4"
+    },
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/4b5f1eb366dc45f0920d397c01b291ba/item/EGS_TOXICGAMES_QUBE2_G1-2560x1440-d2b89622979482c7b0a632306800b950.jpg"
+     },
+     {
+      "type": "DieselGameBoxLogo",
+      "url": "https://cdn.example/ade772fcce3a41cf97279032c10b0041-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   },
+   "a86bbe049ef14f519c69fdc27615d7f4": {
+    "id": "a86bbe049ef14f519c69fdc27615d7f4",
+    "namespace": "4b5f1eb366dc45f0920d397c01b291ba",
+    "title": "Q.U.B.E. 2",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/4b5f1eb366dc45f0920d397c01b291ba/item/EGS_TOXICGAMES_QUBE2_G1-2560x1440-d2b89622979482c7b0a632306800b950.jpg"
+     },
+     {
+      "type": "DieselGameBoxLogo",
+      "url": "https://cdn.example/a86bbe049ef14f519c69fdc27615d7f4-1.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/a86bbe049ef14f519c69fdc27615d7f4-2.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   },
+   "8d644d777e5042c187c03530b965dc17": {
+    "id": "8d644d777e5042c187c03530b965dc17",
+    "namespace": "4b5f1eb366dc45f0920d397c01b291ba",
+    "title": "Glove Skin",
+    "mainGameItem": {
+     "id": "a86bbe049ef14f519c69fdc27615d7f4"
+    },
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/4b5f1eb366dc45f0920d397c01b291ba/item/EGS_TOXICGAMES_QUBE2_G1-2560x1440-d2b89622979482c7b0a632306800b950.jpg"
+     },
+     {
+      "type": "DieselGameBoxLogo",
+      "url": "https://cdn.example/8d644d777e5042c187c03530b965dc17-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   },
+   "8c8ee5e50c7c42a7b59a9ee8c31c0330": {
+    "id": "8c8ee5e50c7c42a7b59a9ee8c31c0330",
+    "namespace": "4b5f1eb366dc45f0920d397c01b291ba",
+    "title": "Q.U.B.E. 2 Soundtrack",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/4b5f1eb366dc45f0920d397c01b291ba/item/EGS_TOXICGAMES_QUBE2_G1-2560x1440-d2b89622979482c7b0a632306800b950.jpg"
+     },
+     {
+      "type": "DieselGameBoxLogo",
+      "url": "https://cdn.example/8c8ee5e50c7c42a7b59a9ee8c31c0330-1.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/8c8ee5e50c7c42a7b59a9ee8c31c0330-2.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   },
+   "b36ab3b81c844ee2a908c7d28451337a": {
+    "id": "b36ab3b81c844ee2a908c7d28451337a",
+    "namespace": "4b5f1eb366dc45f0920d397c01b291ba",
+    "title": "Puzzle Pack 2",
+    "mainGameItem": {
+     "id": "a86bbe049ef14f519c69fdc27615d7f4"
+    },
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/4b5f1eb366dc45f0920d397c01b291ba/item/EGS_TOXICGAMES_QUBE2_G1-2560x1440-d2b89622979482c7b0a632306800b950.jpg"
+     },
+     {
+      "type": "DieselGameBoxLogo",
+      "url": "https://cdn.example/b36ab3b81c844ee2a908c7d28451337a-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "676a89b2e8344c9db39a79724150cba6": {
+   "6b5d6216a086463db74848c8460eb50e": {
+    "id": "6b5d6216a086463db74848c8460eb50e",
+    "namespace": "676a89b2e8344c9db39a79724150cba6",
+    "title": "《Against All Odds》",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/a2f2a8a46ff648928b50bcc776bf9857/slaughter-league-offer-9w1er.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/6b5d6216a086463db74848c8460eb50e-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "36336ee97ec543bbae85abaca618182b": {
+   "143a549f67034d079e14dca66c0d05b3": {
+    "id": "143a549f67034d079e14dca66c0d05b3",
+    "namespace": "36336ee97ec543bbae85abaca618182b",
+    "title": "Diabotical",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn1.epicgames.com/36336ee97ec543bbae85abaca618182b/item/EGS_Diabotical_TheGDStudio_S2-860x1148-4735874e9639619fd8c049cd8ebc72a8.jpg"
+     },
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn.example/143a549f67034d079e14dca66c0d05b3-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "a7e2a2c51b9149c097b771926ed91877": {
+   "d712d3b11cab4347b327b65baa4ebb95": {
+    "id": "d712d3b11cab4347b327b65baa4ebb95",
+    "namespace": "a7e2a2c51b9149c097b771926ed91877",
+    "title": "F.I.S.T.: Forged In Shadow Torch",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/salesEvent/salesEvent/EGS_FISTForgedInShadowTorch_TiGames_S3_2560x1440-d79b811e274bd49318edf3b7c00b82c8"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/d712d3b11cab4347b327b65baa4ebb95-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "80d3aeb1d7c3434981e0bcbc47700a83": {
+   "93aba3588eac4dac86a1b578f6e10186": {
+    "id": "93aba3588eac4dac86a1b578f6e10186",
+    "namespace": "80d3aeb1d7c3434981e0bcbc47700a83",
+    "title": "Europa Universalis IV",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/salesEvent/salesEvent/EGS_EuropaUniversalisIV_ParadoxDevelopmentStudioParadoxTinto_S3_2560x1440-aa3002ec221d43dcd7e49f5458e74766"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/93aba3588eac4dac86a1b578f6e10186-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   },
+   "bd4fa2bd2a9948608379512b12d1738c": {
+    "id": "bd4fa2bd2a9948608379512b12d1738c",
+    "namespace": "80d3aeb1d7c3434981e0bcbc47700a83",
+    "title": "Europa Universalis IV: Common Sense Expansion Pack",
+    "mainGameItem": {
+     "id": "93aba3588eac4dac86a1b578f6e10186"
+    },
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/salesEvent/salesEvent/EGS_EuropaUniversalisIVCommonSenseEP_ParadoxDevelopmentStudios_DLC_S1_2560x1440-8ffe8800ca9d58570838d9b62d00778d_2560x1440-8ffe8800ca9d58570838d9b62d00778d"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/bd4fa2bd2a9948608379512b12d1738c-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "5a6d34ba28bc45d081d9311c3885feef": {
+   "4acdb0d6e5884177bfc75dcdebfb7bab": {
+    "id": "4acdb0d6e5884177bfc75dcdebfb7bab",
+    "namespace": "5a6d34ba28bc45d081d9311c3885feef",
+    "title": "Unrailed",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/dc57439aac3c481aaa52ccb443a4d01a/unrailed-1s7bg.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/4acdb0d6e5884177bfc75dcdebfb7bab-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "2c42520d342a46d7a6e0cfa77b4715de": {
+   "5821c65a103144548f3b55e8ce011292": {
+    "id": "5821c65a103144548f3b55e8ce011292",
+    "namespace": "2c42520d342a46d7a6e0cfa77b4715de",
+    "title": "Dying Light The Bozak",
+    "mainGameItem": {
+     "id": "9421139e63f34d6281c18698b54d1e63"
+    },
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/item/2c42520d342a46d7a6e0cfa77b4715de/EGS_DyingLightEnhancedEdition_Techland_Editions_S1_2560x1440-fd766225be2cad45e6e89493d9c2015a_2560x1440-fd766225be2cad45e6e89493d9c2015a"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/5821c65a103144548f3b55e8ce011292-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   },
+   "c7475b5731fb483283651c9d67b86adb": {
+    "id": "c7475b5731fb483283651c9d67b86adb",
+    "namespace": "2c42520d342a46d7a6e0cfa77b4715de",
+    "title": "Dying Light The Following",
+    "mainGameItem": {
+     "id": "9421139e63f34d6281c18698b54d1e63"
+    },
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/item/2c42520d342a46d7a6e0cfa77b4715de/EGS_DyingLightEnhancedEdition_Techland_Editions_S1_2560x1440-fd766225be2cad45e6e89493d9c2015a_2560x1440-fd766225be2cad45e6e89493d9c2015a"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/c7475b5731fb483283651c9d67b86adb-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   },
+   "9421139e63f34d6281c18698b54d1e63": {
+    "id": "9421139e63f34d6281c18698b54d1e63",
+    "namespace": "2c42520d342a46d7a6e0cfa77b4715de",
+    "title": "Dying Light Enhanced Edition",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/item/2c42520d342a46d7a6e0cfa77b4715de/EGS_DyingLightStandardEdition_Techland_Editions_S1_2560x1440-2967a86bdce109ba6c772176187353d1"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/9421139e63f34d6281c18698b54d1e63-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "c7f9346e3db148fca6dd63e9dd8451bd": {
+   "7333ebed726f408e8f3bfa650488d32e": {
+    "id": "7333ebed726f408e8f3bfa650488d32e",
+    "namespace": "c7f9346e3db148fca6dd63e9dd8451bd",
+    "title": "theHunter: Call of the Wild™",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/item/c7f9346e3db148fca6dd63e9dd8451bd/EGS_theHunterCalloftheWild_ExpansiveWorlds_S1_2560x1440_2560x1440-69120885e0b3acfb87f34ac0bad68ec6"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/7333ebed726f408e8f3bfa650488d32e-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "8211dc6089af4542926b7a8137b9079e": {
+   "ea08171c6a0144a293d0c77f1996e69c": {
+    "id": "ea08171c6a0144a293d0c77f1996e69c",
+    "namespace": "8211dc6089af4542926b7a8137b9079e",
+    "title": "Black Book",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/salesEvent/salesEvent/EGS_BlackBook_Morteshka_S1_2560x1440-97e2dbc3d0e628116fa510efe7f7783f"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/ea08171c6a0144a293d0c77f1996e69c-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "a1a52b1a570e4ee3ab3b2a8ca930753e": {
+   "d1e09eb6c1e447f98d5792f73f33d88c": {
+    "id": "d1e09eb6c1e447f98d5792f73f33d88c",
+    "namespace": "a1a52b1a570e4ee3ab3b2a8ca930753e",
+    "title": "Orcs Must Die! 3",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/af503dd7e8b64218b69c22a9003de268/orcs-must-die-3-hlgb7.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/d1e09eb6c1e447f98d5792f73f33d88c-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "70d9536d99af4c70a55e4c23989f4225": {
+   "f189478ffa5e45a78e4102ae6f4c139c": {
+    "id": "f189478ffa5e45a78e4102ae6f4c139c",
+    "namespace": "70d9536d99af4c70a55e4c23989f4225",
+    "title": "《割草模拟器》/ Lawn Mowing Simulator",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/977ce2dee0fe437d90d2a67adf9917d8/lawn-mowing-simulator-offer-1dk4h.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/f189478ffa5e45a78e4102ae6f4c139c-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "a3100205e194489088c7625c8c5c1596": {
+   "bbd8be51c11945dc8690b030d5b37e09": {
+    "id": "bbd8be51c11945dc8690b030d5b37e09",
+    "namespace": "a3100205e194489088c7625c8c5c1596",
+    "title": "The Forest Quartet",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/5f711e24b6534e32981f910a38e20756/the-forest-quartet-1b412.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/bbd8be51c11945dc8690b030d5b37e09-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "315e6807f6684c279fc286d0fc36a44f": {
+   "d9a609c6106046eab55014955f31448b": {
+    "id": "d9a609c6106046eab55014955f31448b",
+    "namespace": "315e6807f6684c279fc286d0fc36a44f",
+    "title": "shapez",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/6aac3071aeae452990a71aac0a1fbc30/shapez-b1eas.png"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/d9a609c6106046eab55014955f31448b-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "3bbc147c5f134b7cab059cb2b3bb0dd7": {
+   "06287dfc56f941179aa9b75f26e569b3": {
+    "id": "06287dfc56f941179aa9b75f26e569b3",
+    "namespace": "3bbc147c5f134b7cab059cb2b3bb0dd7",
+    "title": "Kao the Kangaroo",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/4a2dcb55ecca496aaaf328f60263bb56/kao-the-kangaroo-offer-1jj1n.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/06287dfc56f941179aa9b75f26e569b3-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "46d340566781448ebdc2cb576f91d3b6": {
+   "8292ce89bcfe4a6badab60f8269928ab": {
+    "id": "8292ce89bcfe4a6badab60f8269928ab",
+    "namespace": "46d340566781448ebdc2cb576f91d3b6",
+    "title": "The Silent Age",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/11e5900e5dea4d70a35239c81bcda19e/the-silent-age-offer-262jk.png"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/8292ce89bcfe4a6badab60f8269928ab-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "35eda4ff87f94a7491dc28175b8f3b4f": {
+   "17371e07abfe45adbdbd62c651ed6b68": {
+    "id": "17371e07abfe45adbdbd62c651ed6b68",
+    "namespace": "35eda4ff87f94a7491dc28175b8f3b4f",
+    "title": "Eternal Threads",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/08813e055af64315b8a55b2e521f4e04/eternal-threads-cn7zm.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/17371e07abfe45adbdbd62c651ed6b68-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "e209b2d1d5384f639335f64e3e6c4bb8": {
+   "7f3def68aae042268d0b5ef9a20f1ca4": {
+    "id": "7f3def68aae042268d0b5ef9a20f1ca4",
+    "namespace": "e209b2d1d5384f639335f64e3e6c4bb8",
+    "title": "Homeworld: Deserts of Kharak",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/item/e209b2d1d5384f639335f64e3e6c4bb8/EGS_HomeworldDesertsofKharak_BlackbirdInteractive_S1_2560x1440-31319bacd65f25e6eb277bef9c8e8c53"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/7f3def68aae042268d0b5ef9a20f1ca4-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "04e4108a1fec4845bd2744e8d554c9a6": {
+   "66f8c4bf50d1416c8ddf1d48cc95e4b2": {
+    "id": "66f8c4bf50d1416c8ddf1d48cc95e4b2",
+    "namespace": "04e4108a1fec4845bd2744e8d554c9a6",
+    "title": "《[REDACTED]》",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/38d7f3e2a3854e9fa4c31456b87c899f/redacted-1ouju.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/66f8c4bf50d1416c8ddf1d48cc95e4b2-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "05ae696a3c5f49af91a7433547460c21": {
+   "74447f48d95a4cdbbf77ef4f248ff19c": {
+    "id": "74447f48d95a4cdbbf77ef4f248ff19c",
+    "namespace": "05ae696a3c5f49af91a7433547460c21",
+    "title": "Redout 2",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/item/05ae696a3c5f49af91a7433547460c21/EGS_Redout2_34BigThings_S1_2560x1440-15165db53ba987f704968f8c3e4c0f0b"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/74447f48d95a4cdbbf77ef4f248ff19c-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "5c5b2b01c8ce475d86cdd2c76fd11f7b": {
+   "d08fae14b2a24a7ca9d70994a8a0ea9c": {
+    "id": "d08fae14b2a24a7ca9d70994a8a0ea9c",
+    "namespace": "5c5b2b01c8ce475d86cdd2c76fd11f7b",
+    "title": "Deus Ex - Mankind Divided",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/c47ffdc5b1cb42fc83bd9ea42861b800/deus-ex--mankind-divided-29w5i.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/d08fae14b2a24a7ca9d70994a8a0ea9c-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "14d712e338ee4fe5b5304d959cd75cd2": {
+   "56e23ceb7e1544f0a8f1f50154403ac2": {
+    "id": "56e23ceb7e1544f0a8f1f50154403ac2",
+    "namespace": "14d712e338ee4fe5b5304d959cd75cd2",
+    "title": "Spelldrifter",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/salesEvent/salesEvent/EGS_Spelldrifter_FreeRangeGames_S1_2560x1440-352ef2771d0e47b849b948dc1299214c"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/56e23ceb7e1544f0a8f1f50154403ac2-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "cea01263911a4e179a5e3892ef710930": {
+   "435f086b9e2e4da9882d36585cd998c5": {
+    "id": "435f086b9e2e4da9882d36585cd998c5",
+    "namespace": "cea01263911a4e179a5e3892ef710930",
+    "title": "Dodo Peak",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/f12a1b6884a4432dbd042e98a7eda29c/dodo-peak-1ckvr.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/435f086b9e2e4da9882d36585cd998c5-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "277788d421e748e580ca0972c339f1a6": {
+   "8360037803f94fca8bbfcf74ee49571f": {
+    "id": "8360037803f94fca8bbfcf74ee49571f",
+    "namespace": "277788d421e748e580ca0972c339f1a6",
+    "title": "Warpips",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/581b8af82db34e5c98f5dae3ed5b9904/warpips-offer-1bit9.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/8360037803f94fca8bbfcf74ee49571f-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "615a4dc5c85c4c28a390dda4298acd80": {
+   "144f7dd94c37467dbfaa47a55855d9e1": {
+    "id": "144f7dd94c37467dbfaa47a55855d9e1",
+    "namespace": "615a4dc5c85c4c28a390dda4298acd80",
+    "title": "Recipe for Disaster",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/83ddef361d0c45c2bef72e07c2a5f567/recipe-for-disaster-offer-35txi.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/144f7dd94c37467dbfaa47a55855d9e1-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "9f101e25b1a9427a9e6971d2b21c5f82": {
+   "cc3ef6c189f64abc8b6930b1fbcdbd5c": {
+    "id": "cc3ef6c189f64abc8b6930b1fbcdbd5c",
+    "namespace": "9f101e25b1a9427a9e6971d2b21c5f82",
+    "title": "《Rise of Industry》",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/a6aeec29591b4b56b4383b4d2d7d0e1e/rise-of-industry-offer-41jv7.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/cc3ef6c189f64abc8b6930b1fbcdbd5c-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "eca9a86adffa4605b8250d383fc01098": {
+   "9ee12f049a214208afb3236018bcc168": {
+    "id": "9ee12f049a214208afb3236018bcc168",
+    "namespace": "eca9a86adffa4605b8250d383fc01098",
+    "title": "Deceive Inc",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/item/eca9a86adffa4605b8250d383fc01098/EGS_DeceiveInc_SweetBanditsStudios_S1_2560x1440-3a1e885fd642564a44875bf005d8ffb3"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/9ee12f049a214208afb3236018bcc168-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "ee9fad7056a94957b3a4d8c457000337": {
+   "9335e563c3b24fe9bad3a935f3ef5546": {
+    "id": "9335e563c3b24fe9bad3a935f3ef5546",
+    "namespace": "ee9fad7056a94957b3a4d8c457000337",
+    "title": "20 Minutes Till Dawn",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/e35e2b0c2411423fb6cd97c1dda51e07/20-minutes-till-dawn-1bfkm.png"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/9335e563c3b24fe9bad3a935f3ef5546-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "ca4058f18b0a4a9e9e2ccc28f7f33000": {
+   "8f328dced20e41d29b6f1fceed8f2164": {
+    "id": "8f328dced20e41d29b6f1fceed8f2164",
+    "namespace": "ca4058f18b0a4a9e9e2ccc28f7f33000",
+    "title": "Kingdom Come Deliverance",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/88801317bf794eaba96d893fa7d0c5c3/kingdom-come-deliverance-18n42.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/8f328dced20e41d29b6f1fceed8f2164-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "50118b7f954e450f8823df1614b24e80": {
+   "38ec4849ea4f4de6aa7b6fb0f2d278e1": {
+    "id": "38ec4849ea4f4de6aa7b6fb0f2d278e1",
+    "namespace": "50118b7f954e450f8823df1614b24e80",
+    "title": "糖豆人",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/item/50118b7f954e450f8823df1614b24e80/FGSS04_KeyArt_OfferImageLandscape_2560x1440_2560x1440-89c8edd4ffe307f5d760f286a28c3404"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/38ec4849ea4f4de6aa7b6fb0f2d278e1-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "87c84bc5f43d4fe69ad8f3ccde0594b0": {
+   "341b8e920c0d401d98be61a26b78b08c": {
+    "id": "341b8e920c0d401d98be61a26b78b08c",
+    "namespace": "87c84bc5f43d4fe69ad8f3ccde0594b0",
+    "title": "Dishonored®: Death of the Outsider™",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/item/87c84bc5f43d4fe69ad8f3ccde0594b0/EGS_DishonoredDeathoftheOutsider_ArkaneStudios_S1_2560x1440-7384b1e04742564e240e5e92722f82d6"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/341b8e920c0d401d98be61a26b78b08c-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "4a681a809a094e2c8dcc68353c68fed6": {
+   "59fdf842adb843c1a07d714c410e107d": {
+    "id": "59fdf842adb843c1a07d714c410e107d",
+    "namespace": "4a681a809a094e2c8dcc68353c68fed6",
+    "title": "《Astro Duel 2》",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/3251b927449a471c883aab00c076d63c/astro-duel-2-1y34f.png"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/59fdf842adb843c1a07d714c410e107d-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "308cbcb523ad4937a8c509d10e9b688a": {
+   "5072135b902d472891107c66d12116b0": {
+    "id": "5072135b902d472891107c66d12116b0",
+    "namespace": "308cbcb523ad4937a8c509d10e9b688a",
+    "title": "Farming Simulator 22",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/salesEvent/salesEvent/c93edfff-e8d3-4c0d-855b-03f44f1d9cd3_2560x1440-79fcb25480b4c1faf67a97207b97b7e2"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/5072135b902d472891107c66d12116b0-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "0f58cd1c026441f49371d663a710fe83": {
+   "fd06338c5faa41968d6130b4927e3e17": {
+    "id": "fd06338c5faa41968d6130b4927e3e17",
+    "namespace": "0f58cd1c026441f49371d663a710fe83",
+    "title": "Out of Line",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt/a3e7bc84-0d67-4f60-a62e-a183cafae823/out-of-line-offer-4a5df3c7.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/fd06338c5faa41968d6130b4927e3e17-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "456d95ca54814c8d98db2f52346ff5de": {
+   "4e76076db8e7438ba1cff559f71bc4be": {
+    "id": "4e76076db8e7438ba1cff559f71bc4be",
+    "namespace": "456d95ca54814c8d98db2f52346ff5de",
+    "title": "The Dungeon Of Naheulbeuk: The Amulet Of Chaos",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/456d95ca54814c8d98db2f52346ff5de/item/EGS_TheDungeonOfNaheulbeukTheAmuletOfChaos_ArtefactsStudio_S1-2560x1440-b9f0201b134b1a6a57fe46bc43fdf859.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/4e76076db8e7438ba1cff559f71bc4be-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "a0c5d9d8a9a940e8a8f63118c7323210": {
+   "ba2934e0e75a4f9193cac4107d5ea904": {
+    "id": "ba2934e0e75a4f9193cac4107d5ea904",
+    "namespace": "a0c5d9d8a9a940e8a8f63118c7323210",
+    "title": "Murder by Numbers",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/a0c5d9d8a9a940e8a8f63118c7323210/item/EGS_MurderbyNumbers_Mediatonic_S1-2560x1440-c20572a6efa8b71deac98ce598f1fc6c.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/ba2934e0e75a4f9193cac4107d5ea904-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "ad43401ad02840c2b2bee5f1f1a59988": {
+   "6bb8533f10c84c49946d32727690c3e1": {
+    "id": "6bb8533f10c84c49946d32727690c3e1",
+    "namespace": "ad43401ad02840c2b2bee5f1f1a59988",
+    "title": "Q.U.B.E. 10th Anniversary",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/da63fc81ff4b4226af6afda82c0aec3a/qube-10th-anniversary-offer-85ncl.png"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/6bb8533f10c84c49946d32727690c3e1-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "0d23bb77ee2f45b7a571bde68caddb09": {
+   "d5326cb42d704158bab2dc1629295838": {
+    "id": "d5326cb42d704158bab2dc1629295838",
+    "namespace": "0d23bb77ee2f45b7a571bde68caddb09",
+    "title": "Saints Row",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/salesEvent/salesEvent/EGS_SaintsRow_DeepSilverVolition_S1_2560x1440-1ba560d3f228fe5c7341777a6ac9abb7"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/d5326cb42d704158bab2dc1629295838-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "0d89655f53884b09b241b60c07e684af": {
+   "c8e3c334b682458a8489cfa06063d7f6": {
+    "id": "c8e3c334b682458a8489cfa06063d7f6",
+    "namespace": "0d89655f53884b09b241b60c07e684af",
+    "title": "Warhammer 40,000: Gladius - Relics of War",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/0d89655f53884b09b241b60c07e684af/item/EGS_Warhammer40000GladiusRelicsofWar_ProxyStudios_S1-2560x1440-961653d760b7d41a65a0c268be581870.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/c8e3c334b682458a8489cfa06063d7f6-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "e33138cc2b964d38a42a812b83b6507e": {
+   "6b06cffad08e4f47a8200e06e7fe6101": {
+    "id": "6b06cffad08e4f47a8200e06e7fe6101",
+    "namespace": "e33138cc2b964d38a42a812b83b6507e",
+    "title": "《City of Gangsters》",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/148df842b2b14082be6b004f59a2765b/city-of-gangsters-offer-1b4a7.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/6b06cffad08e4f47a8200e06e7fe6101-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "428115def4ca4deea9d69c99c5a5a99e": {
+   "06bd477f9fbe4259a1421fb3f559aa46": {
+    "id": "06bd477f9fbe4259a1421fb3f559aa46",
+    "namespace": "428115def4ca4deea9d69c99c5a5a99e",
+    "title": "Destiny 2",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/item/428115def4ca4deea9d69c99c5a5a99e/EN_Bungie_D2Evergreen_OfferLandscape_S1_2560x1440_2560x1440-3dff3d8ed94a40cda03c82f63c97e941"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/06bd477f9fbe4259a1421fb3f559aa46-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "71e6bd85af1841f598526da595f22a62": {
+   "dff2626bd13b457387875f9ba12f3309": {
+    "id": "dff2626bd13b457387875f9ba12f3309",
+    "namespace": "71e6bd85af1841f598526da595f22a62",
+    "title": "HOT WHEELS UNLEASHED™",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/salesEvent/salesEvent/EGS_HOTWHEELSUNLEASHED_MilestoneSrl_S1_2560x1440-fcf8a60bb23c64a7f3d0b2ce81334087"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/dff2626bd13b457387875f9ba12f3309-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "ea73c08ac633414584e281f838b3a78c": {
+   "c7397d2fcea94f0babca92475f52bbe3": {
+    "id": "c7397d2fcea94f0babca92475f52bbe3",
+    "namespace": "ea73c08ac633414584e281f838b3a78c",
+    "title": "Marvel's Midnight Suns",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/item/ea73c08ac633414584e281f838b3a78c/EGS_MarvelsMidnightSuns_FiraxisGames_S1_2560x1440-2f3d597f3afd9e9fd4cea1df3394705e"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/c7397d2fcea94f0babca92475f52bbe3-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "cb8afc06acb14f6a8cf3ab01f4b361ce": {
+   "055dcd4c95a54ff58edb145ddbec3e3e": {
+    "id": "055dcd4c95a54ff58edb145ddbec3e3e",
+    "namespace": "cb8afc06acb14f6a8cf3ab01f4b361ce",
+    "title": "Soulstice",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/item/cb8afc06acb14f6a8cf3ab01f4b361ce/EGS_Soulstice_ReplyGameStudios_S1_2560x1440-dd33485a66a99704353c5ab09183612d"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/055dcd4c95a54ff58edb145ddbec3e3e-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "basil": {
+   "26734c6c01984fd882d72a18e81df681": {
+    "id": "26734c6c01984fd882d72a18e81df681",
+    "namespace": "basil",
+    "title": "Human Resource Machine",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/item/basil/EGS_HumanResourceMachine_TomorrowCorporation_S1_2560x1440-ea1281073444d2f46978ebe18b69f54a"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/26734c6c01984fd882d72a18e81df681-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "1c943de0163f4f0982f34dc0fc37dce9": {
+   "748e5691a85a4158b3da33faabb37e43": {
+    "id": "748e5691a85a4158b3da33faabb37e43",
+    "namespace": "1c943de0163f4f0982f34dc0fc37dce9",
+    "title": "Eximius: Seize the Frontline",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/7d154d418a91400db2611275df5837d1/eximius-seize-the-frontline-1psvl.png"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/748e5691a85a4158b3da33faabb37e43-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "d93cf08971eb4920862a95870a051f81": {
+   "e34731008ad54f77927bd837e5547a40": {
+    "id": "e34731008ad54f77927bd837e5547a40",
+    "namespace": "d93cf08971eb4920862a95870a051f81",
+    "title": "Sail Forth",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/bf6f7c896b214dd891aa10debb6fbf50/sail-forth-1j7du.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/e34731008ad54f77927bd837e5547a40-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "bd9fd28ca1214868922f2ab41d6d3b65": {
+   "c17465f604fe411a8dca86089cd68898": {
+    "id": "c17465f604fe411a8dca86089cd68898",
+    "namespace": "bd9fd28ca1214868922f2ab41d6d3b65",
+    "title": "Beyond Blue",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/bd9fd28ca1214868922f2ab41d6d3b65/item/EGS_BeyondBlue_ELineMedia_S1-2560x1440-5d205f1273f6b805db82bc525a1432b9.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/c17465f604fe411a8dca86089cd68898-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "moose": {
+   "e42eca8e2aeb48da9ccc5d5ecc212b62": {
+    "id": "e42eca8e2aeb48da9ccc5d5ecc212b62",
+    "namespace": "moose",
+    "title": "Super Meat Boy Forever",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/moose/item/EGS_SuperMeatBoyForever_TeamMeat_S5-1920x1080-9929c76d5f016bb9046fe90b9e897cb4.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/e42eca8e2aeb48da9ccc5d5ecc212b62-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "ac98aa34584648f2b71152e509191c1c": {
+   "fe90738ef51c4da39fb9efc8720b6a5a": {
+    "id": "fe90738ef51c4da39fb9efc8720b6a5a",
+    "namespace": "ac98aa34584648f2b71152e509191c1c",
+    "title": "Dakar Desert Rally",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/item/ac98aa34584648f2b71152e509191c1c/dakarwide_2560x1440-ffccd2b231c717b9e1e7cd10049f84aa"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/fe90738ef51c4da39fb9efc8720b6a5a-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "6a8dfa6e441e4f2f9048a98776c6077d": {
+   "49c4bf5c6fd24259b87d0bcc96b6009f": {
+    "id": "49c4bf5c6fd24259b87d0bcc96b6009f",
+    "namespace": "6a8dfa6e441e4f2f9048a98776c6077d",
+    "title": "Bloons TD 6",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/764b2d57552c436590f50318bd7587f9/bloons-td-6-offer-rh3dk.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/49c4bf5c6fd24259b87d0bcc96b6009f-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "5e427319eea1401ab20c6cd78a4163c4": {
+   "7af64df31e274da5b78adbb056c9ebed": {
+    "id": "7af64df31e274da5b78adbb056c9ebed",
+    "namespace": "5e427319eea1401ab20c6cd78a4163c4",
+    "title": "Call of the Sea",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/salesEvent/salesEvent/EGS_CalloftheSea_OutoftheBlue_S1_2560x1440-204699c6410deef9c18be0ee392f8335"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/7af64df31e274da5b78adbb056c9ebed-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "ff8c96d781824ba1ae62d18d207fc52e": {
+   "9b106e9bf35d4a7e8cefa750bd26e759": {
+    "id": "9b106e9bf35d4a7e8cefa750bd26e759",
+    "namespace": "ff8c96d781824ba1ae62d18d207fc52e",
+    "title": "Mortal Shell",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/salesEvent/salesEvent/066a34b0-e1dc-4eee-87f9-42b95d5238c6_2560x1440-60b72b7b1479ebafc188502d441c3ee5"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/9b106e9bf35d4a7e8cefa750bd26e759-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   },
+   "f261a461e9224e09a4f888e19a3b633b": {
+    "id": "f261a461e9224e09a4f888e19a3b633b",
+    "namespace": "ff8c96d781824ba1ae62d18d207fc52e",
+    "title": "Mortal Shell Tech Beta",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn1.epicgames.com/ff8c96d781824ba1ae62d18d207fc52e/item/TechBeta_1200x1600-1200x1600-113ba096440a48a88826d4d219a786ad.png"
+     },
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn.example/f261a461e9224e09a4f888e19a3b633b-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "jackal": {
+   "2f415248cb524eaf950a16e55d315dac": {
+    "id": "2f415248cb524eaf950a16e55d315dac",
+    "namespace": "jackal",
+    "title": "Dauntless",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn1.epicgames.com/item/jackal/EGS_LIVEFORTHEHUNT_PhoenixLabs_S2_1200x1600-c3cef99deb57ca1b8cc50a33b3fe7fc7"
+     },
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn.example/2f415248cb524eaf950a16e55d315dac-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "78683b0edafd4a978a5ab61a7f6b0594": {
+   "d4220f91bb3046a49c2cedd2a8101243": {
+    "id": "d4220f91bb3046a49c2cedd2a8101243",
+    "namespace": "78683b0edafd4a978a5ab61a7f6b0594",
+    "title": "Tunche",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/salesEvent/salesEvent/EGS_Tunche_LeapGameStudios_S1_2560x1440-1f0c9b8e43a9525d762ed823a05f19ca"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/d4220f91bb3046a49c2cedd2a8101243-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "253d451b16364a22907dd01b7e928fb6": {
+   "54ff4322184a4c3086ee6da0a2d20f79": {
+    "id": "54ff4322184a4c3086ee6da0a2d20f79",
+    "namespace": "253d451b16364a22907dd01b7e928fb6",
+    "title": "Horizon Chase Turbo",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/salesEvent/salesEvent/EGS_HorizonChaseTurbo_AQUIRIS_S1_2560x1440-1e6041993df289505da364dfe77dd561"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/54ff4322184a4c3086ee6da0a2d20f79-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "a940fa38f001486a9884640924119576": {
+   "f3ac42b603f546ccbd0f0240ba120143": {
+    "id": "f3ac42b603f546ccbd0f0240ba120143",
+    "namespace": "a940fa38f001486a9884640924119576",
+    "title": "Astrea Six Sided Oracles",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/4515173972ae4444a2582bc690c150bd/astrea-six-sided-oracles-offer-1l6ev.png"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/f3ac42b603f546ccbd0f0240ba120143-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "efc30c2078a2499ab979d198255e2e4b": {
+   "1cb5e018771c43ee96aa553b450e9f95": {
+    "id": "1cb5e018771c43ee96aa553b450e9f95",
+    "namespace": "efc30c2078a2499ab979d198255e2e4b",
+    "title": "《Snakebird Complete》",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/8ecb2895d94f4c64a743c1c4f056743f/snakebird-complete-rgtd7.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/1cb5e018771c43ee96aa553b450e9f95-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "1d6b5762a1d643a4830481c44d59abfb": {
+   "b55e326929b44a7b913693ea8ae79d00": {
+    "id": "b55e326929b44a7b913693ea8ae79d00",
+    "namespace": "1d6b5762a1d643a4830481c44d59abfb",
+    "title": "The Lord of The Rings: Return to Moria™",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/2ae760629a384d5199cbefc612db7ac8/the-lord-of-the-rings-return-to-moria-tcss2.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/b55e326929b44a7b913693ea8ae79d00-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "2cdc5a2758a6445d8d4f399ecb469aaf": {
+   "b8c897b0f6ff46ca857f422dab301832": {
+    "id": "b8c897b0f6ff46ca857f422dab301832",
+    "namespace": "2cdc5a2758a6445d8d4f399ecb469aaf",
+    "title": "《Cursed to Golf》",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "OfferImageWide",
+      "url": "https://cdn1.epicgames.com/spt-assets/a323e5521a98467dbbd24aa9bb3ee9a4/cursed-to-golf-offer-zln8n.png"
+     },
+     {
+      "type": "OfferImageTall",
+      "url": "https://cdn.example/b8c897b0f6ff46ca857f422dab301832-1.jpg"
+     },
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn.example/b8c897b0f6ff46ca857f422dab301832-2.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/b8c897b0f6ff46ca857f422dab301832-3.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "2a14cf8a83b149919a2399504e5686a6": {
+   "52a1bd5e5a7240269b8514ff94db8f54": {
+    "id": "52a1bd5e5a7240269b8514ff94db8f54",
+    "namespace": "2a14cf8a83b149919a2399504e5686a6",
+    "title": "The Sims™ 4",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/item/2a14cf8a83b149919a2399504e5686a6/EGS_TheSims4_Maxis_S1_2560x1440-330b00849edfdacc61578d1486f47b31"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/52a1bd5e5a7240269b8514ff94db8f54-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "d923c737f0d243ccab407605ea40d39e": {
+   "d173657a4a504d9eb5a10c53c4626f29": {
+    "id": "d173657a4a504d9eb5a10c53c4626f29",
+    "namespace": "d923c737f0d243ccab407605ea40d39e",
+    "title": "911 Operator",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/c06cc46c27954f55974e9e7a4f3b3849/911-operator-22ohi.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/d173657a4a504d9eb5a10c53c4626f29-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "964f58c4c2074404bf9c359483ab1a48": {
+   "c8ce15a561cc480e9c43c3297e80c90c": {
+    "id": "c8ce15a561cc480e9c43c3297e80c90c",
+    "namespace": "964f58c4c2074404bf9c359483ab1a48",
+    "title": "Midnight Ghost Hunt",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/item/964f58c4c2074404bf9c359483ab1a48/EGS_MidnightGhostHunt_VaultedSkyGames_S1_2560x1440-05551e661e36a253a7ecd4ead27b58bc"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/c8ce15a561cc480e9c43c3297e80c90c-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "23499f64e5304139b514c3e674c5c0d6": {
+   "1f3ac7f08a3845c18ffd16bc20f5649f": {
+    "id": "1f3ac7f08a3845c18ffd16bc20f5649f",
+    "namespace": "23499f64e5304139b514c3e674c5c0d6",
+    "title": "Model Builder: The Invincible Helmet",
+    "mainGameItem": {
+     "id": "b3dde22db4e14b4cb644271f02038e25"
+    },
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/7472ec268e344e77a85e95976c0ffc6d/model-builder-1rd6v.png"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/1f3ac7f08a3845c18ffd16bc20f5649f-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   },
+   "fe35d875265c4698ad5ef1efd66183d1": {
+    "id": "fe35d875265c4698ad5ef1efd66183d1",
+    "namespace": "23499f64e5304139b514c3e674c5c0d6",
+    "title": "Model Builder: Expansion Pack no.1",
+    "mainGameItem": {
+     "id": "b3dde22db4e14b4cb644271f02038e25"
+    },
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/7472ec268e344e77a85e95976c0ffc6d/model-builder-11qhf.png"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/fe35d875265c4698ad5ef1efd66183d1-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   },
+   "91cdc33a1d944e3983693e6d3af16d96": {
+    "id": "91cdc33a1d944e3983693e6d3af16d96",
+    "namespace": "23499f64e5304139b514c3e674c5c0d6",
+    "title": "Model Builder: Titan-Forge DLC no.2",
+    "mainGameItem": {
+     "id": "b3dde22db4e14b4cb644271f02038e25"
+    },
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/7472ec268e344e77a85e95976c0ffc6d/model-builder-1423k.png"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/91cdc33a1d944e3983693e6d3af16d96-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   },
+   "aeffbc8710e4472a867a6bba6ad5b687": {
+    "id": "aeffbc8710e4472a867a6bba6ad5b687",
+    "namespace": "23499f64e5304139b514c3e674c5c0d6",
+    "title": "Model Builder: Frostpunk DLC",
+    "mainGameItem": {
+     "id": "b3dde22db4e14b4cb644271f02038e25"
+    },
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/7472ec268e344e77a85e95976c0ffc6d/model-builder-9u7e8.png"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/aeffbc8710e4472a867a6bba6ad5b687-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   },
+   "c5d553e831a548ccacd7334998cd2e17": {
+    "id": "c5d553e831a548ccacd7334998cd2e17",
+    "namespace": "23499f64e5304139b514c3e674c5c0d6",
+    "title": "Model Builder: Aether DLC",
+    "mainGameItem": {
+     "id": "b3dde22db4e14b4cb644271f02038e25"
+    },
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/7472ec268e344e77a85e95976c0ffc6d/model-builder-14ih8.png"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/c5d553e831a548ccacd7334998cd2e17-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   },
+   "5e51bb450ffa442483a686f4a9b3a8f4": {
+    "id": "5e51bb450ffa442483a686f4a9b3a8f4",
+    "namespace": "23499f64e5304139b514c3e674c5c0d6",
+    "title": "Model Builder: Cars Pack DLC",
+    "mainGameItem": {
+     "id": "b3dde22db4e14b4cb644271f02038e25"
+    },
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/7472ec268e344e77a85e95976c0ffc6d/model-builder-1qotp.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/5e51bb450ffa442483a686f4a9b3a8f4-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   },
+   "b3dde22db4e14b4cb644271f02038e25": {
+    "id": "b3dde22db4e14b4cb644271f02038e25",
+    "namespace": "23499f64e5304139b514c3e674c5c0d6",
+    "title": "Model Builder: Complete Edition",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/7472ec268e344e77a85e95976c0ffc6d/model-builder-9z2bz.png"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/b3dde22db4e14b4cb644271f02038e25-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   },
+   "b317c844b85b4ef087f4f7b92cdcaad5": {
+    "id": "b317c844b85b4ef087f4f7b92cdcaad5",
+    "namespace": "23499f64e5304139b514c3e674c5c0d6",
+    "title": "Model Builder: Into The Stars DLC",
+    "mainGameItem": {
+     "id": "b3dde22db4e14b4cb644271f02038e25"
+    },
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/7472ec268e344e77a85e95976c0ffc6d/model-builder-1fzsc.png"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/b317c844b85b4ef087f4f7b92cdcaad5-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   },
+   "baa5252ae48e48aea6a649cfc5253012": {
+    "id": "baa5252ae48e48aea6a649cfc5253012",
+    "namespace": "23499f64e5304139b514c3e674c5c0d6",
+    "title": "Model Builder: Military Pack DLC",
+    "mainGameItem": {
+     "id": "b3dde22db4e14b4cb644271f02038e25"
+    },
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/7472ec268e344e77a85e95976c0ffc6d/model-builder-11i6n.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/baa5252ae48e48aea6a649cfc5253012-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   },
+   "a004546d145b4173b9da5ce8594eef05": {
+    "id": "a004546d145b4173b9da5ce8594eef05",
+    "namespace": "23499f64e5304139b514c3e674c5c0d6",
+    "title": "Model Builder: Alaskan Road Truckers DLC",
+    "mainGameItem": {
+     "id": "b3dde22db4e14b4cb644271f02038e25"
+    },
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/7472ec268e344e77a85e95976c0ffc6d/model-builder-3hp1n.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/a004546d145b4173b9da5ce8594eef05-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   },
+   "1505d7fab80143bfb3458228e9a8d17e": {
+    "id": "1505d7fab80143bfb3458228e9a8d17e",
+    "namespace": "23499f64e5304139b514c3e674c5c0d6",
+    "title": "Model Builder: Titan-Forge DLC no.1",
+    "mainGameItem": {
+     "id": "b3dde22db4e14b4cb644271f02038e25"
+    },
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/7472ec268e344e77a85e95976c0ffc6d/model-builder-1kk1a.png"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/1505d7fab80143bfb3458228e9a8d17e-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "2b09519576cb4276bfd8df52f5288e4a": {
+   "5fee571eae9d43e798ea022d632232fa": {
+    "id": "5fee571eae9d43e798ea022d632232fa",
+    "namespace": "2b09519576cb4276bfd8df52f5288e4a",
+    "title": "Bus Simulator 21 Next Stop",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/item/2b09519576cb4276bfd8df52f5288e4a/EGS_BusSimulator21NextStop_stillalivestudios_S1_2560x1440-ae24be3577061e1b8f850fffe2e5b3a8"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/5fee571eae9d43e798ea022d632232fa-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "75d74aeb36024d95b8a30bad40dc19c3": {
+   "f39049d62f8e4db5ab307453983213d0": {
+    "id": "f39049d62f8e4db5ab307453983213d0",
+    "namespace": "75d74aeb36024d95b8a30bad40dc19c3",
+    "title": "《荒野的召唤：垂钓者™》",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/item/75d74aeb36024d95b8a30bad40dc19c3/EGS_CalloftheWildTheAngler_ExpansiveWorlds_S1_2560x1440-1cbd50dac3db204690de80ff6d154fc7"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/f39049d62f8e4db5ab307453983213d0-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "a93cd6111251461c953776a0c4ea4d80": {
+   "d0083c0713b140709d92ac02b179cbf2": {
+    "id": "d0083c0713b140709d92ac02b179cbf2",
+    "namespace": "a93cd6111251461c953776a0c4ea4d80",
+    "title": "Ghostwire Tokyo",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/item/a93cd6111251461c953776a0c4ea4d80/ghostwire_wide_2560x1440-4bc1a83c819408d33e29e61f1a9d66e4"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/d0083c0713b140709d92ac02b179cbf2-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "ca0530b485754032be50cb6f27be0c2c": {
+   "84686da593b24598803ffbe7f9b1bb5e": {
+    "id": "84686da593b24598803ffbe7f9b1bb5e",
+    "namespace": "ca0530b485754032be50cb6f27be0c2c",
+    "title": "Kerbal Space Program",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/item/ca0530b485754032be50cb6f27be0c2c/EGS_KerbalSpaceProgram_Squad_S1_2560x1440-380681e19358cb3d1e1162ce755e5e01"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/84686da593b24598803ffbe7f9b1bb5e-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "b7b42e2078524ab386a8b2a9856ef557": {
+   "c80a76de890145edbe0d41679dbccc66": {
+    "id": "c80a76de890145edbe0d41679dbccc66",
+    "namespace": "b7b42e2078524ab386a8b2a9856ef557",
+    "title": "Sifu",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/item/b7b42e2078524ab386a8b2a9856ef557/EGS_SIFUStandardEdition_Sloclap_G1A_03_1920x1080-1df3ab45b895adfee06b011673df20aa_1920x1080-1df3ab45b895adfee06b011673df20aa"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/c80a76de890145edbe0d41679dbccc66-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "affc33b82405457595a032f00284abd2": {
+   "b51279fe75d841dd9a0dcb1a1b85bf4b": {
+    "id": "b51279fe75d841dd9a0dcb1a1b85bf4b",
+    "namespace": "affc33b82405457595a032f00284abd2",
+    "title": "Killing Floor 2",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/item/affc33b82405457595a032f00284abd2/EGS_KillingFloor2_TripwireInteractive_S1_2560x1440-644173a0251b030bd2612e8f33b800d5"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/b51279fe75d841dd9a0dcb1a1b85bf4b-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   },
+   "cfebb3c4f1d84ded8d7cda5350d1f8b8": {
+    "id": "cfebb3c4f1d84ded8d7cda5350d1f8b8",
+    "namespace": "affc33b82405457595a032f00284abd2",
+    "title": "KillingFloor2Beta",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn1.epicgames.com/affc33b82405457595a032f00284abd2/item/KF2_EGS_BETA_860x1148-860x1148-748b4d090c25c8a0010c99a4702728f1.jpg"
+     },
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn.example/cfebb3c4f1d84ded8d7cda5350d1f8b8-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "25b5ab5928784a74a502f6a84bb8b49f": {
+   "bd12aa292a6b401286908fe1fa312f83": {
+    "id": "bd12aa292a6b401286908fe1fa312f83",
+    "namespace": "25b5ab5928784a74a502f6a84bb8b49f",
+    "title": "阴暗森林 Darkwood",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/f98517036ab5480ebd9c68d7249188b4/darkwood-1h2pi.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/bd12aa292a6b401286908fe1fa312f83-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "27aa2ebdcda14b3bb8a669aab73ca55f": {
+   "b9e3c7e855044cbb82c82ea939241db7": {
+    "id": "b9e3c7e855044cbb82c82ea939241db7",
+    "namespace": "27aa2ebdcda14b3bb8a669aab73ca55f",
+    "title": "The Elder Scrolls Online",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/item/27aa2ebdcda14b3bb8a669aab73ca55f/ESO_SeasonOne_EGS_2560x1440-ZHCN-01_2560x1440-c1c9cd16155d4555b62374abf433a487"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/b9e3c7e855044cbb82c82ea939241db7-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "708f57aaa04b42ef885be16c8288f0ac": {
+   "d303a92b6c4d4e25808a92a0a9ca3950": {
+    "id": "d303a92b6c4d4e25808a92a0a9ca3950",
+    "namespace": "708f57aaa04b42ef885be16c8288f0ac",
+    "title": "《幽灵行者 2》",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/item/708f57aaa04b42ef885be16c8288f0ac/SC_Ghostrunner2_Landscape_Image_2560X1440_2560x1440-5590f7a76614dd9c15d6adca1691b9c9"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/d303a92b6c4d4e25808a92a0a9ca3950-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "ca05bd340e84436ebea4a0c0ca55befa": {
+   "3ac2d869235f4a2bb93090b95c1dc1c3": {
+    "id": "3ac2d869235f4a2bb93090b95c1dc1c3",
+    "namespace": "ca05bd340e84436ebea4a0c0ca55befa",
+    "title": "Golden Light",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/d3aec59bfafa4dd392d5c9b01abbaefd/golden-light-yknj4.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/3ac2d869235f4a2bb93090b95c1dc1c3-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "7e508f543b05465abe3a935960eb70ac": {
+   "48353a502e72433298f25827e03dbff0": {
+    "id": "48353a502e72433298f25827e03dbff0",
+    "namespace": "7e508f543b05465abe3a935960eb70ac",
+    "title": "《Idle Champions of the Forgotten Realms》",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/a53f91e55c6840018cb5de0b204f1ad9/idle-champions-of-the-forgotten-realms-6efev.png"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/48353a502e72433298f25827e03dbff0-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "766e1b59c32c447093add5efbc1a4858": {
+   "19884196ffca4ad0b56486a76773e5f9": {
+    "id": "19884196ffca4ad0b56486a76773e5f9",
+    "namespace": "766e1b59c32c447093add5efbc1a4858",
+    "title": "Dishonored - Definitive Edition",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/salesEvent/salesEvent/EGS_DishonoredDefinitiveEdition_ArkaneStudios_S1_2560x1440-172cba030b0261550b46b6c1224330bf"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/19884196ffca4ad0b56486a76773e5f9-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "040baa2d100d465caf428c688cc3cdba": {
+   "ddcae2cac7f94a5e9f19e8f7a24b4878": {
+    "id": "ddcae2cac7f94a5e9f19e8f7a24b4878",
+    "namespace": "040baa2d100d465caf428c688cc3cdba",
+    "title": "Escape Academy",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/9da72b3af32d4818b502369a4aac5aac/escape-academy-1l7j8.png"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/ddcae2cac7f94a5e9f19e8f7a24b4878-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "0e76e53e157d416ab598342ed3a9dd5a": {
+   "e7873d67c5f14949978e44306867cfc8": {
+    "id": "e7873d67c5f14949978e44306867cfc8",
+    "namespace": "0e76e53e157d416ab598342ed3a9dd5a",
+    "title": "RPG in a Box",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn1.epicgames.com/item/0e76e53e157d416ab598342ed3a9dd5a/EGS_RPGinaBox_JustinArnold_S2_1200x1600-77054810be32436e93e256f917206da9"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "b13f6a1e5121469d8a825947b759339d": {
+   "40c4367909484809909f6c1e82e2023f": {
+    "id": "40c4367909484809909f6c1e82e2023f",
+    "namespace": "b13f6a1e5121469d8a825947b759339d",
+    "title": "Never Alone (Kisima Ingitchuna)",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/item/b13f6a1e5121469d8a825947b759339d/EGS_NeverAloneKisimaIngitchuna_UpperOneGamesELineMedia_S1_2560x1440-97a1d9c3e47e439ea05e900feaa4a892"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/40c4367909484809909f6c1e82e2023f-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "9696e0c7c26841789a152588c744d506": {
+   "f1599d3f6e494642a88242bec0d3d838": {
+    "id": "f1599d3f6e494642a88242bec0d3d838",
+    "namespace": "9696e0c7c26841789a152588c744d506",
+    "title": "传奇商店",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/8ae16e8a55fa4f3897fa726a90dbd750/shop-titans-offer-1l459.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/f1599d3f6e494642a88242bec0d3d838-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "fn": {
+   "0b41f0192f7f4f2691684581aedc0778": {
+    "id": "0b41f0192f7f4f2691684581aedc0778",
+    "namespace": "fn",
+    "title": "《Fortnite守护家园》内容",
+    "mainGameItem": {
+     "id": "4fe75bbc5a674f4f9b356b5c90567da5"
+    },
+    "keyImages": [
+     {
+      "type": "OfferImageWide",
+      "url": "https://cdn1.epicgames.com/offer/fn/ZHCN-FNECO_40-20_Save-The-World_KeyArt_EGS_Launcher_Blade_2560x1440_2560x1440-7b08ecabf94d49f7a39ebcc80298bca6"
+     },
+     {
+      "type": "OfferImageTall",
+      "url": "https://cdn.example/0b41f0192f7f4f2691684581aedc0778-1.jpg"
+     },
+     {
+      "type": "Thumbnail",
+      "url": "https://cdn.example/0b41f0192f7f4f2691684581aedc0778-2.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   },
+   "b619cf61a4144d67bd753dc990637e7c": {
+    "id": "b619cf61a4144d67bd753dc990637e7c",
+    "namespace": "fn",
+    "title": "《乐高®Fortnite》内容",
+    "mainGameItem": {
+     "id": "4fe75bbc5a674f4f9b356b5c90567da5"
+    },
+    "keyImages": [
+     {
+      "type": "OfferImageTall",
+      "url": "https://cdn1.epicgames.com/offer/fn/FNJN_33-10_StormKing_EGS_Launcher_KeyArt_Blade_1200x1600_1200x1600-2fb11130402d4e9f9decddf08f55f519"
+     },
+     {
+      "type": "Thumbnail",
+      "url": "https://cdn.example/b619cf61a4144d67bd753dc990637e7c-1.jpg"
+     },
+     {
+      "type": "OfferImageWide",
+      "url": "https://cdn.example/b619cf61a4144d67bd753dc990637e7c-2.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   },
+   "4fe75bbc5a674f4f9b356b5c90567da5": {
+    "id": "4fe75bbc5a674f4f9b356b5c90567da5",
+    "namespace": "fn",
+    "title": "《Fortnite》",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "AndroidIcon",
+      "url": "https://cdn1.epicgames.com/item/fn/FNBR_42-30_Fortnitemares_Brainiac_Crop_Android_AppIcon_512x512_512x512-9f9e1779fff34ae7a3509b3c7cd45795"
+     },
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn.example/4fe75bbc5a674f4f9b356b5c90567da5-1.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/4fe75bbc5a674f4f9b356b5c90567da5-2.jpg"
+     },
+     {
+      "type": "Featured",
+      "url": "https://cdn.example/4fe75bbc5a674f4f9b356b5c90567da5-3.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "c03a3687567a4cf3910ea5ec7279664e": {
+   "4c0313f2f6b9409bb8974948c2dabcfc": {
+    "id": "4c0313f2f6b9409bb8974948c2dabcfc",
+    "namespace": "c03a3687567a4cf3910ea5ec7279664e",
+    "title": "Scourgebringer",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn1.epicgames.com/c03a3687567a4cf3910ea5ec7279664e/item/b3b676d2-3004-47db-b004-b0886cbefc16-1200x1600-ae53ef4bf4c28af8c253c043c35c78d1.jpg"
+     },
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn.example/4c0313f2f6b9409bb8974948c2dabcfc-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "900054606a74444badf56b2f2abd7c69": {
+   "6e159ce574a74cdcb537626b2b1b6807": {
+    "id": "6e159ce574a74cdcb537626b2b1b6807",
+    "namespace": "900054606a74444badf56b2f2abd7c69",
+    "title": "寂静之歌",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/717e784a701e49bba02e27f7774e966a/songs-of-silence-acb7y.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/6e159ce574a74cdcb537626b2b1b6807-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "wombat": {
+   "ec6ed5344a904ea78729113d80818d18": {
+    "id": "ec6ed5344a904ea78729113d80818d18",
+    "namespace": "wombat",
+    "title": "World War Z",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/item/wombat/landscapewwz-aftermath-1248x702_1248x702-43415cb8226261eba181a914f0bc85bc"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/ec6ed5344a904ea78729113d80818d18-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "7dee3ddeac7d427eb35def472be64d9c": {
+   "b9f16025674b4a4d93c30d666c3c9c9d": {
+    "id": "b9f16025674b4a4d93c30d666c3c9c9d",
+    "namespace": "7dee3ddeac7d427eb35def472be64d9c",
+    "title": "DEATHLOOP",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/item/7dee3ddeac7d427eb35def472be64d9c/EGS_DEATHLOOP_ArkaneStudios_S1_2560x1440-bf6d342edbd2411ccf24e326852fca93"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/b9f16025674b4a4d93c30d666c3c9c9d-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "e97659b501af4e3981d5430dad170911": {
+   "864c7bc2c2394f7dbd1b534aa068ff56": {
+    "id": "864c7bc2c2394f7dbd1b534aa068ff56",
+    "namespace": "e97659b501af4e3981d5430dad170911",
+    "title": "霍格沃茨之遗",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/item/e97659b501af4e3981d5430dad170911/EGS_HogwartsLegacy_AvalancheSoftware_S1_2560x1440-aa80981dd7c9b3f26b12606974a76dba"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/864c7bc2c2394f7dbd1b534aa068ff56-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "cfd5606247d5400480bb7dccec626f1a": {
+   "534237ea5aac4ea9973b916a0bf180bc": {
+    "id": "534237ea5aac4ea9973b916a0bf180bc",
+    "namespace": "cfd5606247d5400480bb7dccec626f1a",
+    "title": "Blood West",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/ea39630551474fdab17e71a31e1e9db5/blood-west-19z6t.png"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/534237ea5aac4ea9973b916a0bf180bc-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "8041f9a6e26348efaca2f7d28bb811ab": {
+   "a3a2dcc16c2f4d928c2bd1e412e198da": {
+    "id": "a3a2dcc16c2f4d928c2bd1e412e198da",
+    "namespace": "8041f9a6e26348efaca2f7d28bb811ab",
+    "title": "《Trine 2: Complete Story》",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/50b4d2b4f87d440997ebfbb3a1005dca/trine-2-complete-story-ikzws.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/a3a2dcc16c2f4d928c2bd1e412e198da-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "c4c7d3cd0a2f4ea2bf7d4a57e46e8d68": {
+   "cf7b858799184d94a2920426e728b2ed": {
+    "id": "cf7b858799184d94a2920426e728b2ed",
+    "namespace": "c4c7d3cd0a2f4ea2bf7d4a57e46e8d68",
+    "title": "Neko Ghost, Jump!",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/f2f1008125d14145a848fe58a6afc56c/brilliantrose-12swc.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/cf7b858799184d94a2920426e728b2ed-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "0bb1bf6df5784815a0c62120f8a82b25": {
+   "13092063f71b4331b488bbe22d0a083e": {
+    "id": "13092063f71b4331b488bbe22d0a083e",
+    "namespace": "0bb1bf6df5784815a0c62120f8a82b25",
+    "title": "Eternights",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/63c94a59a4b84942a5ea12a818ad13d0/eternights-offer-11r8i.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/13092063f71b4331b488bbe22d0a083e-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "c5f6069e7dd644dab009294f0fddc7a7": {
+   "93e3dd361ab14ee9919914fa1ae199a2": {
+    "id": "93e3dd361ab14ee9919914fa1ae199a2",
+    "namespace": "c5f6069e7dd644dab009294f0fddc7a7",
+    "title": "We Were Here Together",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/f24f7e149dc64df18f14dfab4f6dae4d/we-were-here-together-1ovvn.png"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/93e3dd361ab14ee9919914fa1ae199a2-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "0f3f352865294c3ea5e10454f24fde85": {
+   "6538249d5bc84eb69715c5ab78ca712d": {
+    "id": "6538249d5bc84eb69715c5ab78ca712d",
+    "namespace": "0f3f352865294c3ea5e10454f24fde85",
+    "title": "Garden Story",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/salesEvent/salesEvent/EGS_GardenStory_Picogram_S1_2560x1440-b1549cf6645f51ab0bacf6d73aa1631d"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/6538249d5bc84eb69715c5ab78ca712d-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "6a70006d598948bfa6c71ceb334ad635": {
+   "485ac991cae2480f9887daefb5c9bd48": {
+    "id": "485ac991cae2480f9887daefb5c9bd48",
+    "namespace": "6a70006d598948bfa6c71ceb334ad635",
+    "title": "3 out of 10, EP 5: \"The Rig Is Up!\"",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn1.epicgames.com/6a70006d598948bfa6c71ceb334ad635/item/EGS_3outof10EP5TheRigIsUp_TerriblePostureGamesInc_S2-1200x1600-230f1086d959795ef3df6ce69f915cc6.jpg"
+     },
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn.example/485ac991cae2480f9887daefb5c9bd48-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "6430e58041234e41b8f81f68f01450ed": {
+   "581c8d4fd9574884bff66cbdbaa42def": {
+    "id": "581c8d4fd9574884bff66cbdbaa42def",
+    "namespace": "6430e58041234e41b8f81f68f01450ed",
+    "title": "Hell Let Loose",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/0fac3450d5b24587a1d25b5c94676f99/hell-let-loose-qgzam.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/581c8d4fd9574884bff66cbdbaa42def-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "d06b51d350914826bfbbf7f8d1fed56f": {
+   "b4a56169dbf54207bc9cb58529f2a75a": {
+    "id": "b4a56169dbf54207bc9cb58529f2a75a",
+    "namespace": "d06b51d350914826bfbbf7f8d1fed56f",
+    "title": "无主星渊",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/66d8f537f1aa4636985ff868d51651eb/wildgate-1wpsu.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/b4a56169dbf54207bc9cb58529f2a75a-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "6b0541b5d9aa476cbf407643ab3b1d7d": {
+   "96571224db9a4dae8414e06050230e51": {
+    "id": "96571224db9a4dae8414e06050230e51",
+    "namespace": "6b0541b5d9aa476cbf407643ab3b1d7d",
+    "title": "The Callisto Protocol",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/item/6b0541b5d9aa476cbf407643ab3b1d7d/EGS_TheCallistoProtocol_StrikingDistanceStudios_S1_2560x1440-b99bb2275f932ed9beedefff5ced3baa"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/96571224db9a4dae8414e06050230e51-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "f4bbbc20a6b74295ac82b7c258739bff": {
+   "c647731680bf427ca0d3f9fa41e5fed4": {
+    "id": "c647731680bf427ca0d3f9fa41e5fed4",
+    "namespace": "f4bbbc20a6b74295ac82b7c258739bff",
+    "title": "3 out of 10, EP 3: \"Pivot Like A Champion\"",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/f4bbbc20a6b74295ac82b7c258739bff/item/EGS_3outof10EP3PivotLikeAChampion_TerriblePostureGamesInc_G1A_01-1920x1080-f7d8f80df28667c85ffd563d637ce18b.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/c647731680bf427ca0d3f9fa41e5fed4-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "35d137e3d82640ed9811d302e8067ecd": {
+   "76bb027fef044b2ea5e82d30b7335fed": {
+    "id": "76bb027fef044b2ea5e82d30b7335fed",
+    "namespace": "35d137e3d82640ed9811d302e8067ecd",
+    "title": "Zero Hour",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/24397552e51f404d8f89e93ed383d35a/zero-hour-1eeru.png"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/76bb027fef044b2ea5e82d30b7335fed-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "09f00180b25347bdb65ac0b7378756b7": {
+   "22f9ae4d7e9844ed82ace6d125e1ccf9": {
+    "id": "22f9ae4d7e9844ed82ace6d125e1ccf9",
+    "namespace": "09f00180b25347bdb65ac0b7378756b7",
+    "title": "Gigapocalypse",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/79460c9ca0ac41f1bff52983d803a2d7/gigapocalypse-yieit.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/22f9ae4d7e9844ed82ace6d125e1ccf9-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "85c72a063b884d249a554fee9f71125d": {
+   "26047d36df5e48aeaa570d1577f44b95": {
+    "id": "26047d36df5e48aeaa570d1577f44b95",
+    "namespace": "85c72a063b884d249a554fee9f71125d",
+    "title": "Turmoil",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/4985026f56654289a4a1fa848f41c4c9/turmoil-v1e51.png"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/26047d36df5e48aeaa570d1577f44b95-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "817686bfef41431b918f71c5bb3c5db7": {
+   "861fda0fe0214224bfa4d00353cc8646": {
+    "id": "861fda0fe0214224bfa4d00353cc8646",
+    "namespace": "817686bfef41431b918f71c5bb3c5db7",
+    "title": "全面战争：三国",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/3dafb7abbfc34385ba581cad1424865a/not-in-use--total-war-three-kingdoms-khg8t.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/861fda0fe0214224bfa4d00353cc8646-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "2d7949724dd348f79b8e4084e029f8e3": {
+   "11d8ff921ede45b8bcb87e084d3a7e0c": {
+    "id": "11d8ff921ede45b8bcb87e084d3a7e0c",
+    "namespace": "2d7949724dd348f79b8e4084e029f8e3",
+    "title": "《Trine 4: Definitive Edition》",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/b61d8ed9ff724cfe969ee79b41e604a5/trine-4-definitive-edition-14xl2.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/11d8ff921ede45b8bcb87e084d3a7e0c-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "02c14a01b7044db98de3f3a10813a42e": {
+   "1708848cdb2842d2bc2ce3b536b26b0d": {
+    "id": "1708848cdb2842d2bc2ce3b536b26b0d",
+    "namespace": "02c14a01b7044db98de3f3a10813a42e",
+    "title": "HUMANKIND™",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/offer/02c14a01b7044db98de3f3a10813a42e/HK_Landscape_2560x1440-0233eae757a0e921c879b7be3a697d97"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/1708848cdb2842d2bc2ce3b536b26b0d-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "0f4a572a3c1541319db70c3737d3a123": {
+   "b8d3e844044f4770a8167990b3ac3427": {
+    "id": "b8d3e844044f4770a8167990b3ac3427",
+    "namespace": "0f4a572a3c1541319db70c3737d3a123",
+    "title": "Two Point Hospital",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/item/0f4a572a3c1541319db70c3737d3a123/tphWide_2560x1440-ee16893556f141506d548b32d4cd23cc"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/b8d3e844044f4770a8167990b3ac3427-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "955298a66e774a858d59e4fb83562c1b": {
+   "9dc0fe43863a419dbb2fa4e1563a70a7": {
+    "id": "9dc0fe43863a419dbb2fa4e1563a70a7",
+    "namespace": "955298a66e774a858d59e4fb83562c1b",
+    "title": "《Trine Enchanted Edition》",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/ca4cbfe5a72249b48656cdde1804f434/trine-enchanted-edition-tsp1m.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/9dc0fe43863a419dbb2fa4e1563a70a7-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "9c5bbf5fa33d410b955b857c58f41c5c": {
+   "0b360023d85043fd8d89651ebe203ae0": {
+    "id": "0b360023d85043fd8d89651ebe203ae0",
+    "namespace": "9c5bbf5fa33d410b955b857c58f41c5c",
+    "title": "3 out of 10, EP 2: \"Foundation 101\"",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/9c5bbf5fa33d410b955b857c58f41c5c/item/EGS_3outof10EP2Foundation101_TerriblePostureGamesInc_G1C_00-1920x1080-20a9b2d639aad18eab57b7a05692570f.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/0b360023d85043fd8d89651ebe203ae0-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "6c5ce18b887f421aa9497ec7542afd23": {
+   "cf02a03da55b4777844820fa28f27708": {
+    "id": "cf02a03da55b4777844820fa28f27708",
+    "namespace": "6c5ce18b887f421aa9497ec7542afd23",
+    "title": "《Trine 3: The Artifacts of Power》",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/10a55229d552428ab7778f4862bf5dc0/trine-3-the-artifacts-of-power-1pb8u.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/cf02a03da55b4777844820fa28f27708-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "ff52981b1d9947978153c7a7f8bc6d90": {
+   "a10c5b9efef64535b9e290dc3755c189": {
+    "id": "a10c5b9efef64535b9e290dc3755c189",
+    "namespace": "ff52981b1d9947978153c7a7f8bc6d90",
+    "title": "《Disco Elysium - The Final Cut》",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/9003e1ade0b14e8688b08030e7a335fd/disco-elysium-1dbyw.jpg"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/a10c5b9efef64535b9e290dc3755c189-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "2485eccb13d14250a0a5649e8ed63a3b": {
+   "b5ceb05aec154822a24582c27c4835c9": {
+    "id": "b5ceb05aec154822a24582c27c4835c9",
+    "namespace": "2485eccb13d14250a0a5649e8ed63a3b",
+    "title": "The Operator",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/spt-assets/65963abab56541eda0887402d505167e/the-operator-dgz2h.png"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/b5ceb05aec154822a24582c27c4835c9-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  },
+  "487df1dfd24b44c381a2a376fbf78946": {
+   "034973e5bc3b4aa8af5247eba80c6f46": {
+    "id": "034973e5bc3b4aa8af5247eba80c6f46",
+    "namespace": "487df1dfd24b44c381a2a376fbf78946",
+    "title": "Undying",
+    "mainGameItem": null,
+    "keyImages": [
+     {
+      "type": "DieselGameBox",
+      "url": "https://cdn1.epicgames.com/item/487df1dfd24b44c381a2a376fbf78946/EGS_Undying_Vanimals_S3_2560x1440-9d12977d4bf7410c7178d679db0fc7b8"
+     },
+     {
+      "type": "DieselGameBoxTall",
+      "url": "https://cdn.example/034973e5bc3b4aa8af5247eba80c6f46-1.jpg"
+     }
+    ],
+    "customAttributes": [
+     {
+      "key": "developerName",
+      "value": "Fixtures Studio"
+     }
+    ],
+    "releaseInfo": [
+     {
+      "appId": "1000",
+      "platform": [
+       "Windows"
+      ]
+     }
+    ]
+   }
+  }
+ },
+ "_stats": {
+  "libraryRecords": 160,
+  "bulkNamespaces": 126,
+  "bulkItems": 160,
+  "orphanSkipped": 0
+ }
+}

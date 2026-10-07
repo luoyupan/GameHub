@@ -1,0 +1,260 @@
+/* ============================================================
+   GameHub - 游玩统计页样式  (css/stats.css)
+   ------------------------------------------------------------
+   仿 Steam「年度总结」的气质：大数字 + 横向条形 + 趋势柱状图。
+   全部用 CSS 画，不引任何图表库（一来体积小，二来不用放宽 CSP）。
+   只使用 theme.css 里的设计变量，所以深浅两套主题都自动适配。
+   ============================================================ */
+
+.stats-page { display: flex; flex-direction: column; gap: 18px; padding-bottom: 24px; }
+
+/* ---------------- 顶部：标题 + 周期切换 ---------------- */
+.stats-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.stats-title {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  background: var(--accent-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.stats-sub { margin-top: 5px; font-size: calc(var(--fs-base) * 0.926); color: var(--text-3); }
+
+.stats-tabs {
+  display: inline-flex;
+  gap: 3px;
+  padding: 3px;
+  border-radius: 11px;
+  background: var(--bg-3);
+  border: 1px solid var(--line-2);
+}
+.stats-tab {
+  padding: 7px 15px;
+  border-radius: 8px;
+  font-size: calc(var(--fs-base) * 0.926);
+  font-weight: 600;
+  color: var(--text-2);
+  transition: all var(--dur);
+}
+.stats-tab:hover { color: var(--text); background: var(--bg-4); }
+.stats-tab.active { background: var(--accent-grad); color: #fff; box-shadow: 0 3px 12px var(--accent-soft); }
+
+.stats-content { display: flex; flex-direction: column; gap: 16px; }
+.stats-loading { padding: 50px; text-align: center; color: var(--text-3); font-size: calc(var(--fs-base) * 0.963); }
+
+/* ---------------- ① 四个大数字 ---------------- */
+.stats-hero {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+@media (max-width: 980px) { .stats-hero { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+.stats-big {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border-radius: var(--radius-lg, 16px);
+  background: var(--bg-3);
+  border: 1px solid var(--line-2);
+  position: relative;
+  overflow: hidden;
+}
+.stats-big::after {
+  /* 右上角一抹渐变，像 Steam 的年报卡片 */
+  content: '';
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 110px; height: 110px;
+  border-radius: 50%;
+  background: var(--accent-grad);
+  opacity: 0.13;
+}
+.stats-big .sb-icon {
+  flex: 0 0 auto;
+  width: 40px; height: 40px;
+  border-radius: 12px;
+  display: grid; place-items: center;
+  font-size: 17px;
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+.stats-big .sb-body { min-width: 0; }
+.stats-big .sb-label { font-size: calc(var(--fs-base) * 0.852); color: var(--text-3); letter-spacing: 0.4px; }
+.stats-big .sb-value {
+  margin-top: 3px;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.stats-big .sb-sub { margin-top: 2px; font-size: calc(var(--fs-base) * 0.852); color: var(--text-3); }
+
+/* ---------------- ② 亮点一句话 ---------------- */
+.stats-highlight {
+  display: flex;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: var(--radius, 12px);
+  background: linear-gradient(120deg, var(--accent-soft), transparent 65%), var(--bg-3);
+  border: 1px solid var(--accent-line);
+}
+.stats-highlight .sh-icon { flex: 0 0 auto; color: var(--accent); font-size: calc(var(--fs-base) * 1.111); }
+.stats-highlight .sh-list { display: flex; flex-direction: column; gap: 5px; }
+.stats-highlight .sh-item { font-size: calc(var(--fs-base) * 0.963); color: var(--text-2); line-height: 1.6; }
+.stats-highlight .sh-item:first-child { color: var(--text); font-weight: 600; }
+
+/* ---------------- 通用卡片 ---------------- */
+.stats-card {
+  padding: 16px;
+  border-radius: var(--radius-lg, 16px);
+  background: var(--bg-3);
+  border: 1px solid var(--line-2);
+}
+.sc-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+.sc-title { font-size: calc(var(--fs-base) * 1.074); font-weight: 700; color: var(--text); }
+.sc-sub { font-size: calc(var(--fs-base) * 0.852); color: var(--text-3); }
+.stats-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 980px) { .stats-row { grid-template-columns: 1fr; } }
+
+.stats-empty-line { padding: 26px; text-align: center; font-size: calc(var(--fs-base) * 0.926); color: var(--text-3); }
+.stats-note { font-size: calc(var(--fs-base) * 0.852); color: var(--text-3); line-height: 1.7; padding: 0 2px; }
+
+/* ---------------- ③ 趋势柱状图 ---------------- */
+.trend-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 170px;
+  padding-top: 8px;
+}
+.trend-col {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+.trend-bar-wrap { flex: 1 1 auto; width: 100%; display: flex; align-items: flex-end; justify-content: center; }
+.trend-bar {
+  width: 100%;
+  max-width: 26px;
+  min-height: 0;
+  border-radius: 5px 5px 2px 2px;
+  background: var(--accent-grad);
+  opacity: 0.9;
+  transition: opacity var(--dur), transform var(--dur);
+}
+.trend-col:hover .trend-bar { opacity: 1; transform: scaleY(1.02); }
+.trend-label {
+  margin-top: 7px;
+  height: 13px;
+  font-size: calc(var(--fs-base) * 0.741);
+  color: var(--text-3);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* ---------------- ④ 分类条形（时长 / 次数） ---------------- */
+.cat-bars { display: flex; flex-direction: column; gap: 9px; }
+.cat-bar-row { display: flex; align-items: center; gap: 10px; }
+.cb-rank {
+  flex: 0 0 auto;
+  width: 20px;
+  font-size: calc(var(--fs-base) * 0.815);
+  color: var(--text-3);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.cb-main { flex: 1 1 auto; min-width: 0; }
+.cb-top { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 4px; }
+.cb-name {
+  font-size: calc(var(--fs-base) * 0.926);
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cb-val { flex: 0 0 auto; font-size: calc(var(--fs-base) * 0.852); color: var(--text-2); font-variant-numeric: tabular-nums; }
+.cb-track { height: 7px; border-radius: 4px; background: var(--bg-2); overflow: hidden; }
+.cb-fill {
+  height: 100%;
+  border-radius: 4px;
+  background: var(--accent-grad);
+  transition: width 420ms var(--ease-out);
+}
+.cb-share {
+  flex: 0 0 auto;
+  width: 38px;
+  text-align: right;
+  font-size: calc(var(--fs-base) * 0.852);
+  color: var(--text-3);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------------- ⑤ 游戏时长排行 ---------------- */
+.game-rows { display: flex; flex-direction: column; gap: 2px; }
+.game-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background var(--dur);
+}
+.game-row:hover { background: var(--bg-2); }
+.gr-rank {
+  flex: 0 0 auto;
+  width: 32px;
+  font-size: calc(var(--fs-base) * 0.889);
+  font-weight: 700;
+  color: var(--text-3);
+  font-variant-numeric: tabular-nums;
+}
+.game-row:nth-child(1) .gr-rank { color: var(--accent); }
+.game-row:nth-child(2) .gr-rank { color: var(--accent-2); }
+.gr-main { flex: 0 0 auto; width: 190px; min-width: 0; }
+.gr-name {
+  font-size: calc(var(--fs-base) * 0.963);
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.gr-cats {
+  margin-top: 2px;
+  font-size: calc(var(--fs-base) * 0.815);
+  color: var(--text-3);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.gr-bar { flex: 1 1 auto; min-width: 40px; height: 8px; border-radius: 5px; background: var(--bg-2); overflow: hidden; }
+.gr-fill { height: 100%; border-radius: 5px; background: var(--accent-grad); transition: width 460ms var(--ease-out); }
+.gr-time {
+  flex: 0 0 auto;
+  min-width: 88px;
+  text-align: right;
+  font-size: calc(var(--fs-base) * 0.926);
+  font-weight: 700;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+@media (max-width: 760px) {
+  .gr-main { width: 120px; }
+  .gr-time { min-width: 70px; font-size: calc(var(--fs-base) * 0.852); }
+}

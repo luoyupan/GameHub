@@ -1,0 +1,60 @@
+{
+  "name": "gamehub",
+  "version": "1.0.0",
+  "description": "GameHub - 本地游戏集合启动器（Steam 风格游戏库）",
+  "main": "main.js",
+  "author": "GameHub",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "selftest": "electron . --selftest",
+    "test": "node tools/parse-test.js && node tools/logic-test.js && node tools/mods-test.js",
+    "test:mods": "node tools/mods-test.js",
+    "test:scan": "node tools/scan-test.js",
+    "test:platform": "node tools/platform-test.js",
+    "test:ui": "node tools/appearance-probe.js 9700",
+    "shot:screen": "electron tools/screen-shot.js preview/screen.png",
+    "dist": "electron-builder --win portable",
+    "dist-dir": "electron-builder --win --dir"
+  },
+  "devDependencies": {
+    "electron": "^33.4.11",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.gamehub.launcher",
+    "productName": "GameHub",
+    "copyright": "GameHub 本地游戏集合启动器",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "src/**/*",
+      "build/icon.ico",
+      "!**/*.map"
+    ],
+    "asar": true,
+    "win": {
+      "target": [
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.ico",
+      "artifactName": "GameHub-${version}-便携版.${ext}",
+      "signAndEditExecutable": false
+    },
+    "portable": {
+      "artifactName": "GameHub-${version}-便携版.${ext}",
+      "requestExecutionLevel": "user",
+      "unpackDirName": "GameHub"
+    },
+    "compression": "maximum"
+  }
+}

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; img-src 'self' file: data: https:; style-src 'self' 'unsafe-inline'; script-src 'self';" />
+  <title>GameHub · 本地游戏集合启动器</title>
+  <link rel="stylesheet" href="css/theme.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/stats.css" />
+  <link rel="stylesheet" href="css/platform.css" />
+  <!-- ⚠ appearance.css 必须放最后：它要覆盖各栏位的背景，
+       并且定义 --fs-base 相关规则，加载早了会被后面的样式盖掉 -->
+  <link rel="stylesheet" href="css/appearance.css" />
+</head>
+<body>
+  <!-- 前端错误收集（自检模式会读取，便于排查；必须是第一个脚本） -->
+  <script src="js/errlog.js"></script>
+
+  <div class="app" id="app">
+
+    <!-- ============================================================
+         顶部标题栏（自绘，可拖动窗口）
+         ============================================================ -->
+    <header class="titlebar">
+      <div class="titlebar-left">
+        <div class="brand">
+          <svg class="brand-logo" viewBox="0 0 32 32" aria-hidden="true">
+            <defs>
+              <linearGradient id="lgBrand" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#4f9cf9" />
+                <stop offset="100%" stop-color="#22d3ee" />
+              </linearGradient>
+            </defs>
+            <rect x="2" y="6" width="28" height="20" rx="7" fill="url(#lgBrand)" />
+            <circle cx="10.5" cy="16" r="1.7" fill="#0b0f17" />
+            <circle cx="16" cy="12.5" r="1.7" fill="#0b0f17" />
+            <circle cx="16" cy="19.5" r="1.7" fill="#0b0f17" />
+            <circle cx="21.5" cy="16" r="1.7" fill="#0b0f17" />
+          </svg>
+          <span class="brand-name">GameHub</span>
+          <span class="brand-sub">本地游戏集合启动器</span>
+        </div>
+        <nav class="titlebar-nav">
+          <button class="tb-nav-btn active" data-nav="library">游戏库</button>
+          <button class="tb-nav-btn" data-nav="platform">游戏平台</button>
+        </nav>
+      </div>
+
+      <div class="titlebar-center">
+        <div class="search-box" id="searchBox">
+          <svg viewBox="0 0 24 24" class="icon"><path d="M10 2a8 8 0 105.293 14.293l4.707 4.707 1.414-1.414-4.707-4.707A8 8 0 0010 2zm0 2a6 6 0 110 12 6 6 0 010-12z"/></svg>
+          <input type="text" id="searchInput" placeholder="搜索游戏名称、分类、发行商…  (Ctrl+F)" autocomplete="off" />
+          <button class="search-clear" id="searchClear" title="清空" hidden>×</button>
+        </div>
+      </div>
+
+      <div class="titlebar-right">
+        <button class="icon-btn" id="btnTheme" title="切换深色 / 浅色主题">
+          <svg viewBox="0 0 24 24" class="icon icon-moon"><path d="M12 3a9 9 0 109 9 7 7 0 01-9-9z"/></svg>
+          <svg viewBox="0 0 24 24" class="icon icon-sun"><path d="M12 17a5 5 0 100-10 5 5 0 000 10zm0-14a1 1 0 011 1v1a1 1 0 01-2 0V4a1 1 0 011-1zm0 15a1 1 0 011 1v1a1 1 0 01-2 0v-1a1 1 0 011-1zM4 11h1a1 1 0 010 2H4a1 1 0 010-2zm15 0h1a1 1 0 010 2h-1a1 1 0 010-2zM6.3 4.9l.8.8a1 1 0 01-1.4 1.4l-.8-.8a1 1 0 011.4-1.4zm11 11l.8.8a1 1 0 01-1.4 1.4l-.8-.8a1 1 0 011.4-1.4zm1.4-11a1 1 0 010 1.4l-.8.8a1 1 0 01-1.4-1.4l.8-.8a1 1 0 011.4 0zm-11 11a1 1 0 010 1.4l-.8.8a1 1 0 01-1.4-1.4l.8-.8a1 1 0 011.4 0z"/></svg>
+        </button>
+        <button class="icon-btn" id="btnScanTop" title="扫描本机游戏">
+          <svg viewBox="0 0 24 24" class="icon"><path d="M12 4V1L7 5l5 4V6a6 6 0 11-6 6H4a8 8 0 108-8z"/></svg>
+        </button>
+        <button class="icon-btn" id="btnSettings" title="设置">
+          <svg viewBox="0 0 24 24" class="icon"><path d="M12 15.5A3.5 3.5 0 1112 8.5a3.5 3.5 0 010 7zm7.4-2.6l2.1 1.6-2 3.5-2.5-1a7.6 7.6 0 01-1.7 1L15 21h-4l-.3-2.5a7.6 7.6 0 01-1.7-1l-2.5 1-2-3.5 2.1-1.6a7.7 7.7 0 010-2L4.5 9.8l2-3.5 2.5 1a7.6 7.6 0 011.7-1L11 3h4l.3 2.5a7.6 7.6 0 011.7 1l2.5-1 2 3.5-2.1 1.6a7.7 7.7 0 010 2z"/></svg>
+        </button>
+        <div class="win-controls">
+          <button class="win-btn" id="winMin" title="最小化"><svg viewBox="0 0 12 12"><path d="M1 6h10" stroke="currentColor" stroke-width="1.2"/></svg></button>
+          <button class="win-btn" id="winMax" title="最大化"><svg viewBox="0 0 12 12"><rect x="1.6" y="1.6" width="8.8" height="8.8" fill="none" stroke="currentColor" stroke-width="1.2" rx="1"/></svg></button>
+          <button class="win-btn win-btn-close" id="winClose" title="关闭"><svg viewBox="0 0 12 12"><path d="M2 2l8 8M10 2l-8 8" stroke="currentColor" stroke-width="1.2"/></svg></button>
+        </div>
+      </div>
+    </header>
+
+    <!-- ============================================================
+         主体：左侧库导航 + 右侧内容区
+         ============================================================ -->
+    <div class="body">
+
+      <aside class="sidebar" id="sidebar">
+        <!-- 筛选器 -->
+        <div class="side-search">
+          <div class="side-search-inner">
+            <svg viewBox="0 0 24 24" class="icon"><path d="M10 2a8 8 0 105.293 14.293l4.707 4.707 1.414-1.414-4.707-4.707A8 8 0 0010 2zm0 2a6 6 0 110 12 6 6 0 010-12z"/></svg>
+            <input type="text" id="sideFilter" placeholder="筛选游戏…" autocomplete="off" />
+          </div>
+        </div>
+
+        <!-- 库导航 -->
+        <div class="side-block">
+          <div class="side-title">游戏库</div>
+          <nav class="side-nav" id="sideNav">
+            <button class="side-item active" data-view="home">
+              <span class="si-icon">◈</span><span class="si-label">首页</span>
+            </button>
+            <button class="side-item" data-view="all">
+              <span class="si-icon">▦</span><span class="si-label">全部游戏</span>
+              <span class="si-count" id="cntAll">0</span>
+            </button>
+            <button class="side-item" data-view="recent">
+              <span class="si-icon">◷</span><span class="si-label">最近游玩</span>
+              <span class="si-count" id="cntRecent">0</span>
+            </button>
+            <button class="side-item" data-view="favorite">
+              <span class="si-icon">★</span><span class="si-label">我的收藏</span>
+              <span class="si-count" id="cntFav">0</span>
+            </button>
+            <button class="side-item" data-view="running" id="navRunning" hidden>
+              <span class="si-icon si-live">●</span><span class="si-label">正在运行</span>
+              <span class="si-count" id="cntRunning">0</span>
+            </button>
+            <button class="side-item" data-view="stats">
+              <span class="si-icon">◔</span><span class="si-label">游玩统计</span>
+            </button>
+          </nav>
+        </div>
+
+        <!-- 游戏平台：账号 + 平台游戏库 -->
+        <div class="side-block">
+          <div class="side-title">游戏平台</div>
+          <nav class="side-nav" id="platformNav">
+            <button class="side-item" data-view="platform">
+              <span class="si-icon">◉</span><span class="si-label">平台总览</span>
+            </button>
+          </nav>
+        </div>
+
+        <!-- 分类 -->
+        <div class="side-block side-block-grow">
+          <div class="side-title">
+            分类
+            <span class="side-title-actions">
+              <button class="side-mini-btn" id="btnAddCategory" title="新建自定义分类">＋</button>
+              <button class="side-mini-btn" id="btnCategoryHint" title="分类由游戏名称自动识别，也可以在游戏详情里手动修改；右键分类可以重命名或删除">?</button>
+            </span>
+          </div>
+          <nav class="side-nav side-nav-scroll" id="sideCategories"></nav>
+        </div>
+
+        <!-- 隐藏空间入口 -->
+        <div class="side-block side-block-last">
+          <button class="hidden-entry" id="hiddenEntry">
+            <span class="he-icon" id="hiddenEntryIcon">🔒</span>
+            <span class="he-text">
+              <span class="he-title" id="hiddenEntryTitle">隐藏空间</span>
+              <span class="he-sub" id="hiddenEntrySub">密码保护 · 未启用</span>
+            </span>
+          </button>
+          <div class="side-actions">
+            <button class="btn btn-ghost btn-block" id="btnAddGame">
+              <span>＋ 添加游戏</span>
+            </button>
+            <button class="btn btn-ghost btn-block" id="btnScanSide">
+              <span>⟳ 扫描本机游戏</span>
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      <!-- 内容区 -->
+      <main class="content" id="content">
+        <div class="content-head" id="contentHead">
+          <div class="ch-left">
+            <h1 class="ch-title" id="viewTitle">首页</h1>
+            <span class="ch-count" id="viewCount"></span>
+            <span class="ch-hint" id="viewHint"></span>
+          </div>
+          <div class="ch-right">
+            <div class="seg" id="sourceFilter" title="按来源筛选">
+              <button class="seg-btn active" data-src="all">全部来源</button>
+              <button class="seg-btn" data-src="steam">Steam</button>
+              <button class="seg-btn" data-src="registry">注册表</button>
+              <button class="seg-btn" data-src="folder">文件夹</button>
+              <button class="seg-btn" data-src="epic">Epic</button>
+            </div>
+            <div class="select-wrap">
+              <select id="sortSelect" title="排序方式">
+                <option value="added:desc">最近添加</option>
+                <option value="name:asc">名称 A→Z</option>
+                <option value="name:desc">名称 Z→A</option>
+                <option value="installDate:desc">安装日期 新→旧</option>
+                <option value="installDate:asc">安装日期 旧→新</option>
+                <option value="lastPlayed:desc">最近游玩</option>
+                <option value="playTime:desc">游玩时长</option>
+                <option value="size:desc">占用空间 大→小</option>
+                <option value="favorite:desc">收藏优先</option>
+              </select>
+            </div>
+            <div class="view-toggle" id="viewToggle">
+              <button class="vt-btn active" data-mode="grid" title="封面墙视图">
+                <svg viewBox="0 0 16 16"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg>
+              </button>
+              <button class="vt-btn" data-mode="list" title="列表视图">
+                <svg viewBox="0 0 16 16"><rect x="1" y="2" width="14" height="2.4" rx="1"/><rect x="1" y="6.8" width="14" height="2.4" rx="1"/><rect x="1" y="11.6" width="14" height="2.4" rx="1"/></svg>
+              </button>
+            </div>
+            <div class="size-toggle" id="sizeToggle">
+              <button class="sz-btn" data-size="small" title="小封面"></button>
+              <button class="sz-btn active" data-size="medium" title="中封面"></button>
+              <button class="sz-btn" data-size="large" title="大封面"></button>
+              <button class="sz-btn" data-size="huge" title="超大封面"></button>
+            </div>
+
+            <!-- 更多选项：批量处理游戏库（下拉菜单） -->
+            <div class="more-wrap">
+              <button class="more-btn" id="btnMore" title="更多选项">
+                <svg viewBox="0 0 16 16" aria-hidden="true">
+                  <circle cx="3" cy="8" r="1.5"/><circle cx="8" cy="8" r="1.5"/><circle cx="13" cy="8" r="1.5"/>
+                </svg>
+              </button>
+              <div class="more-menu" id="moreMenu" hidden></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 游戏墙 -->
+        <div class="content-body" id="contentBody"></div>
+      </main>
+    </div>
+
+    <!-- ============================================================
+         底部状态栏 + 扫描进度条
+         ============================================================ -->
+    <footer class="statusbar">
+      <div class="sb-left">
+        <span class="sb-dot" id="sbDot"></span>
+        <span id="sbText">就绪</span>
+      </div>
+      <div class="sb-mid">
+        <div class="scan-bar" id="scanBar" hidden>
+          <div class="scan-bar-fill" id="scanBarFill"></div>
+        </div>
+        <span class="scan-text" id="scanText"></span>
+      </div>
+      <div class="sb-right">
+        <span id="sbStats">0 款游戏 · 0 B</span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ============================================================
+       浮层：详情页 / 弹窗 / 右键菜单 / 提示条
+       ============================================================ -->
+  <div class="overlay-root">
+    <div class="detail-layer" id="detailLayer" hidden></div>
+    <div class="detail-layer" id="platformDetailLayer" hidden></div>
+    <div class="modal-layer" id="modalLayer" hidden></div>
+    <div class="ctx-menu" id="ctxMenu" hidden></div>
+    <div class="toast-stack" id="toastStack"></div>
+  </div>
+
+  <!-- 脚本按依赖顺序加载（普通脚本，避免 file:// 下 ES Module 的跨域限制） -->
+  <script src="js/util.js"></script>
+  <script src="js/api.js"></script>
+  <!-- 外观自定义（背景 / 字体）：依赖 API，跟在它后面 -->
+  <script src="js/background.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/cards.js"></script>
+  <!-- ⚠ detailkit.js 必须排在 detail.js 和 platformview.js 前面：
+       两个详情页都依赖它，加载晚了会拿到 undefined -->
+  <script src="js/detailkit.js"></script>
+  <!-- MOD 管理区块：detail.js 的详情页要用它，必须排在前面 -->
+  <script src="js/modview.js"></script>
+  <script src="js/detail.js"></script>
+  <script src="js/statsview.js"></script>
+  <script src="js/platformview.js"></script>
+  <script src="js/modals.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

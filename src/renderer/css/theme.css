@@ -1,0 +1,299 @@
+/* ============================================================
+   GameHub - 设计系统 / 主题变量  (css/theme.css)
+   ------------------------------------------------------------
+   参考了 Steam 库的整体骨架（左导航 + 封面墙 + 深色底），
+   但把「老式深蓝」换成更现代的深空灰蓝，并补上：
+     · 统一的设计变量（圆角 / 阴影 / 层级 / 动效曲线）
+     · 深色与浅色两套完整主题，切换无需重绘
+     · 细腻的自定义滚动条与焦点态（键盘可达）
+   ============================================================ */
+
+/* ---------------- 深色主题（默认，Steam 风格底子） ---------------- */
+:root,
+html[data-theme='dark'] {
+  --bg-0: #080c14;               /* 最深：窗口底 */
+  --bg-1: #0d1320;               /* 侧栏底 */
+  --bg-2: #131b2b;               /* 内容区底 */
+  --bg-3: #1a2335;               /* 卡片 / 面板 */
+  --bg-4: #212c42;               /* 悬浮面板 */
+  --bg-glass: rgba(13, 19, 32, 0.78);
+
+  /* ---- 背景材质（配合 css/appearance.css 使用）----
+   * ⚠ 不透明度整体调得比较高是刻意的：
+   *   之前的 0.32~0.50 太透，面板看起来像个空洞，
+   *   用户会以为"背景丢了"甚至"看到了桌面"。
+   *   现在让每一档都有明确的实体色，只透出一点点氛围光色偏 ——
+   *   这样它看起来才像"一块有颜色的玻璃"。 */
+  --mat-frosted: rgba(22, 30, 47, 0.86);    /* 磨砂玻璃：最厚重 */
+  --mat-acrylic: rgba(28, 38, 59, 0.78);    /* 亚克力：通透一点 */
+  --mat-glass: rgba(32, 45, 68, 0.66);      /* 玻璃：最清透 */
+  --mat-liquid: rgba(32, 46, 71, 0.62);     /* 液态玻璃：靠高光撑体积，底色可以淡些 */
+
+  /* ---- 上面四档的「透视版」----
+   * 开了「透出桌面」之后由 appearance.css 把 --mat-* 换成这几档。
+   *
+   * 为什么非得再备一套：不开透出桌面时，材质底下就是深色页面底，
+   * 底色一淡面板就成了个"空洞"；开了之后底下是桌面，
+   * 底色还压到 0.8 就等于把系统材质全糊住，等于白开。
+   * 所以这两套的不透明度是两套完全不同的取值逻辑，没法共用一个数。
+   *
+   * 只降底色不降高光：折射高光、镜面光、内嵌边这些是"玻璃感"的来源，
+   * 留着它们，面板放透之后依然像一块玻璃，而不是一块空缺。 */
+  --mat-frosted-see: rgba(22, 30, 47, 0.30);
+  --mat-acrylic-see: rgba(28, 38, 59, 0.22);
+  --mat-glass-see: rgba(32, 45, 68, 0.16);
+  --mat-liquid-see: rgba(32, 46, 71, 0.13);
+
+  --line: rgba(255, 255, 255, 0.07);
+  --line-2: rgba(255, 255, 255, 0.13);
+  --line-3: rgba(255, 255, 255, 0.22);
+
+  --text: #e9effc;
+  --text-2: #a8b6cf;
+  --text-3: #6b7c99;
+
+  --accent: #4f9cf9;
+  --accent-2: #22d3ee;
+  --accent-grad: linear-gradient(135deg, #4f9cf9 0%, #22d3ee 100%);
+  --accent-soft: rgba(79, 156, 249, 0.15);
+  --accent-line: rgba(79, 156, 249, 0.45);
+
+  --danger: #f2555a;
+  --danger-soft: rgba(242, 85, 90, 0.15);
+  --warn: #f5b544;
+  --warn-soft: rgba(245, 181, 68, 0.15);
+  --ok: #35d07f;
+  --ok-soft: rgba(53, 208, 127, 0.15);
+
+  --card-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+  --card-shadow-hover: 0 18px 40px rgba(0, 0, 0, 0.55);
+  --pop-shadow: 0 24px 60px rgba(0, 0, 0, 0.62);
+
+  --grad-a: #1d4ed8;             /* 占位封面渐变色 A */
+  --grad-b: #0e7490;             /* 占位封面渐变色 B */
+  --ph-ink: rgba(255, 255, 255, 0.9);
+  color-scheme: dark;
+}
+
+/* ---------------- 浅色主题 ---------------- */
+html[data-theme='light'] {
+  --bg-0: #e6ecf6;
+  --bg-1: #ffffff;
+  --bg-2: #f4f7fc;
+  --bg-3: #ffffff;
+  --bg-4: #ffffff;
+  --bg-glass: rgba(255, 255, 255, 0.82);
+
+  /* ---- 背景材质（浅色主题下用白底半透明）---- */
+  --mat-frosted: rgba(255, 255, 255, 0.86);
+  --mat-acrylic: rgba(255, 255, 255, 0.78);
+  --mat-glass: rgba(255, 255, 255, 0.66);
+  --mat-liquid: rgba(255, 255, 255, 0.62);
+
+  /* 透视版（含义同深色主题那组） */
+  --mat-frosted-see: rgba(255, 255, 255, 0.32);
+  --mat-acrylic-see: rgba(255, 255, 255, 0.24);
+  --mat-glass-see: rgba(255, 255, 255, 0.18);
+  --mat-liquid-see: rgba(255, 255, 255, 0.15);
+
+  --line: rgba(16, 32, 64, 0.09);
+  --line-2: rgba(16, 32, 64, 0.16);
+  --line-3: rgba(16, 32, 64, 0.28);
+
+  --text: #131c2c;
+  --text-2: #4a5a73;
+  --text-3: #7f92ad;
+
+  --accent: #1c7ef0;
+  --accent-2: #0ea5b7;
+  --accent-grad: linear-gradient(135deg, #1c7ef0 0%, #0ea5b7 100%);
+  --accent-soft: rgba(28, 126, 240, 0.12);
+  --accent-line: rgba(28, 126, 240, 0.4);
+
+  --danger: #dc2f34;
+  --danger-soft: rgba(220, 47, 52, 0.12);
+  --warn: #c98200;
+  --warn-soft: rgba(201, 130, 0, 0.14);
+  --ok: #0f9d58;
+  --ok-soft: rgba(15, 157, 88, 0.12);
+
+  --card-shadow: 0 1px 3px rgba(16, 32, 64, 0.14);
+  --card-shadow-hover: 0 16px 34px rgba(16, 32, 64, 0.22);
+  --pop-shadow: 0 24px 60px rgba(16, 32, 64, 0.26);
+
+  --grad-a: #3b82f6;
+  --grad-b: #0891b2;
+  --ph-ink: rgba(255, 255, 255, 0.95);
+  color-scheme: light;
+}
+
+/* ---------------- 公共度量 ---------------- */
+:root {
+  --radius-sm: 8px;
+  --radius: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+
+  --titlebar-h: 46px;
+  --statusbar-h: 30px;
+  --sidebar-w: 258px;
+
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur: 180ms;
+  --dur-slow: 320ms;
+
+  --font: 'Microsoft YaHei UI', 'Microsoft YaHei', 'PingFang SC', 'Segoe UI', system-ui,
+    -apple-system, 'Noto Sans SC', sans-serif;
+  --font-mono: 'Cascadia Mono', 'Consolas', 'SFMono-Regular', monospace;
+
+  /* 界面基础字号 —— 设置里的「字号」滑块改的就是它 */
+  --fs-base: 13.5px;
+}
+
+/* ---------------- 基础重置 ---------------- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: var(--font);
+  font-size: calc(var(--fs-base) * 1.0);
+  line-height: 1.5;
+  color: var(--text);
+  background: var(--bg-0);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  user-select: none;
+  cursor: default;
+}
+
+button {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  outline: none;
+}
+
+input,
+textarea {
+  user-select: text;
+}
+
+svg {
+  display: block;
+  fill: currentColor;
+}
+
+img {
+  display: block;
+  -webkit-user-drag: none;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+/* ---------------- 自定义滚动条（Steam 那种细长条，但更轻盈） ---------------- */
+::-webkit-scrollbar {
+  width: 11px;
+  height: 11px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--line-2);
+  border: 3px solid transparent;
+  border-radius: 8px;
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--line-3);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* ---------------- 焦点环（键盘可达性） ---------------- */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* ---------------- 通用文本工具类 ---------------- */
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.mono {
+  font-family: var(--font-mono);
+  font-size: calc(var(--fs-base) * 0.889);
+}
+
+/* ---------------- 动效关键帧 ---------------- */
+@keyframes gh-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes gh-pop-in {
+  from { opacity: 0; transform: translateY(14px) scale(0.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes gh-slide-right {
+  from { opacity: 0; transform: translateX(-12px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes gh-shimmer {
+  0% { background-position: -280px 0; }
+  100% { background-position: 340px 0; }
+}
+@keyframes gh-spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes gh-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+/* 尊重系统的"减少动画"设置 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

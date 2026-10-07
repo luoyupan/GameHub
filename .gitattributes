@@ -1,0 +1,13 @@
+# 统一换行符：仓库内一律 LF，检出时按平台转换
+* text=auto eol=lf
+
+# 二进制资源别做换行转换，也别当文本 diff
+*.ico binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.exe binary
+
+# 中文注释多的源码，让 GitHub 语言统计别把 CSS/HTML 误判
+*.css linguist-vendored=false
+*.html linguist-vendored=false

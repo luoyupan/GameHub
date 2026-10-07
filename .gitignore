@@ -1,0 +1,36 @@
+# ============================================================
+#  GameHub .gitignore
+# ============================================================
+
+# ---- 依赖 ----
+node_modules/
+
+# ---- 构建产物 ----
+dist/
+release/
+build/*.exe
+*.exe
+
+# ---- 开发期产物（截图 / 日志 / 临时数据）----
+preview/
+shot-mods/
+*.log
+scan-result.json
+*.tmp
+*.bak
+tools/.probe-*.json
+
+# ---- 一次性调试探针：这些脚本是排查某个具体问题时现写的，
+#      不属于可复跑的测试，所以不进仓库（本地仍然保留）----
+tools/dev/
+
+# ---- 编辑器 / 系统 ----
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---- 环境变量（如果把自己的 Epic 凭据放这里）----
+.env
+.env.local

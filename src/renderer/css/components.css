@@ -1,0 +1,2550 @@
+/* ============================================================
+   GameHub - 组件样式  (css/components.css)
+   ------------------------------------------------------------
+   包含：按钮 / 分段控件 / 封面卡片 / 列表行 / 继续游戏横滑区 /
+         游戏详情页 / 弹窗 / 扫描结果选择器 / 右键菜单 / 提示条 /
+         隐藏空间解锁界面 / 空状态
+   ============================================================ */
+
+/* ============================================================
+   一、按钮
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 8px 15px;
+  border-radius: 9px;
+  font-size: calc(var(--fs-base) * 0.963);
+  font-weight: 500;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  transition: all var(--dur) var(--ease);
+}
+.btn:active { transform: scale(0.97); }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.btn:disabled:active { transform: none; }
+
+.btn-primary {
+  background: var(--accent-grad);
+  color: #fff;
+  box-shadow: 0 4px 14px var(--accent-soft);
+}
+.btn-primary:hover:not(:disabled) {
+  filter: brightness(1.08);
+  box-shadow: 0 8px 24px var(--accent-soft);
+  transform: translateY(-1px);
+}
+
+.btn-ghost {
+  background: var(--bg-3);
+  border-color: var(--line-2);
+  color: var(--text-2);
+}
+.btn-ghost:hover:not(:disabled) {
+  background: var(--bg-4);
+  color: var(--text);
+  border-color: var(--accent-line);
+}
+
+.btn-danger {
+  background: var(--danger-soft);
+  color: var(--danger);
+  border-color: transparent;
+}
+.btn-danger:hover:not(:disabled) { background: var(--danger); color: #fff; }
+
+.btn-block { width: 100%; }
+.btn-sm { padding: 5px 11px; font-size: calc(var(--fs-base) * 0.889); border-radius: 7px; }
+.btn-lg { padding: 11px 22px; font-size: calc(var(--fs-base) * 1.074); border-radius: 11px; }
+
+.btn-play {
+  background: var(--accent-grad);
+  color: #fff;
+  font-weight: 600;
+  padding: 10px 26px;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+.btn-play:hover { filter: brightness(1.1); transform: translateY(-1px); }
+
+/* ============================================================
+   二、分段控件 / 下拉 / 视图切换
+   ============================================================ */
+.seg {
+  display: flex;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 9px;
+  background: var(--bg-1);
+  border: 1px solid var(--line);
+}
+.seg-btn {
+  padding: 5px 11px;
+  border-radius: 6px;
+  font-size: calc(var(--fs-base) * 0.889);
+  color: var(--text-3);
+  transition: all var(--dur);
+}
+.seg-btn:hover { color: var(--text); }
+.seg-btn.active {
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.select-wrap { position: relative; }
+.select-wrap::after {
+  content: '';
+  position: absolute;
+  right: 11px;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  border-right: 1.6px solid var(--text-3);
+  border-bottom: 1.6px solid var(--text-3);
+  transform: translateY(-70%) rotate(45deg);
+  pointer-events: none;
+}
+.select-wrap select {
+  appearance: none;
+  padding: 7px 30px 7px 12px;
+  border-radius: 9px;
+  background: var(--bg-1);
+  border: 1px solid var(--line);
+  font-size: calc(var(--fs-base) * 0.926);
+  color: var(--text-2);
+  cursor: pointer;
+  transition: border-color var(--dur);
+}
+.select-wrap select:hover { border-color: var(--accent-line); color: var(--text); }
+.select-wrap select option { background: var(--bg-3); color: var(--text); }
+
+.view-toggle {
+  display: flex;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 9px;
+  background: var(--bg-1);
+  border: 1px solid var(--line);
+}
+.vt-btn {
+  width: 28px;
+  height: 24px;
+  border-radius: 6px;
+  display: grid;
+  place-items: center;
+  color: var(--text-3);
+  transition: all var(--dur);
+}
+.vt-btn svg { width: 13px; height: 13px; }
+.vt-btn:hover { color: var(--text); }
+.vt-btn.active { background: var(--accent-soft); color: var(--accent); }
+
+.size-toggle {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  padding: 4px 7px 6px;
+  border-radius: 9px;
+  background: var(--bg-1);
+  border: 1px solid var(--line);
+}
+.sz-btn {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  background: var(--text-3);
+  transition: all var(--dur);
+  padding: 0;
+}
+.sz-btn[data-size='small'] { width: 6px; height: 6px; }
+.sz-btn[data-size='medium'] { width: 9px; height: 9px; }
+.sz-btn[data-size='large'] { width: 12px; height: 12px; }
+.sz-btn[data-size='huge'] { width: 15px; height: 15px; }
+.sz-btn:hover { background: var(--text); }
+.sz-btn.active { background: var(--accent); box-shadow: 0 0 0 2px var(--accent-soft); }
+
+/* ============================================================
+   三、徽标 / 标签
+   ============================================================ */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: calc(var(--fs-base) * 0.778);
+  font-weight: 600;
+  line-height: 1.6;
+  white-space: nowrap;
+  backdrop-filter: blur(6px);
+}
+.badge-source { background: rgba(0, 0, 0, 0.6); color: #fff; }
+.badge-steam { background: rgba(23, 61, 105, 0.9); color: #9ed0ff; }
+.badge-registry { background: rgba(60, 40, 90, 0.9); color: #d0b6ff; }
+.badge-folder { background: rgba(24, 74, 62, 0.9); color: #8ff0cf; }
+.badge-epic { background: rgba(70, 70, 70, 0.9); color: #e6e6e6; }
+.badge-live {
+  background: rgba(20, 120, 70, 0.92);
+  color: #b7ffd8;
+}
+.badge-live .dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #4ade80;
+  animation: gh-pulse 1.4s ease-in-out infinite;
+}
+.badge-hidden { background: rgba(40, 40, 40, 0.9); color: #ffd479; }
+.badge-missing { background: var(--danger); color: #fff; }
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: calc(var(--fs-base) * 0.852);
+  background: var(--accent-soft);
+  color: var(--accent);
+  border: 1px solid transparent;
+  transition: all var(--dur);
+}
+.chip:hover { border-color: var(--accent-line); }
+.chip-removable { cursor: pointer; }
+.chip-removable:hover { background: var(--danger-soft); color: var(--danger); }
+/* 列表视图里的成就 chip（数据异步补，没有就 [hidden] 藏起来） */
+.chip.gr-ach {
+  background: var(--bg-4);
+  color: var(--warn);
+  border-color: var(--warn-soft);
+  font-variant-numeric: tabular-nums;
+}
+.chip.gr-ach[hidden] { display: none; }
+
+/* ============================================================
+   四、游戏封面墙
+   ============================================================ */
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--cover-w, 168px), 1fr));
+  gap: 20px 16px;
+  padding-bottom: 20px;
+}
+.game-grid[data-size='small'] { --cover-w: 124px; gap: 16px 12px; }
+.game-grid[data-size='medium'] { --cover-w: 164px; }
+.game-grid[data-size='large'] { --cover-w: 206px; }
+.game-grid[data-size='huge'] { --cover-w: 252px; gap: 24px 20px; }
+
+.game-card {
+  position: relative;
+  cursor: pointer;
+  border-radius: var(--radius);
+  transition: transform var(--dur-slow) var(--ease-out);
+  animation: gh-pop-in 320ms var(--ease-out) backwards;
+}
+.game-card:hover { transform: translateY(-6px); }
+
+.card-cover {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: linear-gradient(150deg, var(--g1, #1d4ed8), var(--g2, #0e7490));
+  box-shadow: var(--card-shadow);
+  transition: box-shadow var(--dur-slow) var(--ease-out), outline-color var(--dur);
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+.game-card:hover .card-cover {
+  box-shadow: var(--card-shadow-hover);
+  outline-color: var(--accent-line);
+}
+.game-card.selected .card-cover { outline-color: var(--accent); }
+
+/* 封面图片：铺满 + 缓慢放大 */
+.card-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+.game-card:hover .card-cover img { transform: scale(1.07); }
+
+/* 只有图标时：居中贴一个大图标，底是渐变 */
+.card-cover .icon-cover {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 22%;
+}
+.card-cover .icon-cover img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.45));
+}
+.game-card:hover .card-cover .icon-cover img { transform: scale(1.06); }
+
+/* 无图时的纯文字占位封面 */
+.card-ph {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 18px;
+  text-align: center;
+}
+.card-ph::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(80% 55% at 50% 12%, rgba(255, 255, 255, 0.16), transparent 70%),
+    repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0 2px, transparent 2px 13px);
+  pointer-events: none;
+}
+.card-ph-letter {
+  font-size: 46px;
+  font-weight: 800;
+  color: var(--ph-ink);
+  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.32);
+  line-height: 1;
+}
+.card-ph-name {
+  font-size: calc(var(--fs-base) * 0.852);
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.88);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-break: break-word;
+}
+
+/* 封面底部渐变 + 悬浮操作层 */
+.card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 42%, rgba(0, 0, 0, 0.82) 100%);
+  opacity: 0;
+  transition: opacity var(--dur-slow) var(--ease-out);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 14px;
+  /* ⚠⚠ 这一行是血泪：overlay 是 inset:0 铺满整张封面的，
+     在 DOM 里又排在角标和右上角工具簇【后面】，所以哪怕 opacity 是 0
+     它照样能接下所有鼠标事件 —— 结果就是点右上角的「⋮」全被它吃掉，
+     事件冒泡到卡片 → 打开详情页，用户反馈"点不开，跳到详情页了"。
+     opacity: 0 不等于不可点，必须显式关掉命中。
+     hover 效果不受影响：:hover 判定在父卡片上，不需要 overlay 参与命中。 */
+  pointer-events: none;
+}
+.game-card:hover .card-overlay { opacity: 1; }
+
+/* 浮层里的按钮要单独把命中打开，否则连「▶ 启动」也点不动了 */
+.card-overlay .mini-play { pointer-events: auto; }
+
+.card-overlay .mini-play {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 17px;
+  border-radius: 999px;
+  background: var(--accent-grad);
+  color: #fff;
+  font-size: calc(var(--fs-base) * 0.926);
+  font-weight: 600;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+  transform: translateY(8px);
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+.game-card:hover .card-overlay .mini-play { transform: translateY(0); }
+.card-overlay .mini-play:hover { filter: brightness(1.12); }
+
+/* 角标容器 */
+.card-badges {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  right: 8px;
+  z-index: 2;            /* 压在悬浮层之上（悬浮层本身已关掉命中，这里只是保险） */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  align-items: flex-start;
+}
+.card-badges-right {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 3;            /* 「⋮」要保证在最高一层，任何东西都不能盖住它 */
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+.card-star {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: calc(var(--fs-base) * 0.889);
+  background: rgba(0, 0, 0, 0.55);
+  color: #ffd479;
+  backdrop-filter: blur(6px);
+}
+
+/* ============================================================
+   卡片右上角的「⋮ 更多选项」
+   ------------------------------------------------------------
+   常驻可见（不然用户永远发现不了），但压到 0.55 很淡；
+   悬停卡片时才抬起来，鼠标停在按钮本身上再变实心。
+   ============================================================ */
+.card-more {
+  width: 24px;
+  height: 24px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: calc(var(--fs-base) * 1.111);
+  line-height: 1;
+  padding-bottom: 3px;          /* ⋮ 的字形重心偏下，往上抬 3px 才视觉居中 */
+  background: rgba(0, 0, 0, 0.55);
+  color: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(6px);
+  opacity: 0.55;
+  transition: opacity var(--dur), background var(--dur), transform var(--dur);
+}
+.game-card:hover .card-more { opacity: 1; }
+.card-more:hover { background: var(--accent); transform: scale(1.08); }
+/* 已经标过通关状态 → 按钮实心高亮，扫一眼就知道这款标过。
+   同样用不透明底色（理由见下面 .card-clear 那段）。 */
+.card-more.is-set {
+  opacity: 1;
+  background: var(--accent);
+  color: #fff;
+}
+
+/* ⚠ 卡片上的角标一律用不透明底色 —— 它们压在封面图上，
+   用 --ok-soft 那种 12% 透明的色块会读出"封面什么色、字就什么色"，
+   换张深色封面字就看不见了。
+   「未通关」是例外，见下面的亚克力配方。 */
+.card-clear { gap: 4px; }
+.card-clear .cc-icon { font-size: calc(var(--fs-base) * 0.741); line-height: 1; }
+.card-clear.cc-cleared   { background: rgba(15, 150, 90, 0.94); color: #c8ffe3; border-color: transparent; }
+.card-clear.cc-multi     { background: rgba(122, 88, 10, 0.94); color: #ffd479; border-color: transparent; }
+
+/* 「未通关」= 透明亚克力材质 ----------------------------------------
+   ----------------------------------------------------------------
+   这是出现频率最高的一档（所有游戏默认就是它），实心深色底压满一整面墙
+   会非常吵。改成磨砂亚克力：半透明底 + 背景模糊 + 一道亮边。
+   四件套缺一不可：
+     · rgba(255,255,255,.10)  只留一点点白，让封面透出来
+     · backdrop-filter        把背后的封面模糊掉 —— 这才是"磨砂"的来源
+     · 亮色细边框             亚克力的轮廓靠它，不然浅色封面上会糊成一片
+     · 外侧投影 + 顶部内高光   一个把卡片"托"起来，一个模拟玻璃的受光面
+   文字永远用白色 + 深色阴影：封面亮也好暗也好，读得清。 */
+.card-clear.cc-uncleared {
+  background: rgba(255, 255, 255, 0.10);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.30);
+  backdrop-filter: blur(14px) saturate(180%);
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.38),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.06),
+    0 2px 10px rgba(0, 0, 0, 0.22);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* 列表行的通关 chip 沿用同一套语义色，形状跟着 .chip 走 */
+.gr-clear { border: 1px solid transparent; }
+.gr-clear.cc-cleared   { background: var(--ok-soft); color: var(--ok); }
+.gr-clear.cc-multi     { background: var(--warn-soft); color: var(--warn); }
+/* 列表行在页面底色上，没有封面要透 —— 用一点淡淡的磨砂就够了 */
+.gr-clear.cc-uncleared {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--line-2);
+  color: var(--text-3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.card-running {
+  position: absolute;
+  left: 8px;
+  bottom: 8px;
+  right: 8px;
+}
+
+/* 卡片下方文字区 */
+.card-meta {
+  padding: 9px 3px 0;
+}
+.card-name {
+  font-size: calc(var(--fs-base) * 0.948);
+  font-weight: 500;
+  color: var(--text);
+  overflow: hidden;
+  white-space: nowrap;
+}
+.game-card[data-size-themed='small'] .card-name { font-size: calc(var(--fs-base) * 0.889); }
+
+/* 名字行的滚动轨道 ------------------------------------------------
+   .cn-clip   裁剪窗口（固定宽度）
+   .cn-track  真正被平移的内容：完整名字 + 成就角标
+   默认整个轨道压成 100% 宽，让 .cn-text 走省略号；
+   悬停时（.is-scroll）才放开成 max-content 并横向滚出去。 */
+.cn-clip { overflow: hidden; width: 100%; }
+.cn-track {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+}
+.cn-text {
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/* 名字行里的成就：平时用 max-width:0 收起来，不占位也没动画，
+   但 scrollWidth 仍然量得到它的自然宽度（量 --mq 的时候要用）。 */
+.cn-ach {
+  flex: 0 0 auto;
+  white-space: nowrap;
+  max-width: 0;
+  overflow: hidden;
+  opacity: 0;
+  color: var(--warn);
+  font-size: calc(var(--fs-base) * 0.815);
+  font-variant-numeric: tabular-nums;
+  transition: max-width 0.2s var(--ease-out), opacity 0.2s var(--ease-out);
+}
+
+/* ⚠ 触发点是整张卡片，不是 .card-name 本身 ——
+   鼠标一般停在封面上，`.card-name:hover` 根本不成立，写了也不会滚。 */
+.game-card:hover .card-name.is-scroll .cn-track {
+  width: max-content;
+  animation: gh-name-marquee var(--mq-dur, 6s) ease-in-out infinite;
+}
+.game-card:hover .card-name.is-scroll .cn-text { overflow: visible; text-overflow: clip; }
+
+/* 名字行里的成就在**只有让位的情况**（.ach-tight）才露出来：
+   右下角那个角标已经能看见的时候再滚一个出来，同一个数字上下挨着出现两次，很蠢。 */
+.game-card.ach-tight:hover .card-name.is-scroll .cn-ach { max-width: 12em; opacity: 1; }
+
+/* 来回滚：走出去 → 停一下 → 滚回来。单向循环的话长名字会看漏开头。 */
+@keyframes gh-name-marquee {
+  0%      { transform: translateX(0); }
+  14%     { transform: translateX(calc(-1 * var(--mq, 0px))); }
+  86%     { transform: translateX(calc(-1 * var(--mq, 0px))); }
+  100%    { transform: translateX(0); }
+}
+
+/* 副信息行：左边元信息可截断，右边固定放成就角标 ------------------ */
+.card-sub {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 3px;
+  font-size: calc(var(--fs-base) * 0.815);
+  color: var(--text-3);
+  overflow: hidden;
+  white-space: nowrap;
+}
+.cs-meta {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.cs-meta .dot-sep { opacity: 0.5; margin: 0 4px; }
+
+/* 右下角的成就角标（样式对齐「平台总览」的 .pf-ach） */
+.card-ach {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 1px 6px;
+  border-radius: 5px;
+  font-size: calc(var(--fs-base) * 0.778);
+  line-height: 1.5;
+  background: var(--bg-4);
+  border: 1px solid var(--warn-soft);
+  color: var(--warn);
+  font-variant-numeric: tabular-nums;
+}
+.card-ach[hidden] { display: none; }
+/* ⚠ 放不下的时候：底部行的角标撤掉，成就改由"悬停滚名字"来展示。
+   注意这里只撤底部行那个，.cn-ach（名字行里的那个）不动。 */
+.game-card.ach-tight .card-ach { display: none; }
+.card-size { position: absolute; top: 8px; right: 8px; }
+
+/* ============================================================
+   全成就卡片：鼠标悬停时四周浮出的炫彩流光
+   ------------------------------------------------------------
+   做法：卡片底下垫一层「会转的锥形彩虹渐变」（::before），
+        加高斯模糊当光晕，卡片本体（封面 + 文字）盖在上面，
+        于是只在四边露出一圈彩色的光，并且这圈光会一直流动。
+
+   几个刻意的取舍：
+     · 光晕挂在 .game-card 上而不是 .card-cover 上 —— 后者有 overflow: hidden，
+       挂在里面会被直接裁掉，一点都不剩。
+     · 非悬停时 animation-play-state: paused —— 不然库里有多少张全成就卡，
+       就有多少个一直在跑（虽然看不见）的模糊动画，白白吃 GPU。
+     · 悬停时把 z-index 抬到 3 —— 卡片本来就有 transform（悬停上浮），
+       但那不会改变绘制顺序；不抬 z-index 的话，光晕会被后面那些卡盖住一半。
+     · 悬停时把强调色描边（outline）撤掉 —— 白蓝色那一圈会盖在彩虹上，很难看。
+   ============================================================ */
+
+/* 让锥形渐变的起始角能被动画驱动。
+   ⚠ @property 是这里的命门：没有它 --gh-ang 只是个普通字符串，
+     @keyframes 里改它不会触发重绘，光晕就静止了。
+     真遇到不支持的内核也不会坏 —— 只是剩一个不动的彩虹圈。 */
+@property --gh-ang {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes gh-rainbow { to { --gh-ang: 360deg; } }
+
+/* 两层叠出"流光"：
+     ::before  外层柔光 —— 大范围模糊，负责那一圈朦胧的色彩
+     ::after   内层描边 —— 用 mask 挖空中间，只留一条 3px 的清晰彩虹边
+   只有柔光的话截图里几乎看不出来（blur 把颜色摊得太淡），
+   只有描边又太"硬"，两层一起才是发光该有的样子。
+
+   七色首尾同色，转起来才接得上，不会在收口处跳一下 */
+.game-card.is-perfect::before,
+.game-card.is-perfect::after,
+.game-row.is-perfect::before,
+.game-row.is-perfect::after {
+  content: '';
+  position: absolute;
+  border-radius: calc(var(--radius) + 8px);
+  background: conic-gradient(from var(--gh-ang),
+    #ff3d6e, #ff8a3d, #ffe83d, #4dff9e, #3ddbff, #7b6bff, #ff5ce0, #ff3d6e);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 0;
+  animation: gh-rainbow 3.6s linear infinite;
+  animation-play-state: paused;
+  transition: opacity 0.3s var(--ease-out), transform 0.3s var(--ease-out);
+}
+/* 内层描边：中间挖空，只留外圈那条边 */
+.game-card.is-perfect::after,
+.game-row.is-perfect::after {
+  padding: 3px;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+
+/* 网格卡片：光晕尺寸跟着封面走（封面是 2:3）。
+   用 aspect-ratio 而不是 height:100% —— 后者是"整张卡（含下方文字）"的高度，
+   会一路糊到游戏名底下，字就压在彩色上不好认了。
+   ⚠ top 取 -9px 是算过的：宽 = 卡宽 + 12，按 2:3 算出来的高 = 封面高 + 18，
+     所以上下各伸出 9px 才是均匀的一圈；随便写个数会让下面比上面多冒一截。 */
+.game-card.is-perfect::before,
+.game-card.is-perfect::after {
+  top: -9px;
+  left: -6px;
+  width: calc(100% + 12px);
+  aspect-ratio: 2 / 3;
+}
+.game-card.is-perfect::before {
+  filter: blur(13px) saturate(1.5);
+  transform: scale(0.94);
+}
+.game-card.is-perfect::after { transform: scale(0.98); }
+
+.game-card.is-perfect:hover::before { opacity: 0.95; transform: scale(1); animation-play-state: running; }
+.game-card.is-perfect:hover::after { opacity: 1; transform: scale(1); animation-play-state: running; }
+.game-card.is-perfect:hover {
+  z-index: 3;
+  outline: none;
+}
+.game-card.is-perfect:hover .card-cover {
+  outline-color: transparent;
+  /* 原来那圈阴影会被彩虹盖住，换成更实的投影把卡片从光里"托"出来 */
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+}
+
+/* 列表行同理：宽卡片就直接撑满整行的高度 */
+.game-row.is-perfect { position: relative; }
+.game-row.is-perfect::before,
+.game-row.is-perfect::after {
+  top: -4px;
+  left: -4px;
+  width: calc(100% + 8px);
+  height: calc(100% + 8px);
+  border-radius: 14px;
+}
+.game-row.is-perfect::before {
+  filter: blur(10px) saturate(1.5);
+  transform: scale(0.99);
+}
+.game-row.is-perfect:hover {
+  z-index: 3;
+  background: transparent;         /* 让位给光晕，不然会盖住一半 */
+}
+.game-row.is-perfect:hover::before { opacity: 0.9; transform: scale(1); animation-play-state: running; }
+.game-row.is-perfect:hover::after { opacity: 1; animation-play-state: running; }
+
+/* 系统开了"减少动态效果"就老老实实给一圈静态彩虹，别让光转 */
+@media (prefers-reduced-motion: reduce) {
+  .game-card.is-perfect::before,
+  .game-card.is-perfect::after,
+  .game-row.is-perfect::before,
+  .game-row.is-perfect::after { animation: none; }
+}
+
+/* ============================================================
+   五、列表视图
+   ============================================================ */
+.game-list { display: flex; flex-direction: column; gap: 5px; }
+
+.game-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background var(--dur), transform var(--dur);
+  animation: gh-slide-right 240ms var(--ease-out) backwards;
+}
+.game-row:hover { background: var(--accent-soft); transform: translateX(3px); }
+.game-row + .game-row { border-top: 1px solid var(--line); }
+
+.gr-thumb {
+  width: 46px;
+  height: 62px;
+  border-radius: 7px;
+  overflow: hidden;
+  flex: 0 0 auto;
+  background: linear-gradient(150deg, var(--g1, #1d4ed8), var(--g2, #0e7490));
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+.gr-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.gr-thumb img.as-icon { object-fit: contain; padding: 9px; }
+.gr-thumb .ph-letter { font-size: 19px; font-weight: 800; color: rgba(255, 255, 255, 0.92); }
+
+.gr-main { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.gr-name { font-size: calc(var(--fs-base) * 1.0); font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.gr-tags { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+
+.gr-col {
+  flex: 0 0 auto;
+  text-align: right;
+  font-size: calc(var(--fs-base) * 0.852);
+  color: var(--text-3);
+  min-width: 88px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.gr-col strong { color: var(--text-2); font-weight: 600; font-size: calc(var(--fs-base) * 0.889); }
+
+.gr-play {
+  flex: 0 0 auto;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--accent-grad);
+  color: #fff;
+  font-size: calc(var(--fs-base) * 0.889);
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all var(--dur) var(--ease);
+}
+.game-row:hover .gr-play { opacity: 1; transform: scale(1); }
+
+/* 列表行里的「⋮ 更多选项」：位置固定在播放键左边，和网格卡片同一套逻辑 */
+.gr-more {
+  flex: 0 0 auto;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: calc(var(--fs-base) * 1.111);
+  line-height: 1;
+  padding-bottom: 3px;
+  color: var(--text-3);
+  opacity: 0.6;
+  transition: opacity var(--dur), background var(--dur), color var(--dur);
+}
+.game-row:hover .gr-more { opacity: 1; }
+.gr-more:hover { background: var(--accent-soft); color: var(--accent); }
+.gr-more.is-set { opacity: 1; color: var(--accent); }
+
+/* ============================================================
+   六、首页模块（继续游戏 / 分组标题）
+   ============================================================ */
+.rail-section { margin-bottom: 30px; }
+.rail-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 13px;
+}
+.rail-title {
+  font-size: calc(var(--fs-base) * 1.037);
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.rail-title::before {
+  content: '';
+  width: 3px;
+  height: 15px;
+  border-radius: 2px;
+  background: var(--accent-grad);
+}
+.rail-more { font-size: calc(var(--fs-base) * 0.889); color: var(--accent); }
+.rail-more:hover { text-decoration: underline; }
+
+.rail-scroll {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  padding: 4px 4px 12px;
+  scroll-snap-type: x proximity;
+}
+.rail-scroll::-webkit-scrollbar { height: 8px; }
+
+/* 继续游戏：横向宽卡片 */
+.rail-card {
+  position: relative;
+  flex: 0 0 auto;
+  width: 290px;
+  height: 128px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  cursor: pointer;
+  scroll-snap-align: start;
+  background: linear-gradient(135deg, var(--g1, #1d4ed8), var(--g2, #0e7490));
+  box-shadow: var(--card-shadow);
+  transition: transform var(--dur-slow) var(--ease-out), box-shadow var(--dur-slow);
+}
+.rail-card:hover { transform: translateY(-4px) scale(1.015); box-shadow: var(--card-shadow-hover); }
+.rail-card img.bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(1px) brightness(0.7);
+  transform: scale(1.06);
+  transition: transform var(--dur-slow);
+}
+.rail-card:hover img.bg { transform: scale(1.12); }
+.rail-card .veil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(4, 8, 16, 0.9) 0%, rgba(4, 8, 16, 0.45) 60%, rgba(4, 8, 16, 0.2) 100%);
+}
+.rail-card .content-wrap {
+  position: absolute;
+  inset: 0;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #fff;
+}
+.rail-card .rc-name {
+  font-size: calc(var(--fs-base) * 1.111);
+  font-weight: 700;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.rail-card .rc-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.rail-card .rc-time { font-size: calc(var(--fs-base) * 0.815); color: rgba(255, 255, 255, 0.78); }
+.rail-card .rc-play {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 15px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  color: #fff;
+  font-size: calc(var(--fs-base) * 0.889);
+  font-weight: 600;
+  backdrop-filter: blur(8px);
+  transition: all var(--dur);
+}
+.rail-card .rc-play:hover { background: var(--accent-grad); border-color: transparent; }
+
+/* ============================================================
+   七、游戏详情页（浮层）
+   ============================================================ */
+.detail-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  animation: gh-fade-in 200ms var(--ease-out);
+}
+.detail-layer[hidden] { display: none; }
+
+.detail-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(4, 7, 14, 0.72);
+  backdrop-filter: blur(10px);
+}
+
+.detail-panel {
+  position: absolute;
+  inset: 24px;
+  max-width: 1180px;
+  margin: 0 auto;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background: var(--bg-1);
+  box-shadow: var(--pop-shadow);
+  border: 1px solid var(--line-2);
+  display: flex;
+  flex-direction: column;
+  animation: gh-pop-in 300ms var(--ease-out);
+}
+
+/* ============================================================
+   详情页公共构件（js/detailkit.js 生成）
+   ------------------------------------------------------------
+   ⚠ 游戏库详情和平台详情必须共用这一套类名。
+     之前两边各写了一套（.detail-* 和 .pfd-*），结果同一个详情页
+     在「全部游戏」和「平台总览」里长得完全不一样 —— 这个类名前缀
+     不是缩写，就是"详情页"，改的时候两边一起改。
+   ============================================================ */
+
+/* ---------------- Hero：横版大图 + 竖版封面 + 标题 ---------------- */
+.pfd-hero {
+  position: relative;
+  min-height: 236px;
+  flex: 0 0 auto;
+  padding: 22px 26px;
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--g1, #1d4ed8), var(--g2, #0e7490));
+}
+.pfd-hero-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center top;
+  filter: blur(1px) brightness(0.55);
+  transform: scale(1.06);
+}
+/* 没有横版大图时的兜底：把竖版封面放大模糊当背景。
+   亮度别压太狠 —— 压到 0.5 的时候基本就是一块死黑，
+   有封面跟没封面看起来一样，白瞎了那张图。 */
+.pfd-hero-bg.is-blurred {
+  filter: blur(28px) saturate(1.45) brightness(0.72);
+  transform: scale(1.45);
+}
+.pfd-hero-veil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(8, 12, 20, 0.22) 0%, rgba(8, 12, 20, 0.62) 52%, var(--bg-1) 100%);
+}
+.pfd-hero-inner {
+  position: relative;
+  display: flex;
+  gap: 20px;
+  align-items: flex-end;
+  width: 100%;
+}
+.pfd-cover {
+  width: 148px;
+  flex: none;
+  aspect-ratio: 2 / 3;
+  border-radius: 10px;
+  overflow: hidden;
+  background: linear-gradient(150deg, var(--g1, #1d4ed8), var(--g2, #0e7490));
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.52);
+  display: grid;
+  place-items: center;
+}
+.pfd-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.pfd-cover img.as-icon { object-fit: contain; padding: 22px; }
+.pfd-cover .pf-ph { font-size: 40px; }
+.pfd-head { flex: 1 1 auto; min-width: 0; }
+.pfd-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.25;
+  letter-spacing: 0.2px;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
+}
+
+/* 标题旁的「时长 / 成就」—— 没有数据的项不渲染，不留空壳 */
+.pfd-statline {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+.pfd-stat {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
+  padding: 4px 11px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #fff;
+  font-size: calc(var(--fs-base) * 0.926);
+  backdrop-filter: blur(6px);
+}
+.pfd-stat b { font-size: calc(var(--fs-base) * 1.037); font-weight: 700; font-variant-numeric: tabular-nums; }
+.pfd-stat .k { opacity: 0.72; font-size: calc(var(--fs-base) * 0.815); }
+.pfd-stat.ach { background: rgba(245, 181, 68, 0.18); border-color: rgba(245, 181, 68, 0.4); }
+.pfd-stat.warn { background: rgba(242, 85, 90, 0.18); border-color: rgba(242, 85, 90, 0.42); }
+/* 成就是异步补的，占位节点本身不占地方 */
+.pfd-ach-slot { display: contents; }
+
+.pfd-tags {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+.pfd-tags .pfd-tag {
+  font-size: calc(var(--fs-base) * 0.852);
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+}
+.pfd-tags .pfd-tag:hover { background: rgba(255, 255, 255, 0.24); color: #fff; }
+
+.detail-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 3;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  font-size: 19px;
+  backdrop-filter: blur(8px);
+  transition: all var(--dur);
+}
+.detail-close:hover { background: var(--danger); transform: rotate(90deg); }
+
+/* ---------------- 操作条：独立一条，不再裸贴在面板上 ---------------- */
+.pfd-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  flex: 0 0 auto;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-3);
+  flex-wrap: wrap;
+}
+.pfd-bar .spacer { flex: 1 1 auto; }
+.pfd-bar .bar-meta {
+  font-size: calc(var(--fs-base) * 0.889);
+  color: var(--text-3);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* 操作条里的「通关状态」分段控件 ----------------------------------
+   三档横排、当前档高亮 —— 显示和修改是同一个东西，不用再单独找地方显示。
+   语义色和卡片左上角的角标、右上角 ⋮ 菜单三处保持一致。 */
+.pfd-clear-seg {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 10px;
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+}
+.pcs-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 11px;
+  border-radius: 7px;
+  font-size: calc(var(--fs-base) * 0.926);
+  color: var(--text-3);
+  transition: all var(--dur);
+  white-space: nowrap;
+}
+.pcs-btn:hover { background: var(--bg-4); color: var(--text); }
+.pcs-btn .pcs-icon { font-size: calc(var(--fs-base) * 0.815); line-height: 1; }
+/* 未选中的档位也留一点语义色，扫一眼就知道三颗按钮分别是什么 */
+.pcs-btn.cc-cleared .pcs-icon   { color: var(--ok); }
+.pcs-btn.cc-multi .pcs-icon     { color: var(--warn); }
+.pcs-btn.is-on { color: var(--text); font-weight: 600; background: var(--bg-4); }
+.pcs-btn.is-on.cc-cleared { background: var(--ok-soft); box-shadow: inset 0 0 0 1px var(--ok); }
+.pcs-btn.is-on.cc-multi   { background: var(--warn-soft); box-shadow: inset 0 0 0 1px var(--warn); }
+
+/* ---------------- 正文区 ---------------- */
+.pfd-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 18px 24px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* 可收起的区块 */
+.pfd-sec {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--bg-3);
+  overflow: hidden;
+  /* ⚠ 这条不能省。.pfd-body 是 flex 纵列，而 flex item 的 min-height:auto
+   *   在 overflow 不是 visible 时会退化成 0 —— 这一条又是 overflow:hidden，
+   *   于是区块可以被无限压缩，内容直接被裁掉（不是滚动，是切掉）。
+   *   区块矮的时候看不出来；MOD 管理一进来就露馅了：
+   *   实测区块被挤成 289.67px（小数 = 被压缩），卡片的下半截（meta/标签/按钮）
+   *   全被切没了，而 .pfd-body 的 scrollHeight 还等于 clientHeight，连滚动条都不出。
+   *   加 flex:0 0 auto 让区块保持自己的高度，超出交给 .pfd-body 去滚。 */
+  flex: 0 0 auto;
+}
+.pfd-sec-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  cursor: pointer;
+  user-select: none;
+}
+.pfd-sec-head:hover { background: var(--bg-4); }
+.pfd-sec-title { font-size: calc(var(--fs-base) * 1.0); font-weight: 650; color: var(--text); flex: 1; }
+.pfd-sec-note { font-size: calc(var(--fs-base) * 0.852); color: var(--text-3); font-weight: 400; }
+.pfd-sec-toggle {
+  font-size: calc(var(--fs-base) * 0.852);
+  color: var(--text-3);
+  border: 1px solid var(--line-2);
+  border-radius: 6px;
+  padding: 2px 9px;
+  background: transparent;
+  cursor: pointer;
+}
+.pfd-sec-toggle:hover { color: var(--text); border-color: var(--line-3); }
+.pfd-sec-body { padding: 4px 16px 16px; }
+.pfd-sec.collapsed .pfd-sec-body { display: none; }
+.pfd-chev { font-size: calc(var(--fs-base) * 0.741); color: var(--text-3); transition: transform 0.16s; }
+.pfd-sec.collapsed .pfd-chev { transform: rotate(-90deg); }
+
+/* 键值网格 */
+.pfd-kv {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 10px;
+}
+.pfd-kv-cell {
+  padding: 9px 12px;
+  border-radius: 9px;
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+}
+.pfd-kv-k { font-size: calc(var(--fs-base) * 0.815); color: var(--text-3); }
+.pfd-kv-v { font-size: calc(var(--fs-base) * 0.963); color: var(--text); margin-top: 3px; word-break: break-all; }
+.pfd-kv-v.dim { color: var(--text-2); font-weight: 400; font-size: calc(var(--fs-base) * 0.926); }
+.pfd-kv-v.path { font-family: var(--font-mono); font-size: calc(var(--fs-base) * 0.852); font-weight: 400; }
+
+/* 首字母占位（没有封面时）—— 详情页和平台卡片共用，所以放这里 */
+.pf-ph {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--ph-ink);
+}
+
+/* 封面预览行 */
+.pfd-arts { display: flex; gap: 14px; flex-wrap: wrap; }
+.pfd-art-item { min-width: 0; }
+.pfd-art-label { font-size: calc(var(--fs-base) * 0.815); color: var(--text-3); margin-bottom: 6px; }
+.pfd-art-box {
+  border-radius: 9px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--bg-4);
+  display: grid;
+  place-items: center;
+}
+.pfd-art-box img { width: 100%; display: block; }
+.pfd-art-box .pf-ph { font-size: 22px; }
+.pfd-art-none { font-size: calc(var(--fs-base) * 0.889); color: var(--text-3); }
+
+/* 成就进度 */
+.pfd-ach-head {
+  font-size: calc(var(--fs-base) * 1.111);
+  font-weight: 650;
+  color: var(--text);
+}
+.pfd-ach-pct { color: var(--text-3); font-size: calc(var(--fs-base) * 0.889); margin-left: 8px; font-weight: 400; }
+.pfd-ach-bar {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--bg-4);
+  border: 1px solid var(--line);
+  overflow: hidden;
+  margin-top: 8px;
+}
+.pfd-ach-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--warn), #ff9f43);
+  border-radius: 999px;
+  transition: width 0.3s;
+}
+.pfd-ach-note {
+  font-size: calc(var(--fs-base) * 0.852);
+  color: var(--text-3);
+  margin-top: 10px;
+  line-height: 1.6;
+}
+
+/* 备注输入框（游戏库详情页专属，放这里是为了和区块样式统一） */
+.pfd-note {
+  width: 100%;
+  min-height: 92px;
+  resize: vertical;
+  border-radius: 9px;
+  border: 1px solid var(--line);
+  background: var(--bg-2);
+  color: var(--text);
+  font: inherit;
+  font-size: calc(var(--fs-base) * 0.963);
+  line-height: 1.6;
+  padding: 10px 12px;
+  outline: none;
+}
+.pfd-note:focus { border-color: var(--accent); }
+.pfd-note::placeholder { color: var(--text-3); }
+
+/* 区块里的一排小按钮 */
+.pfd-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* 拖拽换封面的提示框 */
+.pfd-drop {
+  margin-top: 10px;
+  padding: 14px;
+  border: 1px dashed var(--line-2);
+  border-radius: 9px;
+  font-size: calc(var(--fs-base) * 0.889);
+  color: var(--text-3);
+  text-align: center;
+  transition: all var(--dur);
+}
+.pfd-drop.dragover {
+  border-color: var(--accent);
+  background: rgba(96, 165, 250, 0.08);
+  color: var(--text);
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 22px;
+}
+.info-cell {
+  background: var(--bg-2);
+  padding: 13px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.info-label {
+  font-size: calc(var(--fs-base) * 0.778);
+  letter-spacing: 0.8px;
+  color: var(--text-3);
+  text-transform: uppercase;
+}
+.info-value {
+  font-size: calc(var(--fs-base) * 1.0);
+  font-weight: 600;
+  color: var(--text);
+  word-break: break-all;
+}
+.info-value.dim { font-weight: 400; color: var(--text-2); font-size: calc(var(--fs-base) * 0.926); }
+.info-value.path { font-family: var(--font-mono); font-size: calc(var(--fs-base) * 0.852); font-weight: 400; }
+.info-value .unit { font-size: calc(var(--fs-base) * 0.815); color: var(--text-3); font-weight: 400; margin-left: 3px; }
+
+.detail-section { margin-bottom: 22px; }
+.detail-section-title {
+  font-size: calc(var(--fs-base) * 0.889);
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--text-3);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+/* （旧详情页的 .cover-actions / .drop-hint / .note-area 已删除 ——
+    详情页改用 .pfd-row / .pfd-drop / .pfd-note，详见上面「详情页公共构件」段） */
+
+/* ============================================================
+   八、弹窗
+   ============================================================ */
+.modal-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: grid;
+  place-items: center;
+  padding: 40px 24px;
+  background: rgba(4, 7, 14, 0.68);
+  backdrop-filter: blur(9px);
+  animation: gh-fade-in 180ms var(--ease-out);
+}
+.modal-layer[hidden] { display: none; }
+
+.modal {
+  width: min(760px, 100%);
+  /* 用 calc(100vh - 80px) 而不是 max-height:100%：
+     外层 .modal-layer 有 40px 上下内边距，作为网格子项时百分比高度的解析
+     在不同窗口尺寸下会出现几个像素的偏差，导致底部按钮条被裁掉。
+     这里写成确定值，弹窗永远能完整落在视口内，内容区自己滚动。 */
+  max-height: calc(100vh - 80px);
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-lg);
+  background: var(--bg-1);
+  border: 1px solid var(--line-2);
+  box-shadow: var(--pop-shadow);
+  overflow: hidden;
+  animation: gh-pop-in 260ms var(--ease-out);
+}
+.modal.modal-sm { width: min(440px, 100%); }
+.modal.modal-lg { width: min(1000px, 100%); }
+
+.modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 17px 22px;
+  border-bottom: 1px solid var(--line);
+  flex: 0 0 auto;
+}
+.modal-title { font-size: 16px; font-weight: 700; }
+.modal-sub { font-size: calc(var(--fs-base) * 0.889); color: var(--text-3); margin-top: 3px; }
+.modal-close {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  font-size: 18px;
+  color: var(--text-3);
+  transition: all var(--dur);
+}
+.modal-close:hover { background: var(--danger-soft); color: var(--danger); }
+
+.modal-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 20px 22px;
+}
+.modal-foot {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 14px 22px;
+  border-top: 1px solid var(--line);
+  background: var(--bg-2);
+}
+.modal-foot .spacer { flex: 1 1 auto; }
+
+/* ---------------- 表单 ---------------- */
+.form-row { margin-bottom: 16px; }
+.form-label {
+  display: block;
+  font-size: calc(var(--fs-base) * 0.926);
+  font-weight: 600;
+  color: var(--text-2);
+  margin-bottom: 7px;
+}
+.form-desc { font-size: calc(var(--fs-base) * 0.852); color: var(--text-3); margin-top: 6px; line-height: 1.6; }
+
+.input {
+  width: 100%;
+  padding: 9px 13px;
+  border-radius: 9px;
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  color: var(--text);
+  font-size: calc(var(--fs-base) * 0.963);
+  transition: border-color var(--dur), box-shadow var(--dur);
+}
+.input:focus { border-color: var(--accent-line); box-shadow: 0 0 0 3px var(--accent-soft); }
+.input::placeholder { color: var(--text-3); }
+.input.mono { font-family: var(--font-mono); font-size: calc(var(--fs-base) * 0.889); }
+textarea.input { resize: vertical; min-height: 70px; line-height: 1.6; }
+
+.form-inline { display: flex; gap: 9px; align-items: stretch; }
+.form-inline .input { flex: 1 1 auto; min-width: 0; }
+
+/* 开关 */
+.switch-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+}
+.switch-row:last-child { border-bottom: none; }
+.switch-info { min-width: 0; }
+.switch-title { font-size: calc(var(--fs-base) * 0.963); font-weight: 500; }
+.switch-desc { font-size: calc(var(--fs-base) * 0.852); color: var(--text-3); margin-top: 3px; line-height: 1.55; }
+.switch {
+  position: relative;
+  width: 42px;
+  height: 23px;
+  border-radius: 999px;
+  background: var(--line-2);
+  flex: 0 0 auto;
+  transition: background var(--dur);
+}
+.switch::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  transition: transform var(--dur) var(--ease);
+}
+.switch.on { background: var(--accent); }
+.switch.on::after { transform: translateX(19px); }
+
+/* ============================================================
+   九、扫描结果选择器
+   ============================================================ */
+.scan-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 11px 14px;
+  margin-bottom: 14px;
+  border-radius: 11px;
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  position: sticky;
+  top: -20px;
+  z-index: 5;
+  backdrop-filter: blur(10px);
+}
+.scan-toolbar .sep { flex: 1 1 auto; }
+.scan-count { font-size: calc(var(--fs-base) * 0.889); color: var(--text-2); }
+.scan-count strong { color: var(--accent); font-size: calc(var(--fs-base) * 0.963); }
+
+.scan-group-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 18px 0 9px;
+  font-size: calc(var(--fs-base) * 0.889);
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  color: var(--text-3);
+  text-transform: uppercase;
+}
+.scan-group-title::after {
+  content: '';
+  flex: 1 1 auto;
+  height: 1px;
+  background: var(--line);
+}
+
+.scan-list { display: flex; flex-direction: column; gap: 5px; }
+
+.scan-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 12px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  background: var(--bg-2);
+  cursor: pointer;
+  transition: all var(--dur);
+}
+.scan-item:hover { border-color: var(--accent-line); background: var(--bg-3); }
+.scan-item.checked { border-color: var(--accent-line); background: var(--accent-soft); }
+.scan-item.disabled { opacity: 0.48; cursor: not-allowed; }
+.scan-item.disabled:hover { border-color: transparent; background: var(--bg-2); }
+
+.scan-check {
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  border: 1.6px solid var(--line-3);
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  font-size: calc(var(--fs-base) * 0.815);
+  color: transparent;
+  transition: all var(--dur);
+}
+.scan-item.checked .scan-check {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.scan-info { flex: 1 1 auto; min-width: 0; }
+.scan-name {
+  font-size: calc(var(--fs-base) * 0.963);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.scan-path {
+  font-family: var(--font-mono);
+  font-size: calc(var(--fs-base) * 0.815);
+  color: var(--text-3);
+  margin-top: 3px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.scan-side {
+  flex: 0 0 auto;
+  text-align: right;
+  font-size: calc(var(--fs-base) * 0.815);
+  color: var(--text-3);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+/* 列表行左侧的小封面（2:3 竖版，40×56）——
+   批量删除时只靠名字很容易认错同系列的两款，有图才敢勾。 */
+.scan-thumb {
+  flex: 0 0 auto;
+  width: 40px;
+  height: 56px;
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--bg-4);
+  display: grid;
+  place-items: center;
+  font-size: calc(var(--fs-base) * 1.111);
+  font-weight: 700;
+  color: var(--ph-ink);
+}
+.scan-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* 程序图标是方形的，不能拉伸，只能居中留白贴上去 */
+.scan-thumb img.as-icon { object-fit: contain; padding: 7px; }
+
+/* ============================================================
+   九-b、添加游戏 › 逐款自定义
+   ------------------------------------------------------------
+   顶部一排页签，每款游戏一个；下面就是「手动添加」那张表单。
+   页签多了横向滚，不做换行 —— 换行会把表单顶下去，点起来很难受。
+   ============================================================ */
+.cz-tabs {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 11px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+  /* ⚠ 这里不能写 scrollbar-width: thin —— Chromium 121+ 一旦看到这个标准属性，
+     就会忽略 ::-webkit-scrollbar 系列，退回系统原生滚动条（Windows 上还带左右箭头），
+     和主题里那套细长条完全不搭。只留 webkit 版本就够了。 */
+}
+.cz-tabs::-webkit-scrollbar { height: 6px; }
+.cz-tabs::-webkit-scrollbar-thumb { background: var(--line-2); border-radius: 3px; }
+.cz-tab {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 190px;
+  padding: 7px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--bg-3);
+  color: var(--text-2);
+  font-size: calc(var(--fs-base) * 0.926);
+  cursor: pointer;
+  transition: all var(--dur);
+}
+.cz-tab:hover { background: var(--bg-4); color: var(--text); }
+.cz-tab.active {
+  background: var(--accent-soft);
+  border-color: var(--accent-line);
+  color: var(--accent);
+  font-weight: 600;
+}
+.cz-tab-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* 页签上的「×」：导入前把这一款直接踢出去。
+   常驻可见（不然用户不知道能取消），但平时压得很淡，鼠标移到上面才变红 ——
+   一排页签全是醒目的红叉会很难看。 */
+.cz-tab-x {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  margin-right: -5px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: calc(var(--fs-base) * 0.963);
+  font-weight: 400;
+  line-height: 1;
+  color: var(--text-3);
+  opacity: 0.6;
+  transition: all var(--dur);
+}
+.cz-tab-x:hover { background: var(--danger-soft); color: var(--danger); opacity: 1; }
+.cz-tab.active .cz-tab-x { opacity: 0.8; }
+/* 「这一款改过了」的小圆点 —— 空的时候不占地方的视觉重量 */
+.cz-tab-dot {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--warn);
+  opacity: 0;
+  transition: opacity var(--dur);
+}
+.cz-tab.dirty .cz-tab-dot { opacity: 1; }
+
+.cz-page > .form-row { margin-bottom: 16px; }
+/* 每页顶部的只读扫描信息条 */
+.cz-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+  padding: 9px 12px;
+  border-radius: 9px;
+  background: var(--bg-3);
+  border: 1px solid var(--line);
+  font-size: calc(var(--fs-base) * 0.852);
+  color: var(--text-3);
+}
+.cz-meta .spacer { flex: 1 1 auto; }
+.cz-index { font-variant-numeric: tabular-nums; color: var(--text-2); font-weight: 600; }
+
+/* ============================================================
+   十、右键菜单
+   ============================================================ */
+.ctx-menu {
+  position: fixed;
+  z-index: 400;
+  min-width: 200px;
+  padding: 6px;
+  border-radius: 12px;
+  background: var(--bg-4);
+  border: 1px solid var(--line-2);
+  box-shadow: var(--pop-shadow);
+  animation: gh-pop-in 140ms var(--ease-out);
+}
+.ctx-menu[hidden] { display: none; }
+.ctx-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 11px;
+  border-radius: 8px;
+  font-size: calc(var(--fs-base) * 0.948);
+  color: var(--text-2);
+  text-align: left;
+  transition: all var(--dur);
+}
+.ctx-item:hover { background: var(--accent-soft); color: var(--text); }
+.ctx-item.danger { color: var(--danger); }
+.ctx-item.danger:hover { background: var(--danger-soft); }
+.ctx-icon { width: 15px; text-align: center; font-size: calc(var(--fs-base) * 0.889); flex: 0 0 auto; }
+.ctx-sep { height: 1px; margin: 5px 8px; background: var(--line); }
+
+/* 「⋮ 更多选项 · 通关状态」菜单顶部那行小标题 ------------------ */
+.ctx-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 11px 7px;
+  max-width: 260px;
+}
+.ctx-head-name {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: calc(var(--fs-base) * 0.852);
+  font-weight: 600;
+  color: var(--text-2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ctx-head-tag {
+  flex: 0 0 auto;
+  font-size: calc(var(--fs-base) * 0.741);
+  color: var(--text-3);
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: var(--bg-3);
+}
+
+/* 通关状态三项：颜色跟卡片角标对齐，一眼能对上 ---- */
+.ctx-clear .ctx-clear-icon { width: 15px; font-size: calc(var(--fs-base) * 0.852); }
+.ctx-clear.cc-cleared .ctx-clear-icon   { color: var(--ok); }
+.ctx-clear.cc-multi .ctx-clear-icon     { color: var(--warn); }
+.ctx-clear.cc-uncleared .ctx-clear-icon { color: var(--text-3); }
+.ctx-clear .ctx-clear-text { flex: 1 1 auto; }
+/* 当前选中的那一项：底色 + 右侧「已标记」，并且再点一次就是取消 */
+.ctx-clear.is-on { background: var(--accent-soft); color: var(--text); font-weight: 600; }
+.ctx-check {
+  flex: 0 0 auto;
+  font-size: calc(var(--fs-base) * 0.741);
+  color: var(--accent);
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: var(--bg-3);
+}
+
+/* ============================================================
+   十一、提示条
+   ============================================================ */
+.toast-stack {
+  position: fixed;
+  right: 20px;
+  bottom: calc(var(--statusbar-h) + 16px);
+  z-index: 500;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 9px;
+  pointer-events: none;
+}
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 250px;
+  max-width: 400px;
+  padding: 11px 15px;
+  border-radius: 12px;
+  background: var(--bg-4);
+  border: 1px solid var(--line-2);
+  border-left: 3px solid var(--accent);
+  box-shadow: var(--pop-shadow);
+  font-size: calc(var(--fs-base) * 0.948);
+  color: var(--text);
+  animation: gh-pop-in 260ms var(--ease-out);
+  pointer-events: auto;
+}
+.toast.out { animation: gh-fade-in 200ms var(--ease-out) reverse forwards; }
+.toast-icon { font-size: calc(var(--fs-base) * 1.111); flex: 0 0 auto; }
+.toast-msg { flex: 1 1 auto; min-width: 0; word-break: break-word; }
+.toast.success { border-left-color: var(--ok); }
+.toast.error { border-left-color: var(--danger); }
+.toast.warn { border-left-color: var(--warn); }
+
+/* ============================================================
+   十二、隐藏空间 解锁 / 设置界面
+   ============================================================ */
+.lock-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 58vh;
+  text-align: center;
+  animation: gh-pop-in 320ms var(--ease-out);
+}
+.lock-icon {
+  width: 76px;
+  height: 76px;
+  border-radius: 24px;
+  display: grid;
+  place-items: center;
+  font-size: 32px;
+  background: linear-gradient(135deg, var(--bg-3), var(--bg-1));
+  border: 1px solid var(--line-2);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.35);
+  margin-bottom: 20px;
+}
+.lock-title { font-size: 21px; font-weight: 700; margin-bottom: 8px; }
+.lock-desc {
+  font-size: calc(var(--fs-base) * 0.963);
+  color: var(--text-3);
+  max-width: 430px;
+  line-height: 1.75;
+  margin-bottom: 22px;
+}
+.lock-form {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  width: min(320px, 90%);
+}
+.lock-input {
+  text-align: center;
+  letter-spacing: 3px;
+  font-size: calc(var(--fs-base) * 1.111);
+  padding: 11px 14px;
+}
+.lock-hint {
+  font-size: calc(var(--fs-base) * 0.852);
+  color: var(--text-3);
+  min-height: 17px;
+}
+.lock-hint.error { color: var(--danger); font-weight: 600; }
+.lock-badges { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 20px; }
+
+/* ============================================================
+   十三、空状态 / 骨架屏
+   ============================================================ */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 46vh;
+  text-align: center;
+  padding: 40px 20px;
+  animation: gh-fade-in 300ms var(--ease-out);
+}
+.empty-art {
+  width: 96px;
+  height: 96px;
+  border-radius: 28px;
+  display: grid;
+  place-items: center;
+  font-size: 40px;
+  background: linear-gradient(135deg, var(--bg-3), var(--bg-1));
+  border: 1px solid var(--line-2);
+  margin-bottom: 20px;
+  opacity: 0.9;
+}
+.empty-title { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+.empty-desc { font-size: calc(var(--fs-base) * 0.963); color: var(--text-3); max-width: 400px; line-height: 1.75; margin-bottom: 20px; }
+.empty-actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+
+.skeleton-card {
+  border-radius: var(--radius);
+  aspect-ratio: 2 / 3;
+  background: linear-gradient(90deg, var(--bg-3) 8%, var(--bg-4) 22%, var(--bg-3) 33%);
+  background-size: 700px 100%;
+  animation: gh-shimmer 1.35s linear infinite;
+}
+
+/* ============================================================
+   十四、进入动画错峰（让封面墙一片片浮现，而不是"啪"地全出来）
+   ============================================================ */
+.game-card:nth-child(1) { animation-delay: 0ms; }
+.game-card:nth-child(2) { animation-delay: 16ms; }
+.game-card:nth-child(3) { animation-delay: 32ms; }
+.game-card:nth-child(4) { animation-delay: 48ms; }
+.game-card:nth-child(5) { animation-delay: 64ms; }
+.game-card:nth-child(6) { animation-delay: 80ms; }
+.game-card:nth-child(7) { animation-delay: 96ms; }
+.game-card:nth-child(8) { animation-delay: 112ms; }
+.game-card:nth-child(9) { animation-delay: 128ms; }
+.game-card:nth-child(10) { animation-delay: 144ms; }
+.game-card:nth-child(n + 11) { animation-delay: 160ms; }
+
+/* ============================================================
+   十五、顶部「更多选项」下拉菜单
+   ============================================================ */
+.more-wrap { position: relative; display: inline-flex; }
+
+.more-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-sm, 9px);
+  border: 1px solid var(--line-2);
+  background: var(--bg-3);
+  color: var(--text-2);
+  display: grid;
+  place-items: center;
+  transition: all var(--dur);
+}
+.more-btn svg { width: 16px; height: 16px; fill: currentColor; }
+.more-btn:hover { border-color: var(--line-3); color: var(--text); background: var(--bg-4); }
+.more-btn.open { border-color: var(--accent-line); color: var(--accent); background: var(--accent-soft); }
+
+.more-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 260;
+  width: 280px;
+  padding: 6px;
+  border-radius: var(--radius, 12px);
+  background: var(--bg-4);
+  border: 1px solid var(--line-2);
+  box-shadow: var(--pop-shadow);
+  animation: gh-pop-in 150ms var(--ease-out);
+}
+.more-menu[hidden] { display: none; }
+.more-sep { height: 1px; margin: 5px 8px; background: var(--line); }
+
+.more-item {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 10px;
+  border-radius: 9px;
+  text-align: left;
+  color: var(--text);
+  transition: background var(--dur);
+}
+.more-item:hover { background: var(--accent-soft); }
+.more-item .mi-icon { font-size: calc(var(--fs-base) * 1.037); line-height: 1.4; color: var(--accent); flex: 0 0 auto; }
+.more-item .mi-body { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.more-item .mi-text { font-size: calc(var(--fs-base) * 0.963); font-weight: 600; }
+.more-item .mi-desc { font-size: calc(var(--fs-base) * 0.852); color: var(--text-3); line-height: 1.5; }
+
+/* ============================================================
+   十六、二级页面：添加方式的二选一卡片
+   ============================================================ */
+.chooser { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 620px) { .chooser { grid-template-columns: 1fr; } }
+
+.chooser-card {
+  display: flex;
+  gap: 13px;
+  padding: 18px 16px;
+  text-align: left;
+  border-radius: var(--radius-lg, 16px);
+  border: 1px solid var(--line-2);
+  background: var(--bg-3);
+  transition: all var(--dur);
+}
+.chooser-card:hover { border-color: var(--accent-line); background: var(--bg-4); transform: translateY(-2px); box-shadow: var(--card-shadow-hover); }
+.chooser-card.primary { border-color: var(--accent-line); background: linear-gradient(160deg, var(--accent-soft), transparent 70%), var(--bg-3); }
+
+.cc-icon {
+  flex: 0 0 auto;
+  width: 42px; height: 42px;
+  border-radius: 12px;
+  display: grid; place-items: center;
+  font-size: 19px;
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+.cc-body { min-width: 0; }
+.cc-title { display: flex; align-items: center; gap: 6px; font-size: calc(var(--fs-base) * 1.111); font-weight: 700; color: var(--text); }
+.cc-go { color: var(--accent); opacity: 0; transform: translateX(-4px); transition: all var(--dur); }
+.chooser-card:hover .cc-go { opacity: 1; transform: translateX(0); }
+.cc-desc { margin-top: 6px; font-size: calc(var(--fs-base) * 0.926); line-height: 1.7; color: var(--text-2); }
+.cc-points { margin: 9px 0 0; padding-left: 16px; }
+.cc-points li { font-size: calc(var(--fs-base) * 0.852); color: var(--text-3); line-height: 1.8; }
+
+/* ============================================================
+   十七、自动添加：文件夹清单
+   ============================================================ */
+.folder-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px;
+  border-radius: var(--radius, 12px);
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  min-height: 58px;
+}
+.folder-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 9px;
+  border-radius: 8px;
+  background: var(--bg-3);
+  border: 1px solid var(--line);
+}
+.folder-item .fi-icon { flex: 0 0 auto; font-size: calc(var(--fs-base) * 0.963); }
+.folder-item .fi-path {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: calc(var(--fs-base) * 0.889);
+  color: var(--text-2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.folder-item .fi-del {
+  flex: 0 0 auto;
+  width: 22px; height: 22px;
+  border-radius: 6px;
+  color: var(--text-3);
+  font-size: calc(var(--fs-base) * 1.111);
+  line-height: 1;
+}
+.folder-item .fi-del:hover { background: var(--danger-soft); color: var(--danger); }
+.folder-empty { padding: 14px; text-align: center; font-size: calc(var(--fs-base) * 0.926); color: var(--text-3); }
+
+/* ============================================================
+   十八、分类编辑器补充（R18 / 建议列表）
+   ============================================================ */
+.side-title-actions { display: inline-flex; align-items: center; gap: 4px; }
+.suggest-label { margin: 10px 0 6px; font-size: calc(var(--fs-base) * 0.852); color: var(--text-3); }
+
+/* R18 标签用醒目的红调，一眼能认出来 */
+.chip-r18 {
+  background: var(--danger-soft) !important;
+  color: var(--danger) !important;
+  border-color: rgba(242, 85, 90, 0.4) !important;
+  font-weight: 700;
+}
+.chip-r18-suggest { border-color: rgba(242, 85, 90, 0.35); color: var(--danger); }
+.r18-hint {
+  margin: 7px 0 0;
+  padding: 7px 10px;
+  border-radius: 8px;
+  background: var(--danger-soft);
+  color: var(--danger);
+  font-size: calc(var(--fs-base) * 0.852);
+  line-height: 1.6;
+}
+.form-desc.busy { color: var(--accent); }
+
+/* ============================================================
+   十九、设置面板：封面联网搜索的进度区
+   ------------------------------------------------------------
+   放在弹窗里而不是全局状态栏，是因为用户是在设置里点的按钮，
+   结果也应该在同一个位置回话，不要让人跑到屏幕左下角去看。
+   ⚠ 这里刻意只写 webkit 版本：Chromium 121+ 里 `scrollbar-width: thin`
+      会直接废掉 ::-webkit-scrollbar 那一套，两者不能同时用。
+   ============================================================ */
+.cp-bar {
+  height: 6px;
+  margin: 8px 0 6px;
+  border-radius: 99px;
+  background: var(--bg-4);
+  overflow: hidden;
+}
+.cp-fill {
+  width: 0;
+  height: 100%;
+  border-radius: 99px;
+  background: var(--accent-grad);
+  transition: width 0.25s ease;
+}
+.cp-text {
+  font-size: calc(var(--fs-base) * 0.852);
+  line-height: 1.6;
+  color: var(--text-2);
+  min-height: 1.6em;
+  word-break: break-all;
+}
+
+/* ============================================================
+ *  MOD 管理区块（详情页最上面那一块）
+ * ------------------------------------------------------------
+ *  布局要点：
+ *   · 「横列」= 每个创意工坊标签一行，行内卡片横向滚动，
+ *     不是纵向列表。这样一屏能看到更多 MOD，也天然对应"按标签分类"。
+ *   · 卡片宽高固定（不是自适应），横向滚动时节奏才整齐。
+ *   · 禁用态整体降饱和 + 盖一层"已禁用"蒙版 —— 一眼能分出来，
+ *     但不能把它压到看不清名字（用户还得能选中它去启用）。
+ * ============================================================ */
+
+.pfd-mod { display: flex; flex-direction: column; gap: 12px; }
+
+/* ---------------- 工具条 ---------------- */
+.pfd-mod-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+}
+.pfd-mod-count {
+  font-size: calc(var(--fs-base) * 0.926);
+  color: var(--text-2);
+  margin-right: 4px;
+  white-space: nowrap;
+}
+.pfd-mod-sort {
+  background: var(--bg-4);
+  color: var(--text);
+  border: 1px solid var(--line-2);
+  border-radius: 8px;
+  padding: 5px 8px;
+  font-size: calc(var(--fs-base) * 0.889);
+  font-family: inherit;
+  cursor: pointer;
+}
+.pfd-mod-sort:focus { outline: none; border-color: var(--accent-line); }
+.pfd-mod-dirbtn { min-width: 34px; padding-left: 0; padding-right: 0; }
+
+/* ---------------- 标签筛选条（二级分类入口） ---------------- */
+.pfd-mod-tagbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+/* 标签多到挤不下时，这一条自己横向滚动，不换行撑高 */
+.pfd-mod-tagrail {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  min-width: 0;
+  flex: 1;
+}
+.pfd-mod-tagrail::-webkit-scrollbar { height: 5px; }
+.pfd-mod-tagrail::-webkit-scrollbar-thumb {
+  background: var(--line-3);
+  border-radius: 3px;
+}
+
+.pfd-mod-tag {
+  flex: 0 0 auto;
+  padding: 4px 11px;
+  border-radius: 999px;
+  border: 1px solid var(--line-2);
+  background: transparent;
+  color: var(--text-2);
+  font-size: calc(var(--fs-base) * 0.889);
+  font-family: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all .14s ease;
+}
+.pfd-mod-tag:hover { color: var(--text); border-color: var(--line-3); }
+.pfd-mod-tag.is-on {
+  background: var(--accent-soft);
+  border-color: var(--accent-line);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* ---------------- 分组 + 横向滚动行 ---------------- */
+/* 分组容器。
+ * ⚠ 必须有界 + 内部滚动：一个标签一行，行又有 249px 高，
+ *   RimWorld 那种几十个标签的游戏一铺就是 1700px 往上，
+ *   会把「详细信息 / 封面 / 我的备注」全顶出屏幕，用户根本滚不到。
+ *   所以这里给个上限，超出的在区内滚 —— 详情页整体还是能正常滚。 */
+.pfd-mod-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-height: min(56vh, 560px);
+  overflow-y: auto;
+  padding-right: 4px;
+  /* 滚动到边界时不要把整页也带着滚（横向 rail 滚到头就会这样） */
+  overscroll-behavior: contain;
+}
+.pfd-mod-groups::-webkit-scrollbar { width: 8px; }
+.pfd-mod-groups::-webkit-scrollbar-track { background: transparent; }
+.pfd-mod-groups::-webkit-scrollbar-thumb { background: var(--line-2); border-radius: 4px; }
+.pfd-mod-groups::-webkit-scrollbar-thumb:hover { background: var(--line-3); }
+
+
+.pfd-mod-group { display: flex; flex-direction: column; gap: 8px; }
+
+.pfd-mod-ghead {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.pfd-mod-gname {
+  font-size: calc(var(--fs-base) * 0.926);
+  font-weight: 600;
+  color: var(--text-2);
+  letter-spacing: .02em;
+}
+.pfd-mod-gcount { font-size: calc(var(--fs-base) * 0.852); color: var(--text-3); }
+
+.pfd-mod-rail {
+  /* 铺开的网格：卡片自动换行铺满整行。
+   * （主人反馈：原来是"一条横着的"，要铺开）
+   * auto-fill + minmax(…, 1fr) 让每行等宽铺满，右边不留空档；
+   * 窗口拉宽就多排一列，不用横着滚。 */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
+  gap: 10px;
+  align-content: start;
+}
+
+/* ---------------- MOD 卡片 ---------------- */
+.pfd-mod-card {
+  /* 宽度交给网格决定（不再写死 186px），这样每行才能等宽铺满 */
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--bg-3);
+  overflow: hidden;
+  transition: transform .16s ease, border-color .16s ease, box-shadow .16s ease;
+}
+.pfd-mod-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--line-2);
+  box-shadow: var(--card-shadow-hover);
+}
+/* 禁用态：整体降饱和变暗。**不降低可读性** —— 名字和按钮还得看得清，
+  因为用户正是要选中它去"启用"。 */
+.pfd-mod-card.is-off { opacity: .62; }
+.pfd-mod-card.is-off:hover { opacity: .82; }
+
+.pfd-mod-thumb {
+  position: relative;
+  height: 96px;
+  background-size: cover;
+  background-position: center;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+.pfd-mod-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.pfd-mod-card.is-off .pfd-mod-thumb img { filter: grayscale(1) brightness(.7); }
+.pfd-mod-offmask {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(6, 10, 18, .55);
+  color: #fff;
+  font-size: calc(var(--fs-base) * 0.889);
+  font-weight: 600;
+  letter-spacing: .06em;
+  backdrop-filter: blur(1.5px);
+}
+
+.pfd-mod-body {
+  padding: 8px 10px 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1;
+  min-height: 0;
+}
+.pfd-mod-name {
+  font-size: calc(var(--fs-base) * 0.926);
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.35;
+  /* 标题最多两行，多了省略 —— 卡片高度要统一，不然横向滚动时参差不齐 */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-break: break-word;
+}
+.pfd-mod-meta {
+  font-size: calc(var(--fs-base) * 0.815);
+  color: var(--text-3);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pfd-mod-chips {
+  display: flex;
+  gap: 4px;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  margin-top: auto;
+}
+.pfd-mod-chip {
+  font-size: calc(var(--fs-base) * 0.778);
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 88px;
+  cursor: pointer;
+}
+.pfd-mod-chip:hover { background: var(--accent-line); color: #fff; }
+.pfd-mod-chip.more {
+  background: var(--bg-4);
+  color: var(--text-3);
+  cursor: default;
+  flex: 0 0 auto;
+}
+
+.pfd-mod-acts {
+  display: flex;
+  gap: 5px;
+  padding: 0 8px 8px;
+}
+.pfd-mod-acts .btn {
+  flex: 1;
+  padding: 5px 6px;
+  font-size: calc(var(--fs-base) * 0.852);
+  white-space: nowrap;
+}
+/* 定位和删除是图标按钮，不用抢宽度 */
+.pfd-mod-acts .btn:not(:first-child) { flex: 0 0 auto; min-width: 32px; }
+.pfd-mod-acts .btn.danger { color: var(--danger); border-color: var(--line-2); }
+.pfd-mod-acts .btn.danger:hover {
+  background: var(--danger-soft);
+  border-color: var(--danger);
+}
+
+/* ---------------- 空状态 / 提示 ---------------- */
+.pfd-mod-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  padding: 26px 18px;
+  text-align: center;
+  border: 1px dashed var(--line-2);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, .015);
+}
+.pfd-mod-empty-art { font-size: 30px; line-height: 1; opacity: .85; }
+.pfd-mod-empty-t { font-size: calc(var(--fs-base) * 1.0); font-weight: 600; color: var(--text); }
+.pfd-mod-empty-d {
+  font-size: calc(var(--fs-base) * 0.889);
+  color: var(--text-2);
+  line-height: 1.7;
+  max-width: 560px;
+}
+.pfd-mod-empty-d.dim { color: var(--text-3); font-size: calc(var(--fs-base) * 0.852); }
+.pfd-mod-empty-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 6px;
+}
+
+.pfd-mod-note {
+  font-size: calc(var(--fs-base) * 0.852);
+  color: var(--warn);
+  background: var(--warn-soft);
+  border-radius: 8px;
+  padding: 7px 11px;
+  line-height: 1.6;
+}
+
+/* ---------------- 删除确认弹窗里那张"清单" ---------------- */
+.mod-del-name {
+  font-size: calc(var(--fs-base) * 1.037);
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 12px;
+  word-break: break-word;
+}
+.mod-del-kv {
+  display: grid;
+  grid-template-columns: 62px 1fr;
+  gap: 7px 12px;
+  font-size: calc(var(--fs-base) * 0.889);
+  padding: 11px 12px;
+  border-radius: 10px;
+  background: var(--bg-4);
+  border: 1px solid var(--line);
+}
+.mod-del-k { color: var(--text-3); }
+.mod-del-v {
+  color: var(--text-2);
+  word-break: break-all;
+  line-height: 1.6;
+}
+.mod-del-warn {
+  margin-top: 12px;
+  font-size: calc(var(--fs-base) * 0.889);
+  line-height: 1.75;
+  color: var(--text-2);
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--warn-soft);
+  border-left: 3px solid var(--warn);
+}
+.mod-del-warn strong { color: var(--warn); margin-right: 4px; }
+
+/* 动效敏感的用户：把位移和过渡都关掉 */
+@media (prefers-reduced-motion: reduce) {
+  .pfd-mod-card,
+  .pfd-mod-tag { transition: none; }
+  .pfd-mod-card:hover { transform: none; }
+}
+
+/* ============================================================
+   卸载弹窗
+   ------------------------------------------------------------
+   卸载是不可逆操作，所以这里做两件事：
+     ① 把「删什么 / 在哪 / 多大」用信息块摆清楚
+     ② 把可选方式做成卡片让用户自己挑，而不是替用户决定
+   ============================================================ */
+
+.un-box {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 16px;
+  background: var(--bg-2);
+}
+.un-row {
+  display: flex;
+  gap: 10px;
+  font-size: calc(var(--fs-base) * 0.926);
+  line-height: 1.6;
+  margin-bottom: 7px;
+}
+.un-row:last-child { margin-bottom: 0; }
+.un-key {
+  flex: 0 0 66px;
+  color: var(--text-3);
+}
+.un-val {
+  flex: 1;
+  min-width: 0;
+  color: var(--text);
+  word-break: break-all;
+}
+
+.un-opts {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin-bottom: 14px;
+}
+.un-opt {
+  display: flex;
+  gap: 11px;
+  align-items: flex-start;
+  padding: 11px 13px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg-2);
+  cursor: pointer;
+  transition: border-color var(--dur), background var(--dur);
+}
+.un-opt:hover {
+  border-color: var(--line-2);
+  background: var(--bg-3);
+}
+.un-opt.on {
+  border-color: var(--accent-line);
+  background: var(--accent-soft);
+}
+.un-opt-radio {
+  flex: 0 0 auto;
+  width: 15px;
+  height: 15px;
+  margin-top: 2px;
+  border-radius: 50%;
+  border: 2px solid var(--line-3);
+  position: relative;
+  transition: border-color var(--dur);
+}
+.un-opt.on .un-opt-radio { border-color: var(--accent); }
+.un-opt.on .un-opt-radio::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.un-opt-body { flex: 1; min-width: 0; }
+.un-opt-title {
+  font-size: calc(var(--fs-base) * 0.963);
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 3px;
+}
+.un-opt-desc {
+  font-size: calc(var(--fs-base) * 0.852);
+  color: var(--text-3);
+  line-height: 1.55;
+}
+
+.un-warn {
+  padding: 10px 12px;
+  border-radius: 9px;
+  background: var(--warn-soft);
+  border-left: 3px solid var(--warn);
+  color: var(--warn);
+  font-size: calc(var(--fs-base) * 0.889);
+  line-height: 1.6;
+}
+
