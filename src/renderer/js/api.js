@@ -149,8 +149,8 @@
     netTunnelCode: (args) => safe(raw.net.tunnelCode, args || {}),
     /** 内网穿透：测这个地址 TCP 通不通 */
     netTestAddr: (args) => safe(raw.net.testAddr, args || {}),
-    /** 房间聊天 */
-    netChat: (text) => safe(raw.net.chat, text),
+    /** 房间聊天。name = 发送者昵称（主进程不存昵称，每条消息都带上） */
+    netChat: (text, name) => safe(raw.net.chat, { text, name }),
 
     /* ---------------- MOD 快速导入 / 打包 / MOD 码（对齐工具） ---------------- */
     /** 拖入的路径数组 → 解压/复制进该游戏的 MOD 目录 */

@@ -40,6 +40,13 @@
   const logs = [];
   /** 聊天 */
   const chatLines = [];
+  /**
+   * 昵称（成员表「账号」列和聊天里显示的名字）。
+   * 存 localStorage —— 这是个本地偏好，不值得动全局设置 schema；
+   * 进房间时随 HELLO 带过去，中途改的话聊天立刻生效、成员表要重进才换。
+   */
+  let nickname = '';
+  try { nickname = localStorage.getItem('gamehub.net.nickname') || ''; } catch { }
   /** 已订阅主进程事件（只订阅一次） */
   let wired = false;
   /** 上一次渲染出来的根节点，用来判断要不要整体重画 */
@@ -128,10 +135,27 @@
     body.innerHTML = '';
     body.classList.add('net-body');
 
-    body.appendChild(modePicker());
-    if (room && room.active) body.appendChild(roomCard());
-    else body.appendChild(formCard());
-    body.appendChild(logCard());
+    /* 两栏布局（照主人画的草图）：
+     *   左栏 = 原本的联机操作区（模式卡 + 表单 + 日志）
+     *   右栏 = 房间信息区，常驻 —— 成员表（账号/延迟/丢包）+ 聊天框
+     * 右栏常驻的意义：不管你切到哪种模式、有没有进房间，
+     * 都能一眼看到"现在房间里谁在、卡不卡"，聊天也不用翻页面找。 */
+    const layout = el('div', { class: 'net-layout' });
+    const main = el('div', { class: 'net-main' });
+    const side = el('div', { class: 'net-side' });
+
+    main.appendChild(modePicker());
+    if (room && room.active) main.appendChild(roomReadyCard());
+    else main.appendChild(formCard());
+    main.appendChild(logCard());
+
+    side.appendChild(sideStatus());
+    side.appendChild(sideMembers());
+    side.appendChild(sideChat());
+
+    layout.appendChild(main);
+    layout.appendChild(side);
+    body.appendChild(layout);
 
     wireEvents();
     // 第一次进来顺手体检一次（穿透模式不需要，但结论留着总有用）
@@ -139,6 +163,7 @@
     else paintProbe();
     paintBadge();
     paintLogs();
+    paintChat();
   }
 
   /* ---------------- 模式选择 ---------------- */
@@ -322,6 +347,7 @@
       log('正在建房…');
       const r = await API.netHost({
         mode: 'p2p', name: name.value.trim(), pass: pass.value,
+        myName: nickname || '玩家',
         game: game.value.trim(), gamePort: Number(gamePort.value) || 0,
         family: family.value, tunnel: tunnel.checked,
         publicHost: manualHost.value.trim() || null
@@ -379,6 +405,7 @@
       log(`正在连接中转站 ${host}:${port} …`);
       const r = await API.netHost({
         mode: 'relay', name: name.value.trim(), pass: pass.value,
+        myName: nickname || '玩家',
         gamePort: Number(gamePort.value) || 0, tunnel: tunnel.checked,
         relayHost: host, relayPort: port
       });
@@ -443,7 +470,7 @@
       if (!c) { toast('先把房间码粘进来', 'warn'); return; }
       log('正在加入房间…');
       const r = await API.netJoin({
-        code: c, pass: pass.value,
+        code: c, pass: pass.value, myName: nickname || '玩家',
         tunnel: tunnel.checked,
         tunnelPort: Number(tunnelPort.value) || 0
       });
@@ -472,8 +499,10 @@
     ]);
   }
 
-  /* ---------------- 房间卡片 ---------------- */
-  function roomCard() {
+  /* ---------------- 房间卡片（左栏：房间就绪后的简要状态） ----------------
+   * 成员表和聊天挪到右栏常驻了，这里只留"房间本身"的信息：
+   * 房间码、隧道状态、离开按钮 —— 这些是"操作"，跟右栏的"状态"分开。 */
+  function roomReadyCard() {
     const r = room;
     const modeLabel = { p2p: 'P2P 直连', relay: '中转站', tunnel: '内网穿透' }[r.mode] || r.mode;
     const card = el('div', { class: 'net-card net-room' });
@@ -487,14 +516,6 @@
       el('div', { class: 'nc-sub', text: r.publicAddr ? `${r.publicAddr.kind} · ${r.publicAddr.ip}:${r.publicAddr.port}` : '' })
     ]));
 
-    /* ---- 我自己的延迟 / 丢包（大数字） ---- */
-    card.appendChild(el('div', { class: 'nr-metrics' }, [
-      metric('我的延迟', `${r.rtt || 0}`, 'ms', rttClass(r.rtt)),
-      metric('丢包率', pct(r.loss), '', lossClass(r.loss)),
-      metric('房间人数', String((r.members || []).length), '人', ''),
-      metric('游戏隧道', r.tunnelOn ? `开 · ${r.tunnelPort || r.gamePort || '—'}` : '关', '', r.tunnelOn ? 'good' : '')
-    ]));
-
     /* ---- 房间码 ---- */
     if (r.code) {
       card.appendChild(el('div', { class: 'code-box' }, [
@@ -506,35 +527,15 @@
       ]));
     }
 
-    /* ---- 成员表 ---- */
-    card.appendChild(el('div', { class: 'nr-mem-head', text: `房间成员（${(r.members || []).length}）` }));
-    card.appendChild(el('div', { class: 'nr-members' },
-      (r.members || []).map((m) => el('div', { class: 'nr-mem' + (m.isMe ? ' me' : '') }, [
-        el('span', { class: 'nm-dot' + (m.isHost ? ' host' : '') }),
-        el('span', { class: 'nr-mem-name', text: m.name || ('成员 ' + m.id) }),
-        m.isHost ? el('span', { class: 'nr-mem-tag', text: '房主' }) : null,
-        m.isMe ? el('span', { class: 'nr-mem-tag soft', text: '我' }) : null,
-        el('span', { class: 'nr-mem-spacer' }),
-        el('span', { class: `nr-mem-rtt ${m.isMe ? '' : rttClass(m.rtt)}`, text: m.isMe ? '—' : `${m.rtt || 0}ms` }),
-        el('span', { class: `nr-mem-loss ${m.isMe ? '' : lossClass(m.loss)}`, text: m.isMe ? '—' : pct(m.loss) })
-      ]))
-    ));
-
-    /* ---- 聊天 ---- */
-    card.appendChild(el('div', { class: 'nr-chat-head', text: '房间聊天' }));
-    const chatBox = el('div', { class: 'nr-chat', id: 'nrChat' });
-    const input = el('input', { class: 'input', placeholder: '说点什么（回车发送）' });
-    input.addEventListener('keydown', async (e) => {
-      if (e.key !== 'Enter') return;
-      const t = input.value.trim();
-      if (!t) return;
-      input.value = '';
-      chatLines.push({ name: '我', text: t });
-      paintChat();
-      await API.netChat(t);
-    });
-    card.appendChild(chatBox);
-    card.appendChild(el('div', { class: 'nr-chat-send' }, [input]));
+    /* ---- 游戏隧道状态 ---- */
+    card.appendChild(el('div', { class: 'nf-tip' }, [
+      el('span', { class: 'nf-tip-tag', text: '隧道' }),
+      el('span', {
+        text: r.tunnelOn
+          ? `已开：${r.role === 'guest' ? `本机 127.0.0.1:${r.tunnelPort} → 房主的游戏端口 ${r.gamePort}` : `转发到本机游戏端口 ${r.gamePort}`}（实验特性）`
+          : '没开。建房/加入时勾选「开游戏隧道」即可。'
+      })
+    ]));
 
     /* ---- 离开 ---- */
     card.appendChild(el('div', { class: 'nf-actions' }, [
@@ -549,6 +550,145 @@
         }
       })
     ]));
+    return card;
+  }
+
+  /* ================================================================
+   *  右栏：房间信息区（常驻）
+   * ================================================================ */
+
+  /** 顶部：房间状态 + 我的延迟/丢包 + 昵称 */
+  function sideStatus() {
+    const card = el('div', { class: 'net-card ns-card', id: 'nsStatus' });
+    const inRoom = !!(room && room.active);
+
+    card.appendChild(el('div', { class: 'nc-head' }, [
+      el('div', { class: 'nc-title', text: inRoom ? '房间状态' : '还没联机' }),
+      el('div', { class: 'nc-sub', id: 'nsSub', text: inRoom ? (room.name || '') : '进房间后这里显示延迟与丢包' })
+    ]));
+
+    /* 昵称 —— 成员表「账号」列和聊天里显示的名字 */
+    const nameIn = el('input', {
+      class: 'input ns-name', value: nickname,
+      placeholder: '玩家',
+      onchange: () => {
+        nickname = nameIn.value.trim().slice(0, 24);
+        try { localStorage.setItem('gamehub.net.nickname', nickname); } catch { }
+        log(`昵称已设为「${nickname || '玩家'}」（进房间时生效，聊天立刻用新名字）`, 'info');
+      }
+    });
+    card.appendChild(el('div', { class: 'nf-field' }, [
+      el('div', { class: 'nf-label', text: '我的昵称（账号）' }),
+      nameIn,
+      el('div', { class: 'nf-hint', text: '聊天里立刻生效；成员表要重进房间才换' })
+    ]));
+
+    /* 我的延迟 / 丢包 —— 两个大数字，最显眼的位置。
+     * ⚠ 数字单独给 id：每秒刷新只改文本，绝不能整卡重画 ——
+     *   不然正改昵称打到一半输入框就被清掉了。 */
+    card.appendChild(el('div', { class: 'nr-metrics two' }, [
+      el('div', { class: `nr-metric ${inRoom ? rttClass(room.rtt) : ''}` }, [
+        el('div', { class: 'nrm-label', text: '我的延迟' }),
+        el('div', { class: 'nrm-value' }, [
+          el('span', { class: 'nrm-num', id: 'nsRtt', text: inRoom ? `${room.rtt || 0}` : '—' }),
+          el('span', { class: 'nrm-unit', text: 'ms' })
+        ])
+      ]),
+      el('div', { class: `nr-metric ${inRoom ? lossClass(room.loss) : ''}` }, [
+        el('div', { class: 'nrm-label', text: '丢包率' }),
+        el('div', { class: 'nrm-value' }, [
+          el('span', { class: 'nrm-num', id: 'nsLoss', text: inRoom ? pct(room.loss) : '—' })
+        ])
+      ])
+    ]));
+
+    return card;
+  }
+
+  /** 每秒只刷右栏的数字与成员表，绝不动昵称/聊天输入框（会丢焦点） */
+  function paintSideStatus() {
+    const inRoom = !!(room && room.active);
+    const rtt = document.getElementById('nsRtt');
+    const loss = document.getElementById('nsLoss');
+    if (rtt) rtt.textContent = inRoom ? `${room.rtt || 0}` : '—';
+    if (loss) loss.textContent = inRoom ? pct(room.loss) : '—';
+    // 颜色等级跟着数字走（改的是卡片 class，不影响里面的输入框）
+    const card = document.getElementById('nsStatus');
+    if (card) {
+      const ms = card.querySelectorAll('.nr-metric');
+      if (ms[0]) ms[0].className = `nr-metric ${inRoom ? rttClass(room.rtt) : ''}`;
+      if (ms[1]) ms[1].className = `nr-metric ${inRoom ? lossClass(room.loss) : ''}`;
+    }
+    // 成员表整卡重画是安全的（里面没有输入框）
+    const mem = document.getElementById('nsMembers');
+    if (mem) mem.replaceWith(sideMembers());
+  }
+
+  /** 成员表：账号 | 延迟 | 丢包 */
+  function sideMembers() {
+    const card = el('div', { class: 'net-card ns-card', id: 'nsMembers' });
+    const inRoom = !!(room && room.active);
+    const list = inRoom ? (room.members || []) : [];
+
+    card.appendChild(el('div', { class: 'nc-head' }, [
+      el('div', { class: 'nc-title', text: `房间成员（${list.length}）` }),
+      el('div', { class: 'nc-sub', text: inRoom ? '每秒刷新' : '—' })
+    ]));
+
+    /* 表头：账号 / 延迟 / 丢包 */
+    card.appendChild(el('div', { class: 'ns-mem-head' }, [
+      el('span', { class: 'nsmh-account', text: '账号' }),
+      el('span', { class: 'nsmh-col', text: '延迟' }),
+      el('span', { class: 'nsmh-col', text: '丢包' })
+    ]));
+
+    if (!inRoom) {
+      card.appendChild(el('div', { class: 'nl-empty', text: '还没进房间 —— 房间里的人都列在这里' }));
+      return card;
+    }
+
+    for (const m of list) {
+      card.appendChild(el('div', { class: 'nr-mem' + (m.isMe ? ' me' : '') }, [
+        el('span', { class: 'nm-dot' + (m.isHost ? ' host' : '') }),
+        el('span', { class: 'nr-mem-name', text: m.name || ('成员 ' + m.id) }),
+        m.isHost ? el('span', { class: 'nr-mem-tag', text: '房主' }) : null,
+        m.isMe ? el('span', { class: 'nr-mem-tag soft', text: '我' }) : null,
+        el('span', { class: 'nr-mem-spacer' }),
+        el('span', { class: `nr-mem-rtt ${m.isMe ? '' : rttClass(m.rtt)}`, text: m.isMe ? '—' : `${m.rtt || 0}ms` }),
+        el('span', { class: `nr-mem-loss ${m.isMe ? '' : lossClass(m.loss)}`, text: m.isMe ? '—' : pct(m.loss) })
+      ]));
+    }
+    return card;
+  }
+
+  /** 聊天框（常驻：进房间才能发，没进房间置灰） */
+  function sideChat() {
+    const card = el('div', { class: 'net-card ns-card ns-chat-card' });
+    const inRoom = !!(room && room.active);
+
+    card.appendChild(el('div', { class: 'nc-head' }, [
+      el('div', { class: 'nc-title', text: '房间聊天' }),
+      el('div', { class: 'nc-sub', text: inRoom ? '回车发送' : '进房间后开放' })
+    ]));
+
+    card.appendChild(el('div', { class: 'nr-chat', id: 'nrChat' }));
+
+    const input = el('input', {
+      class: 'input', id: 'nrChatInput',
+      placeholder: inRoom ? '说点什么…' : '先进房间',
+      disabled: !inRoom
+    });
+    input.addEventListener('keydown', async (e) => {
+      if (e.key !== 'Enter') return;
+      const t = input.value.trim();
+      if (!t || !(room && room.active)) return;
+      input.value = '';
+      const name = nickname || '我';
+      chatLines.push({ name, text: t, me: true });
+      paintChat();
+      await API.netChat(t, name);
+    });
+    card.appendChild(el('div', { class: 'nr-chat-send' }, [input]));
     return card;
   }
 
@@ -595,8 +735,8 @@
       box.appendChild(el('div', { class: 'nl-empty', text: '还没有人说话' }));
       return;
     }
-    for (const c of chatLines.slice(-50)) {
-      box.appendChild(el('div', { class: 'nrc-line' }, [
+    for (const c of chatLines.slice(-60)) {
+      box.appendChild(el('div', { class: 'nrc-line' + (c.me ? ' me' : '') }, [
         el('span', { class: 'nrc-name', text: c.name }),
         el('span', { class: 'nrc-text', text: c.text })
       ]));
@@ -633,23 +773,21 @@
 
     window.GameHub.on('net:state', (s) => {
       if (!s) return;
+      const wasActive = !!(room && room.active);
       room = s.active ? s : null;
       if (s.probe) probe = s.probe;
-      // 在房间里时每秒都会收到新快照：只刷数字，别整页重画（不然输入框会丢焦点）
+      // 每秒都会收到新快照：只刷右栏和左栏的房间卡，别整页重画（不然输入框会丢焦点）
       if (window.State.view === 'net' && mounted) {
-        const card = mounted.querySelector('.net-room');
-        if (room && card) {
-          const fresh = roomCard();
-          // 保住聊天输入框里已经打了一半的字
-          const old = card.querySelector('.nr-chat-send input');
-          const neu = fresh.querySelector('.nr-chat-send input');
-          if (old && neu) neu.value = old.value;
-          card.replaceWith(fresh);
+        const active = !!(room && room.active);
+        if (active !== wasActive) {
+          // 进房 / 掉线 —— 布局形态变了，整页重画一次
+          render(mounted);
+        } else if (active) {
+          // 只刷数字和成员表；昵称 / 聊天输入框动都不动（会丢焦点、丢已打的字）
+          const card = mounted.querySelector('.net-room');
+          if (card) card.replaceWith(roomReadyCard());
+          paintSideStatus();
           paintChat();
-        } else if (!room && !card) {
-          render(mounted);
-        } else if (!room && card) {
-          render(mounted);
         }
       }
       paintBadge();

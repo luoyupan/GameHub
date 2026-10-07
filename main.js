@@ -1800,8 +1800,11 @@ function registerBrowserIpc() {
     });
   });
 
-  /** 房间内聊天 */
-  ipcMain.handle('net:chat', (_e, text) => ensureRoom().chat(String(text || '')));
+  /** 房间内聊天。args: { text, name } —— 昵称由渲染层每条带上，主进程不存 */
+  ipcMain.handle('net:chat', (_e, args = {}) => {
+    const a = typeof args === 'string' ? { text: args } : (args || {});
+    return ensureRoom().chat(String(a.text || ''), String(a.name || ''));
+  });
 }
 
 /* ==================================================================
@@ -4130,6 +4133,41 @@ async function runScreenshot() {
           document.getElementById('contentBody').scrollTop = 0;
           return { 码前缀: c.textContent.slice(0, 16) };
         })()`
+      },
+      /* 新增：联机页 —— 进房间后的样子。
+       * 真开一个 127.0.0.1 的 P2P 房（不碰外网），看右栏的状态卡 /
+       * 成员表（账号·延迟·丢包）/ 聊天框是不是都亮起来了。 */
+      {
+        name: '34-联机-房间中',
+        script: `(async () => {
+          try { window.Modals.closeModal(); } catch (e) {}
+          window.App.goto('net');
+          await new Promise(r => setTimeout(r, 400));
+          // 先设个昵称，成员表「账号」列才有东西可看
+          const nameIn = document.querySelector('.ns-name');
+          if (nameIn) {
+            nameIn.value = '主人';
+            nameIn.dispatchEvent(new Event('change'));
+          }
+          const r = await window.API.netHost({
+            mode: 'p2p', name: '演示房间', pass: '', myName: '主人',
+            game: '', gamePort: 7777, family: 'ipv4',
+            listenPort: 47319, publicHost: '127.0.0.1'
+          });
+          if (!r || !r.ok) throw new Error('演示房间没开起来：' + ((r && r.error) || '?'));
+          for (let i = 0; i < 40 && !(window.State.view === 'net' && document.querySelector('.net-room')); i++) {
+            await new Promise(res => setTimeout(res, 250));
+          }
+          await new Promise(res => setTimeout(res, 1800));   // 等两轮心跳，延迟数字才有值
+          const chat = document.getElementById('nrChatInput');
+          if (!chat) throw new Error('聊天框没找到');
+          if (chat.disabled) throw new Error('进房间了聊天框还是灰的');
+          const mem = document.getElementById('nsMembers');
+          if (!mem || !/主人/.test(mem.textContent)) throw new Error('成员表里没有我');
+          document.getElementById('contentBody').scrollTop = 0;
+          return { 房间: r.code.slice(0, 14) + '…', 成员: mem.textContent.match(/主人|房主|玩家/g) };
+        })()`,
+        cleanup: `(async () => { try { await window.API.netLeave(); } catch (e) {} })()`
       },
     ];
 

@@ -216,8 +216,8 @@ contextBridge.exposeInMainWorld('GameHub', {
     tunnelCode: (args) => ipcRenderer.invoke('net:tunnelCode', args || {}),
     /** 内网穿透：测一下这个地址 TCP 连不连得通 */
     testAddr: (args) => ipcRenderer.invoke('net:testAddr', args || {}),
-    /** 房间聊天 */
-    chat: (text) => ipcRenderer.invoke('net:chat', text)
+    /** 房间聊天。args: { text, name } —— 昵称每条消息都带，主进程不存 */
+    chat: (args) => ipcRenderer.invoke('net:chat', args || {})
   },
 
   /* ---------------- MOD 快速导入 / 打包 / MOD 码（对齐工具） ---------------- */

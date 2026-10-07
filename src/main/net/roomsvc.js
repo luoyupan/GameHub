@@ -178,6 +178,8 @@ class NetRoom extends EventEmitter {
     this.mode = mode;
     this.role = 'host';
     this.name = name;
+    /** 我的昵称：成员表「账号」列和聊天里显示的名字 */
+    this.myName = String(opts.myName || '').trim().slice(0, 24) || '房主';
     this.game = String(opts.game || '').trim();
     this.gamePort = Number(opts.gamePort) || 0;
     this.rid = codecs.passHash(name, String(opts.pass || '')).slice(0, 16);
@@ -364,6 +366,7 @@ class NetRoom extends EventEmitter {
     this.mode = info.mode;
     this.role = 'guest';
     this.name = info.name;
+    this.myName = String(opts.myName || '').trim().slice(0, 24) || '玩家';
     this.game = info.game || '';
     this.gamePort = Number(opts.gamePort || info.gamePort) || 0;
     this.code = String(code).trim();
@@ -412,7 +415,7 @@ class NetRoom extends EventEmitter {
    */
   async _helloHandshake(role) {
     const hello = P.encode(P.T.HELLO, this._nextSeq(), {
-      rid: this.rid, name: role === 'host' ? '房主' : '玩家', role, game: this.game
+      rid: this.rid, name: this.myName, role, game: this.game
     }, 0);
     this._helloTries = 0;
     return new Promise((res) => {
@@ -782,10 +785,10 @@ class NetRoom extends EventEmitter {
     this._bound = false;
   }
 
-  /** 房间聊天 */
-  chat(text) {
+  /** 房间聊天。name 由渲染层每条带上（主进程不存昵称） */
+  chat(text, name) {
     if (!this.active) return { ok: false, error: '不在房间里' };
-    const body = { text: String(text || '').slice(0, 500), from: this.selfId, name: '我' };
+    const body = { text: String(text || '').slice(0, 500), from: this.selfId, name: String(name || this.myName).slice(0, 24) };
     if (this.mode === 'relay') this._send(P.encode(P.T.CHAT, this._nextSeq(), body, 0), this.remote);
     else for (const p of this.peers.values()) this._sendTo(p.id, P.encode(P.T.CHAT, this._nextSeq(), body, p.id));
     return { ok: true };
@@ -828,7 +831,7 @@ class NetRoom extends EventEmitter {
       rtt: mine.rtt || 0,
       loss: mine.loss || 0,
       members: [
-        { id: this.selfId, name: this.role === 'host' ? '房主（我）' : '我', isHost: this.role === 'host', isMe: true, rtt: 0, loss: 0, via: this.mode || '' },
+        { id: this.selfId, name: this.myName, isHost: this.role === 'host', isMe: true, rtt: 0, loss: 0, via: this.mode || '' },
         ...rows
       ]
     };

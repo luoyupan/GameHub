@@ -13,6 +13,33 @@
   padding: 16px 18px 26px;
 }
 
+/* ---------------- 两栏布局（照主人画的草图） ----------------
+ * 左栏 = 联机操作区（模式卡 + 表单 + 日志）
+ * 右栏 = 房间信息区（状态 + 成员表「账号/延迟/丢包」+ 聊天框），常驻
+ * ⚠ 右栏要 sticky：左栏很长（尤其 P2P 体检 + 表单 + 加入 + 日志），
+ *   不固定的话往下滚就看不到延迟和聊天了。 */
+.net-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 14px;
+  align-items: start;
+}
+.net-main { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.net-side {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+  position: sticky;
+  top: 8px;
+}
+@media (max-width: 1180px) {
+  .net-layout { grid-template-columns: 1fr; }
+  .net-side { position: static; }
+}
+.ns-card { gap: 10px; }
+.ns-name { font-size: 12.5px; }
+
 /* ---------------- 模式选择 ---------------- */
 .net-modes {
   display: grid;
@@ -226,6 +253,7 @@
 .nr-tag.soft { background: var(--bg-2); color: var(--text-3); }
 
 .nr-metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; }
+.nr-metrics.two { grid-template-columns: 1fr 1fr; }
 .nr-metric {
   display: flex;
   flex-direction: column;
@@ -243,6 +271,19 @@
 .nr-metric.bad .nrm-num { color: var(--danger); }
 
 .nr-mem-head, .nr-chat-head { font-size: 12.5px; font-weight: 700; color: var(--text-2); }
+
+/* 成员表表头：账号 / 延迟 / 丢包 —— 三列对齐下面的成员行 */
+.ns-mem-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 11px;
+  font-size: 11px;
+  color: var(--text-3);
+}
+.nsmh-account { flex: 1; }
+.nsmh-col { flex: none; width: 46px; text-align: right; }
+
 .nr-members { display: flex; flex-direction: column; gap: 5px; }
 .nr-mem {
   display: flex;
@@ -276,14 +317,19 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
-  max-height: 190px;
+  flex: 1 1 auto;
+  min-height: 150px;
+  max-height: 300px;
   overflow-y: auto;
   padding: 8px 10px;
   border-radius: 9px;
   background: var(--bg-2);
 }
+.ns-chat-card { display: flex; flex-direction: column; }
 .nr-chat-send { display: flex; }
 .nrc-line { display: flex; gap: 7px; font-size: 12.5px; line-height: 1.55; }
+.nrc-line.me .nrc-name { color: var(--ok); }
+.nrc-line.me .nrc-text { color: var(--text); }
 .nrc-name { flex: none; color: var(--accent); font-weight: 650; }
 .nrc-text { color: var(--text-2); word-break: break-word; }
 
