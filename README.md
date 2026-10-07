@@ -4,6 +4,15 @@
 
 **完全离线优先** —— 断网时扫描、启动、分类、统计全部正常，联网只用于封面增强。
 
+## 📦 下载
+
+**[GameHub v1.1.2 — 便携版 · 单文件免安装（71 MB）](https://github.com/luoyupan/GameHub/releases/latest)**
+
+双击即用，无需安装，卸载直接删文件。首次启动若被 SmartScreen 拦截，
+点「更多信息 → 仍要运行」即可（个人项目未做代码签名）。
+
+> 全部历史版本见 [Releases](https://github.com/luoyupan/GameHub/releases)。
+
 > ## 🤖 关于本项目的开发方式
 >
 > **本项目由 AI 开发完成。**
