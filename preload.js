@@ -193,6 +193,32 @@ contextBridge.exposeInMainWorld('GameHub', {
     setCookie: (args) => ipcRenderer.invoke('browser:setCookie', args || {})
   },
 
+  /* ---------------- MOD 快速导入 / 打包 / MOD 码（对齐工具） ---------------- */
+
+  modPort: {
+    /** 拖入的文件/文件夹路径数组 → 解压/复制进该游戏的 MOD 目录 */
+    importDrop: (args) => ipcRenderer.invoke('mod:importDrop', args || {}),
+    /** 把这款游戏的 MOD 打包成一个 zip（弹保存对话框选位置） */
+    pack: (args) => ipcRenderer.invoke('mod:pack', args || {}),
+    /** 生成 MOD 码 */
+    code: (args) => ipcRenderer.invoke('mod:code', args || {}),
+    /** 导入别人的 MOD 码并和本地对比 */
+    codeDiff: (args) => ipcRenderer.invoke('mod:codeDiff', args || {}),
+    /** 快速导入的备选入口：文件选择框多选 */
+    pickFiles: () => ipcRenderer.invoke('mod:pickFiles')
+  },
+
+  /**
+   * ⚠ 拖放拿文件路径的唯一正确姿势（Electron ≥32）：
+   *   dataTransfer.files 里的 File 对象已经**没有 .path 属性了**，
+   *   必须经 webUtils.getPathForFile 换 —— 这个只能在 preload 里调
+   *   （渲染层拿不到 webUtils），所以从这里过一道。
+   */
+  pathForFile: (file) => {
+    try { return require('electron').webUtils.getPathForFile(file); }
+    catch { return ''; }
+  },
+
   /* ---------------- 隐藏空间 ---------------- */
   hidden: {
     status: () => ipcRenderer.invoke('hidden:status'),

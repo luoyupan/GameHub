@@ -285,6 +285,19 @@
         onclick: () => toggleBrowser(g)
       }),
 
+      el('button', {
+        class: 'btn btn-ghost btn-sm',
+        text: '⬇ 快速导入',
+        title: '把下载好的 mod（zip / 文件夹）拖进对话框，自动放进这款游戏的 MOD 目录',
+        onclick: () => quickImport(g)
+      }),
+      el('button', {
+        class: 'btn btn-ghost btn-sm',
+        text: '🧮 对齐',
+        title: '列出全部 mod：一键打包成 zip，或用 MOD 码和朋友核对缺漏',
+        onclick: () => alignTool(g)
+      }),
+
       K.spacer(),
 
       /* ---- 排序 ---- */
@@ -689,6 +702,195 @@
     state.browser = g.id;
     paint(state.container, g);
     window.BrowserTabs.modOpen(g, { url: r.url, target: r.target, tabId: r.tabId });
+  }
+
+  /* ================================================================
+   *  快速导入 & 对齐工具
+   * ================================================================ */
+
+  /**
+   * 快速导入：把下载好的 mod 拖进对话框就进游戏。
+   * 拿拖入路径必须走 API.pathForFile —— Electron ≥32 的 File 已经
+   * 没有 .path 属性了，得让 preload 里的 webUtils 换（详见 preload 注释）。
+   */
+  function quickImport(g) {
+    const M = window.Modals;
+    const { body, foot } = M.openModal({
+      title: `快速导入 MOD — ${g.name}`,
+      sub: 'zip 压缩包或文件夹都行，可一次拖多个'
+    });
+
+    const box = el('div', { class: 'qi-drop' }, [
+      el('div', { class: 'qi-drop-icon', text: '⬇' }),
+      el('div', { class: 'qi-drop-t', text: '把 mod 拖到这里' }),
+      el('div', { class: 'qi-drop-d', text: '松手后自动解压 / 复制到这款游戏的 MOD 目录' })
+    ]);
+    const resBox = el('div', { class: 'qi-results' });
+    body.appendChild(box);
+    body.appendChild(resBox);
+
+    async function importPaths(paths) {
+      if (!paths || !paths.length) return;
+      resBox.innerHTML = '';
+      resBox.appendChild(el('div', { class: 'qi-busy', text: '正在导入…' }));
+      const r = await window.API.modImportDrop({ id: g.id, paths }).catch(() => null);
+      resBox.innerHTML = '';
+      if (!r || !r.ok) {
+        resBox.appendChild(el('div', { class: 'qi-err', text: (r && r.error) || '导入失败' }));
+        return;
+      }
+      for (const it of r.results) {
+        resBox.appendChild(el('div', { class: 'qi-item ' + (it.ok ? 'ok' : 'fail') }, [
+          el('span', { class: 'qi-item-name', text: (it.ok ? '✔ ' : '✖ ') + it.name }),
+          el('span', { class: 'qi-item-note', text: it.ok ? `${it.action} → ${it.target}` : (it.error || '') })
+        ]));
+      }
+      if (r.imported > 0) {
+        window.App.toast(`已导入 ${r.imported} 项，MOD 列表刷新中`, 'success', 4000);
+        load(g);          // mod 目录变了，列表重拉
+      }
+    }
+
+    box.addEventListener('dragover', (e) => { e.preventDefault(); box.classList.add('dragging'); });
+    box.addEventListener('dragleave', () => box.classList.remove('dragging'));
+    box.addEventListener('drop', async (e) => {
+      e.preventDefault();
+      box.classList.remove('dragging');
+      const paths = [...(e.dataTransfer ? e.dataTransfer.files : [])]
+        .map((f) => window.API.pathForFile(f))
+        .filter(Boolean);
+      await importPaths(paths);
+    });
+
+    foot.appendChild(el('button', {
+      class: 'btn btn-ghost btn-sm',
+      text: '📂 从文件选择框挑…',
+      onclick: async () => {
+        const r = await window.API.modPickFiles().catch(() => null);
+        if (r && r.ok) await importPaths(r.paths);
+      }
+    }));
+    foot.appendChild(K.spacer());
+    foot.appendChild(el('button', {
+      class: 'btn btn-primary btn-sm', text: '完成', onclick: () => M.closeModal()
+    }));
+  }
+
+  /** 对齐工具：mod 清单 + 打包 + MOD 码 */
+  async function alignTool(g) {
+    const M = window.Modals;
+    const lst = await window.API.modList({ id: g.id, online: false }).catch(() => null);
+    const names = lst && lst.ok
+      ? (lst.mods || []).map((m) => m.title || m.name).filter(Boolean)
+      : [];
+
+    const { body, foot } = M.openModal({
+      title: `MOD 对齐工具 — ${g.name}`,
+      sub: names.length ? `共 ${names.length} 个 mod` : '这款游戏还没有 mod'
+    });
+
+    /* ---- 清单 ---- */
+    const listBox = el('div', { class: 'al-list' });
+    if (!names.length) {
+      listBox.appendChild(el('div', { class: 'al-empty', text: '（空）' }));
+    } else {
+      names.forEach((n, i) => listBox.appendChild(el('div', { class: 'al-item' }, [
+        el('span', { class: 'al-idx', text: String(i + 1) }),
+        el('span', { text: n })
+      ])));
+    }
+    body.appendChild(listBox);
+
+    /* ---- 打包 ---- */
+    body.appendChild(el('div', { class: 'al-sec-t', text: '📦 快速打包 — 把全部 mod 压成一个 zip，备份或发给别人' }));
+    const packNote = el('span', { class: 'al-note' });
+    body.appendChild(el('div', { class: 'al-row' }, [
+      el('button', {
+        class: 'btn btn-primary btn-sm',
+        text: '打包为 zip…',
+        onclick: async (e) => {
+          const btn = e.currentTarget;
+          btn.disabled = true;
+          packNote.textContent = '正在打包…';
+          const r = await window.API.modPack({ id: g.id }).catch(() => null);
+          btn.disabled = false;
+          if (!r || r.canceled) { packNote.textContent = r && !r.ok && r.error ? r.error : ''; return; }
+          if (r.ok) {
+            packNote.textContent = `✔ 已打包 ${r.count} 项（${(r.size / 1048576).toFixed(1)} MB）`;
+            window.App.toast('打包完成：' + r.file, 'success', 5000);
+          } else {
+            packNote.textContent = r.error || '打包失败';
+          }
+        }
+      }),
+      packNote
+    ]));
+
+    /* ---- MOD 码 ---- */
+    body.appendChild(el('div', { class: 'al-sec-t', text: '🔢 MOD 码 — 按这份 mod 清单生成，发给别人即可核对缺漏' }));
+    const codeBox = el('div', { class: 'al-code', text: names.length ? '生成中…' : '（没有 mod，生成不了）' });
+    const copyBtn = el('button', {
+      class: 'btn btn-ghost btn-sm', text: '复制 MOD 码', disabled: !names.length,
+      onclick: async () => {
+        try { await navigator.clipboard.writeText(codeBox.dataset.code || ''); window.App.toast('MOD 码已复制', 'success', 2500); }
+        catch { window.App.toast('复制失败，请手动选择复制', 'error', 3000); }
+      }
+    });
+    if (names.length) {
+      window.API.modCode({ id: g.id }).then((r) => {
+        if (r && r.ok) {
+          codeBox.dataset.code = r.code;
+          codeBox.textContent = r.code.length > 260 ? r.code.slice(0, 260) + ' …' : r.code;
+        } else {
+          codeBox.textContent = (r && r.error) || '生成失败';
+        }
+      }).catch(() => { codeBox.textContent = '生成失败'; });
+    }
+    body.appendChild(el('div', { class: 'al-row' }, [codeBox, copyBtn]));
+
+    /* ---- 导入码对比 ---- */
+    body.appendChild(el('div', { class: 'al-sec-t', text: '📥 对比别人的 MOD 码 — 看看自己多了哪些、缺了哪些' }));
+    const input = el('textarea', {
+      class: 'al-input', rows: 3, spellcheck: false,
+      placeholder: '把别人的 MOD 码整串粘到这里（GHMOD1-… 开头）'
+    });
+    const diffRes = el('div', { class: 'al-diff' });
+    body.appendChild(input);
+    body.appendChild(el('div', { class: 'al-row' }, [
+      el('button', {
+        class: 'btn btn-primary btn-sm', text: '对比',
+        onclick: async () => {
+          const v = (input.value || '').trim();
+          if (!v) return;
+          diffRes.innerHTML = '';
+          diffRes.appendChild(el('div', { class: 'al-note', text: '对比中…' }));
+          const r = await window.API.modCodeDiff({ id: g.id, code: v }).catch(() => null);
+          diffRes.innerHTML = '';
+          if (!r || !r.ok) {
+            diffRes.appendChild(el('div', { class: 'qi-err', text: (r && r.error) || '对比失败' }));
+            return;
+          }
+          const mk = (title, items, cls) => {
+            const w = el('div', { class: 'al-diff-sec ' + cls }, [el('div', { class: 'al-diff-t', text: title })]);
+            if (!items.length) w.appendChild(el('div', { class: 'al-note', text: '（无）' }));
+            else items.forEach((n) => w.appendChild(el('div', { class: 'al-diff-item', text: n })));
+            return w;
+          };
+          diffRes.appendChild(el('div', {
+            class: 'al-note',
+            text: `对方 ${r.total} 个 · 你这边 ${r.localCount} 个 · 相同 ${r.same.length}`
+          }));
+          diffRes.appendChild(mk(`❌ 你缺少的（${r.missing.length}）`, r.missing, 'miss'));
+          diffRes.appendChild(mk(`➕ 你多出的（${r.extra.length}）`, r.extra, 'extra'));
+        }
+      })
+    ]));
+    body.appendChild(diffRes);
+
+    foot.appendChild(K.spacer());
+    foot.appendChild(el('button', {
+      class: 'btn btn-primary btn-sm', text: '完成', onclick: () => M.closeModal()
+    }));
   }
 
   /**

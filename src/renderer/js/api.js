@@ -133,6 +133,24 @@
     /** 手动指定这款游戏的 MOD 目录（不传 dir 会弹选择框） */
     modSetModDir: (args) => safe(raw.mod.setModDir, args || {}),
 
+    /* ---------------- MOD 快速导入 / 打包 / MOD 码（对齐工具） ---------------- */
+    /** 拖入的路径数组 → 解压/复制进该游戏的 MOD 目录 */
+    modImportDrop: (args) => safe(raw.modPort.importDrop, args || {}),
+    /** 把这款游戏的 MOD 打包成一个 zip */
+    modPack: (args) => safe(raw.modPort.pack, args || {}),
+    /** 生成 MOD 码 */
+    modCode: (args) => safe(raw.modPort.code, args || {}),
+    /** 导入别人的 MOD 码并和本地对比 */
+    modCodeDiff: (args) => safe(raw.modPort.codeDiff, args || {}),
+    /** 快速导入的备选入口：文件选择框多选 */
+    modPickFiles: () => safe(raw.modPort.pickFiles),
+    /**
+     * 拖放的 File → 磁盘路径。
+     * ⚠ Electron ≥32 的 File 没有 .path 了，必须走 preload 里的
+     *    webUtils.getPathForFile —— File 对象本身过不了 IPC，只能这样。
+     */
+    pathForFile: (file) => safe(raw.pathForFile, file),
+
     /* ---------------- 内置浏览器（MOD 管理内嵌 / 导航栏标签页） ---------------- */
     /** 登记标签的 webview guest id，下载钩子按它反查归属 */
     browserAttach: (args) => safe(raw.browser.attach, args || {}),

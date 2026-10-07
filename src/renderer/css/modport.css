@@ -1,0 +1,138 @@
+/* ============================================================
+   MOD 快速导入 & 对齐工具  (追加在 modview 样式之后)
+   ============================================================ */
+
+/* ---------------- 快速导入 ---------------- */
+.qi-drop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 180px;
+  margin: 4px 0 10px;
+  border: 2px dashed var(--line-2);
+  border-radius: 12px;
+  background: var(--bg-2);
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.qi-drop:hover, .qi-drop.dragging {
+  border-color: var(--accent-line);
+  background: var(--accent-soft);
+}
+.qi-drop-icon { font-size: 30px; color: var(--text-3); }
+.qi-drop.dragging .qi-drop-icon { color: var(--accent); }
+.qi-drop-t { font-size: 14px; font-weight: 650; color: var(--text); }
+.qi-drop-d { font-size: 11.5px; color: var(--text-3); }
+
+.qi-results { display: flex; flex-direction: column; gap: 4px; }
+.qi-busy { font-size: 12.5px; color: var(--text-3); padding: 6px 2px; }
+.qi-item {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 5px 10px;
+  border-radius: 8px;
+  background: var(--bg-2);
+  font-size: 12.5px;
+  min-width: 0;
+}
+.qi-item.ok { border-left: 3px solid var(--ok); }
+.qi-item.fail { border-left: 3px solid var(--danger, #c0392b); }
+.qi-item-name { flex: 0 0 auto; color: var(--text); font-weight: 600; }
+.qi-item-note {
+  flex: 1 1 auto;
+  min-width: 0;
+  color: var(--text-3);
+  font-size: 11.5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  direction: rtl;      /* 长路径省略号截前头，保住文件名那头 */
+  text-align: left;
+}
+.qi-err { font-size: 12.5px; color: var(--danger, #e74c3c); padding: 4px 2px; }
+
+/* ---------------- 对齐工具 ---------------- */
+.al-list {
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg-2);
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.al-item {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 12.5px;
+  color: var(--text);
+}
+.al-item:nth-child(odd) { background: var(--bg-3); }
+.al-idx {
+  flex: 0 0 auto;
+  min-width: 20px;
+  text-align: right;
+  color: var(--text-3);
+  font-variant-numeric: tabular-nums;
+  font-size: 11px;
+}
+.al-empty { padding: 14px; text-align: center; color: var(--text-3); font-size: 12.5px; }
+
+.al-sec-t {
+  margin: 14px 0 6px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--text);
+}
+.al-row { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.al-note { font-size: 11.5px; color: var(--text-3); min-width: 0; word-break: break-all; }
+
+.al-code {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 6px 10px;
+  border: 1px solid var(--line-2);
+  border-radius: 8px;
+  background: var(--bg-2);
+  font-family: Consolas, "Cascadia Mono", monospace;
+  font-size: 11px;
+  color: var(--text);
+  word-break: break-all;
+  max-height: 66px;
+  overflow-y: auto;
+  user-select: text;
+}
+.al-input {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid var(--line-2);
+  border-radius: 8px;
+  background: var(--bg-2);
+  color: var(--text);
+  font-size: 12px;
+  font-family: Consolas, "Cascadia Mono", monospace;
+  padding: 8px 10px;
+  outline: none;
+  resize: vertical;
+}
+.al-input:focus { border-color: var(--accent-line); }
+
+.al-diff { display: flex; flex-direction: column; gap: 8px; }
+.al-diff-sec {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 10px;
+  background: var(--bg-2);
+}
+.al-diff-sec.miss { border-left: 3px solid var(--danger, #c0392b); }
+.al-diff-sec.extra { border-left: 3px solid var(--warn, #e67e22); }
+.al-diff-t { font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.al-diff-item { font-size: 12px; color: var(--text-2, var(--text)); padding: 1px 0 1px 12px; }

@@ -17,6 +17,7 @@
 const { app, BrowserWindow, ipcMain, dialog, shell, nativeTheme } = require('electron');
 const path = require('path');
 const fs = require('fs');
+const os = require('os');
 const fsp = require('fs/promises');
 const { execFile } = require('child_process');
 
@@ -32,6 +33,8 @@ const uninstall = require('./src/main/uninstall');
 const { createBrowserTabs } = require('./src/main/browser');
 const modpaths = require('./src/main/modpaths');
 const unzip = require('./src/main/unzip');
+const zipwrite = require('./src/main/zipwrite');
+const modport = require('./src/main/modport');
 
 /* ==================================================================
  *  全局单例
@@ -1467,6 +1470,154 @@ function registerModIpc() {
         exists: !!(d && d.exists)
       }
     };
+  });
+
+  /* ================================================================
+   *  MOD 快速导入 / 打包 / MOD 码（对齐工具）
+   *  逻辑都在 modport.js（纯函数、可单测），这里只负责动磁盘和弹窗。
+   * ================================================================ */
+
+  /** 判定拖入项的类型：dir=文件夹 / zip=压缩包 / file=单文件 mod */
+  async function classifyDrop(p) {
+    try {
+      const st = await fsp.stat(p);
+      if (st.isDirectory()) return 'dir';
+      if (/\.zip$/i.test(p)) return 'zip';
+      return 'file';
+    } catch { return null; }
+  }
+
+  /** 拖入项统一走这里：解压 / 复制到这款游戏的 MOD 目录 */
+  ipcMain.handle('mod:importDrop', async (_e, args = {}) => {
+    const g = store.findGame(String(args.id || ''));
+    if (!g) return { ok: false, error: '游戏不存在' };
+    const paths = Array.isArray(args.paths) ? args.paths.map(String).filter(Boolean) : [];
+    if (!paths.length) return { ok: false, error: '没有拖入任何文件' };
+
+    const d = decideModDownloadDir(g, store.getSettings());
+    if (!d || !d.ok || !d.dir) {
+      return { ok: false, error: '认不出这款游戏的 MOD 目录，先用「指定 MOD 目录」手动设置一次' };
+    }
+    const destDir = d.dir;
+    await fsp.mkdir(destDir, { recursive: true });
+    const existing = await fsp.readdir(destDir).catch(() => []);
+
+    const items = [];
+    for (const p of paths) {
+      items.push({ path: p, name: path.basename(p), kind: (await classifyDrop(p)) || 'file' });
+    }
+    const plans = modport.planDropAll(items, existing);
+    const results = [];
+    for (const plan of plans) {
+      const it = plan.item;
+      if (plan.action === 'skip') {
+        results.push({ name: it.name, ok: false, error: plan.reason });
+        continue;
+      }
+      const target = path.join(destDir, plan.targetName);
+      try {
+        if (plan.action === 'copy') {
+          await fsp.cp(it.path, target, { recursive: true, force: true });
+          results.push({ name: it.name, ok: true, action: '复制', target: plan.targetName });
+        } else {
+          /* zip：先解到临时目录再看顶层结构 ——
+             包了一层目录的（最常见）取里面那层，散装的整个当目录 */
+          const tmp = path.join(os.tmpdir(), 'gamehub-import-' + Date.now() + '-' + Math.random().toString(36).slice(2, 7));
+          await fsp.mkdir(tmp, { recursive: true });
+          const ex = await unzip.extractZip(it.path, tmp);
+          if (!ex || !ex.ok) {
+            results.push({ name: it.name, ok: false, error: (ex && ex.error) || '解压失败' });
+            continue;
+          }
+          const kids = await fsp.readdir(tmp, { withFileTypes: true });
+          await fsp.mkdir(target, { recursive: true });
+          if (kids.length === 1 && kids[0].isDirectory()) {
+            await fsp.cp(path.join(tmp, kids[0].name), target, { recursive: true, force: true });
+          } else {
+            await fsp.cp(tmp, target, { recursive: true, force: true });
+          }
+          await fsp.rm(tmp, { recursive: true, force: true });
+          results.push({ name: it.name, ok: true, action: '解压', target: plan.targetName });
+        }
+      } catch (e) {
+        results.push({ name: it.name, ok: false, error: e.message || String(e) });
+      }
+    }
+    const imported = results.filter((x) => x.ok).length;
+    if (imported > 0) emit('library:changed', { reason: 'mod-import' });
+    return { ok: true, dir: destDir, results, imported };
+  });
+
+  /** 快速打包：把这款游戏的 MOD 全部压成一个 zip（位置用户选） */
+  ipcMain.handle('mod:pack', async (_e, args = {}) => {
+    const g = store.findGame(String(args.id || ''));
+    if (!g) return { ok: false, error: '游戏不存在' };
+    if (!mods) return { ok: false, error: 'MOD 管理尚未初始化' };
+
+    const lst = await mods.list(g, { online: false });
+    if (!lst || !lst.ok) return { ok: false, error: (lst && lst.error) || '读不到 MOD 列表' };
+
+    const avail = [];
+    for (const m of (lst.mods || [])) {
+      const topName = modport.sanitizeName(m.title || m.name || path.basename(m.path)) || 'mod';
+      try {
+        const st = await fsp.stat(m.path);
+        if (st.isDirectory() || st.isFile()) avail.push({ srcPath: m.path, topName });
+      } catch { /* 路径失效的跳过 */ }
+    }
+    if (!avail.length) return { ok: false, error: '这款游戏没有可打包的 MOD' };
+
+    const r = await dialog.showSaveDialog(BrowserWindow.getAllWindows()[0], {
+      title: '打包 MOD',
+      defaultPath: `${(g.name || 'GameHub').replace(/[\\/:*?"<>|]/g, '_')}-MODs-${new Date().toISOString().slice(0, 10)}.zip`,
+      filters: [{ name: 'ZIP 压缩包', extensions: ['zip'] }]
+    });
+    if (r.canceled || !r.filePath) return { ok: false, canceled: true };
+
+    const buf = await zipwrite.createZipFromPaths(avail);
+    await fsp.writeFile(r.filePath, buf);
+    return { ok: true, file: r.filePath, count: avail.length, size: buf.length };
+  });
+
+  /** 快速导入的备选入口：文件选择框多选（不想拖拽的用户） */
+  ipcMain.handle('mod:pickFiles', async () => {
+    const r = await dialog.showOpenDialog(BrowserWindow.getAllWindows()[0], {
+      title: '选择要导入的 MOD（zip 压缩包或文件夹，可多选）',
+      properties: ['openFile', 'multiSelections']
+    });
+    if (r.canceled || !r.filePaths || !r.filePaths.length) return { ok: false, canceled: true };
+    return { ok: true, paths: r.filePaths };
+  });
+
+  /** 本地 mod 名称列表（MOD 码和打包共用，offline 秒出） */
+  async function localModNames(g) {
+    const lst = await mods.list(g, { online: false });
+    if (!lst || !lst.ok) return null;
+    return (lst.mods || [])
+      .map((m) => m.title || m.name || path.basename(m.path))
+      .filter(Boolean);
+  }
+
+  /** 生成 MOD 码 */
+  ipcMain.handle('mod:code', async (_e, args = {}) => {
+    const g = store.findGame(String(args.id || ''));
+    if (!g) return { ok: false, error: '游戏不存在' };
+    if (!mods) return { ok: false, error: 'MOD 管理尚未初始化' };
+    const names = await localModNames(g);
+    if (names === null) return { ok: false, error: '读不到 MOD 列表' };
+    return { ok: true, code: modport.buildModCode(names), names, count: names.length };
+  });
+
+  /** 导入别人的 MOD 码，跟本地一对比：缺了啥、多了啥 */
+  ipcMain.handle('mod:codeDiff', async (_e, args = {}) => {
+    const g = store.findGame(String(args.id || ''));
+    if (!g) return { ok: false, error: '游戏不存在' };
+    if (!mods) return { ok: false, error: 'MOD 管理尚未初始化' };
+    const names = await localModNames(g);
+    if (names === null) return { ok: false, error: '读不到 MOD 列表' };
+    const r = modport.diffModCode(String(args.code || ''), names);
+    if (!r) return { ok: false, error: 'MOD 码不完整或格式不对（复制时可能漏了尾巴）' };
+    return { ok: true, ...r, localCount: names.length };
   });
 
   /**
