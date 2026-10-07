@@ -4,6 +4,82 @@
 
 ---
 
+## [1.1.0] - 2026-10-07
+
+### 新增：内置浏览器 + MOD 下载接管
+
+点「N 网找找」不再丢给系统浏览器，而是在**软件内**开一个浏览器窗口，
+下载被 GameHub 接管，直接落到这款游戏的 MOD 目录并按需自动解压。
+
+- **内置浏览器窗口**：自绘工具条（后退 / 前进 / 刷新 / 地址栏 / 外部打开）+ 下载进度条
+- **常驻「MOD 将下载到」提示**：点下载之前就能确认目录对不对
+- **MOD 下载目录设置**：三种模式
+  - 自动进游戏 MOD 目录（默认）
+  - 固定文件夹
+  - 每次问我
+- **下载完自动解压**：支持 zip；7z / rar 提示就地手动解压
+- **每款游戏可手动指定 MOD 目录**：MOD 页面新增「📂 指定 MOD 目录」按钮，
+  设置里可查看与取消已指定的
+- **规则引擎覆盖约 70 款游戏**（Steam AppID 精确匹配 + 名称关键词 + 目录探测兜底）
+
+#### MOD 目录规则（联网查证）
+
+放错目录**不会报错，只会静默失效**，所以这些反直觉的规则是本功能的重点：
+
+| 游戏 | 目录 | 易错点 |
+|---|---|---|
+| 老滚 5 / 辐射 4 / 湮灭 | `Data` | **不是** `Mods` |
+| 巫师 3 | `mods/mod<名字>` | 文件夹名必须以 `mod` 开头 |
+| 赛博朋克 2077 | `archive/pc/mod` | |
+| 艾尔登法环 | `Game/mod` | |
+| 黑神话悟空 / 幻兽帕鲁 | `b1/Content/Paks/~mods` · `Pal/Content/Paks/~mods` | |
+| 怪猎 | `nativePC` | |
+| 博德之门 3 | `%LOCALAPPDATA%\Larian Studios\Baldur's Gate 3\Mods` | 不在游戏目录 |
+| 我的世界 | `%APPDATA%\.minecraft\mods` | 同上 |
+| 骑马与砍杀 2 | `Modules` | 不是 `Mods` |
+| 无人深空 / 英灵神殿 / 城市天际线 | `GAMEDATA/PCBANKS/MODS` · `BepInEx/plugins` · `Files/Mods` | |
+| 欧洲卡车 2 | `mod`（**单数**） | 在「文档」下 |
+
+**认不出时不硬猜**，退化成弹窗让用户选一次。
+
+### 架构：预留的扩展接口
+
+浏览器服务把「开窗口」和「用浏览器」分开，上层只依赖：
+`open(url, { context })` · `sendTo(id, channel, payload)` · `onReady(id)` ·
+`onDownload(info)`（支持 Promise）· `onEvent(ev)` · `navigate / close / list / downloadList / cancelDownload`
+
+以后要改成「内嵌标签页」形态，只需把 `BrowserWindow` 换成 `WebContentsView`，
+上层一行都不用动。
+
+### 安全
+
+- 浏览器窗口用**独立 preload**（`preload-browser.js`），不是主界面那个
+- `nodeIntegration: false` + `contextIsolation: true`
+- 独立 session 分区 `persist:gamehub-browser`
+- 只放行 http(s)；`nxm://` 交给系统；网页开新窗口一律收敛成同窗口跳转
+- 解压有 Zip Slip 防护
+
+### 修复（本功能开发过程中）
+
+- **`<webview>` 未指定 `partition`** → 跑在默认 session 上，
+  `will-download` 永远收不到，表现为「下载了但没接管」。已固定为
+  `persist:gamehub-browser`
+- **`webviewTag` 未启用** → 壳页面里的 `<webview>` 不生效
+- **下载来自 guest webContents**，与宿主 `webContents` 不相等，
+  进度事件路由全部失配 → 改为在 `did-attach-webview` 时登记 guest
+- **上层没配 `onDownload` 时被当成取消** → 下载会无声消失，改为退回默认行为
+- **打包清单漏了 `preload-browser.js`** → 打出的 exe 里浏览器窗口没有 preload
+
+### 测试
+
+- 新增 `tools/modpaths-test.js` **44 项**（规则引擎）
+- 新增 `tools/unzip-test.js` **16 项**（含 4 项 Zip Slip 安全用例）
+- 新增 `tools/browser-test.js` **27 项**（浏览器契约，注入假 electron）
+- 真机验证 10/10：窗口 → webview → 下载接管 → 落点 → 自动解压
+- 回归：parse 23 / logic 145 / mods 26 / selftest 55 全绿
+
+---
+
 ## [1.0.0] - 2026-10-07
 
 首个完整版本。含游戏库、外观自定义、平台集成、卸载、隐藏空间、MOD 管理与统计。

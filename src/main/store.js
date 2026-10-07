@@ -92,6 +92,28 @@ const DEFAULT_SETTINGS = {
   /* ---- 游戏平台 ---- */
   platformAutoSync: true,     // 打开「平台总览」时自动同步已登录平台的账号与游戏库
 
+  /* ---- MOD 下载（内置浏览器）----
+   * 用内置浏览器在 N 网这类站点下载 MOD 时，文件落到哪。
+   *
+   *   mode
+   *     game   —— 自动落到这款游戏的 MOD 目录（按 modpaths.js 的规则推断，
+   *               认不出来时才退化成询问）
+   *     custom —— 固定落到下面 customDir 指定的文件夹
+   *     ask    —— 每次都弹一个保存对话框让用户自己选
+   *
+   * ⚠ 默认给 game 而不是 ask：MOD 放错目录**不会报错、只会静默失效**，
+   *   让用户每次自己选等于把最难的判断题丢给用户。
+   *   认不出来的时候会自动退化成询问，不会硬放到错误的地方。
+   *
+   * autoExtract：MOD 基本都是压缩包，下完自动解压到目标目录（目前支持 zip）。
+   * overrides：  针对单款游戏手动指定的目录（gameId → 目录），优先级最高。 */
+  modDownload: {
+    mode: 'game',
+    customDir: '',
+    autoExtract: true,
+    overrides: {}
+  },
+
   hidden: {
     enabled: false,           // 是否已启用隐藏空间
     salt: '',                 // 密码盐（随机）

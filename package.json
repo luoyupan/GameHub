@@ -1,6 +1,6 @@
 {
   "name": "gamehub",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "GameHub - 本地游戏集合启动器（Steam 风格游戏库）",
   "main": "main.js",
   "author": "GameHub",
@@ -8,8 +8,11 @@
   "scripts": {
     "start": "electron .",
     "selftest": "electron . --selftest",
-    "test": "node tools/parse-test.js && node tools/logic-test.js && node tools/mods-test.js",
+    "test": "node tools/parse-test.js && node tools/logic-test.js && node tools/mods-test.js && node tools/modpaths-test.js && node tools/unzip-test.js && node tools/browser-test.js",
     "test:mods": "node tools/mods-test.js",
+    "test:modpaths": "node tools/modpaths-test.js",
+    "test:unzip": "node tools/unzip-test.js",
+    "test:browser": "node tools/browser-test.js",
     "test:scan": "node tools/scan-test.js",
     "test:platform": "node tools/platform-test.js",
     "test:ui": "node tools/appearance-probe.js 9700",
@@ -32,6 +35,7 @@
     "files": [
       "main.js",
       "preload.js",
+      "preload-browser.js",
       "src/**/*",
       "build/icon.ico",
       "!**/*.map"

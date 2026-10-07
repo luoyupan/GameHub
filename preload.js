@@ -22,6 +22,7 @@ const EVENTS = [
   'hidden:locked',      // 隐藏空间被自动上锁
   'cover:progress',     // 批量获取封面的进度
   'platform:progress',  // 平台库同步进度
+  'browser:event',      // 内置浏览器的动静（窗口开关、下载进度等）
   'toast'               // 主进程发来的提示消息
 ];
 
@@ -164,7 +165,17 @@ contextBridge.exposeInMainWorld('GameHub', {
     forget: (args) => ipcRenderer.invoke('mod:forget', args || {}),
     reveal: (args) => ipcRenderer.invoke('mod:reveal', args || {}),
     openWorkshop: (args) => ipcRenderer.invoke('mod:openWorkshop', args || {}),
-    openNexus: (args) => ipcRenderer.invoke('mod:openNexus', args || {})
+    openNexus: (args) => ipcRenderer.invoke('mod:openNexus', args || {}),
+    /**
+     * 在**内置浏览器**里打开 N 网找 MOD。
+     * 和 openNexus 的区别：这个下载会被 GameHub 接管，
+     * 直接落到这款游戏的 MOD 目录，不用自己找文件、自己判断放哪。
+     */
+    browse: (args) => ipcRenderer.invoke('mod:browse', args || {}),
+    /** 预览：这款游戏的 MOD 会下载到哪（打开浏览器前先确认一次） */
+    downloadTarget: (args) => ipcRenderer.invoke('mod:downloadTarget', args || {}),
+    /** 给这款游戏手动指定 MOD 目录（传 dir 为空则弹选择框） */
+    setModDir: (args) => ipcRenderer.invoke('mod:setModDir', args || {})
   },
 
   /* ---------------- 隐藏空间 ---------------- */

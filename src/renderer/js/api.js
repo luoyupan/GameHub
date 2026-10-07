@@ -126,6 +126,12 @@
     modOpenWorkshop: (args) => safe(raw.mod.openWorkshop, args || {}),
     /** 打开 N 网（Nexus Mods）的游戏搜索页 */
     modOpenNexus: (args) => safe(raw.mod.openNexus, args || {}),
+    /** 在内置浏览器里打开 N 网 —— 下载会被接管到该游戏的 MOD 目录 */
+    modBrowse: (args) => safe(raw.mod.browse, args || {}),
+    /** 预览这款游戏的 MOD 会下载到哪 */
+    modDownloadTarget: (args) => safe(raw.mod.downloadTarget, args || {}),
+    /** 手动指定这款游戏的 MOD 目录（不传 dir 会弹选择框） */
+    modSetModDir: (args) => safe(raw.mod.setModDir, args || {}),
 
     /* ---------------- 隐藏空间 ---------------- */
     hiddenStatus: () => safe(raw.hidden.status),

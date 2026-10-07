@@ -1356,6 +1356,111 @@
       ));
 
       /* ========================================================
+       *  MOD 下载（内置浏览器）
+       * ======================================================== */
+      b.appendChild(el('div', { class: 'detail-section-title', text: 'MOD 下载', style: { marginTop: '22px' } }));
+
+      // 老数据没有 modDownload 字段，先补齐
+      if (!s.modDownload) s.modDownload = { mode: 'game', customDir: '', autoExtract: true, overrides: {} };
+      const md = s.modDownload;
+
+      /** 保存 MOD 下载设置。⚠ 和 bg 一样要深合并，不能用 save() 浅合并 */
+      async function saveMd(patch) {
+        s.modDownload = { ...s.modDownload, ...patch };
+        await API.settingsSet({ modDownload: patch });
+        window.State.settings = { ...window.State.settings, modDownload: s.modDownload };
+      }
+
+      b.appendChild(segRow('MOD 下载到哪',
+        [
+          { value: 'game', label: '自动进游戏 MOD 目录' },
+          { value: 'custom', label: '固定文件夹' },
+          { value: 'ask', label: '每次问我' }
+        ],
+        (v) => (md.mode || 'game') === v,
+        async (v) => {
+          await saveMd({ mode: v });
+          paintBody(b);
+        },
+        '用内置浏览器在 N 网这类站点下载 MOD 时，文件落到哪。\n' +
+        '「自动」会按各游戏的 MOD 目录规则推断 —— 老滚/辐射是 Data 不是 Mods，' +
+        '博德之门3 和我的世界在 AppData 里而不是游戏目录，' +
+        '骑马与砍杀2 叫 Modules，巫师3 的文件夹还必须以 mod 开头。' +
+        '认不出来的时候会自动退化成「每次问我」，不会硬放到错误的地方 —— ' +
+        '因为 MOD 放错目录不会报错，只会静默失效。'
+      ));
+
+      if ((md.mode || 'game') === 'custom') {
+        const dirRow = el('div', { class: 'form-row' });
+        dirRow.appendChild(el('div', { class: 'fl', text: '固定文件夹' }));
+        const dirBox = el('div', { class: 'fc' });
+
+        const dirLabel = el('div', {
+          class: 'bg-preview',
+          text: md.customDir || '（还没选）',
+          style: md.customDir ? {} : { opacity: '0.55' }
+        });
+        const pickBtn = el('button', {
+          class: 'btn btn-ghost btn-sm',
+          text: md.customDir ? '改一个' : '选一个文件夹',
+          onclick: async () => {
+            const p = await API.pickFolder();
+            if (!p) return;
+            await saveMd({ customDir: p });
+            paintBody(b);
+          }
+        });
+        dirBox.appendChild(dirLabel);
+        dirBox.appendChild(pickBtn);
+        dirRow.appendChild(dirBox);
+        b.appendChild(dirRow);
+      }
+
+      b.appendChild(switchRow(
+        '下载完自动解压',
+        'MOD 基本都是压缩包，下完直接解压到目标目录。目前支持 zip；7z / rar 会提示你手动解压。',
+        md.autoExtract !== false,
+        (v) => saveMd({ autoExtract: v })
+      ));
+
+      /* 已经手动指定过的游戏，列出来方便改 */
+      const ov = md.overrides || {};
+      const ovIds = Object.keys(ov);
+      if (ovIds.length) {
+        b.appendChild(el('div', {
+          class: 'form-hint',
+          style: { marginTop: '10px' },
+          text: `已为 ${ovIds.length} 款游戏手动指定了 MOD 目录：`
+        }));
+        const list = el('div', { class: 'un-opts' });
+        for (const id of ovIds) {
+          const g = (window.State.games || []).find((x) => x.id === id);
+          const row = el('div', { class: 'un-opt' });
+          row.appendChild(el('div', {
+            text: g ? g.name : id,
+            style: { fontWeight: '600', marginBottom: '2px' }
+          }));
+          row.appendChild(el('div', {
+            text: ov[id],
+            style: { fontSize: '11.5px', opacity: '0.7', wordBreak: 'break-all' }
+          }));
+          row.appendChild(el('button', {
+            class: 'btn btn-ghost btn-sm',
+            text: '取消指定',
+            style: { marginTop: '6px' },
+            onclick: async () => {
+              const next = { ...ov };
+              delete next[id];
+              await saveMd({ overrides: next });
+              paintBody(b);
+            }
+          }));
+          list.appendChild(row);
+        }
+        b.appendChild(list);
+      }
+
+      /* ========================================================
        *  游玩统计
        * ======================================================== */
       b.appendChild(el('div', { class: 'detail-section-title', text: '游玩统计', style: { marginTop: '22px' } }));

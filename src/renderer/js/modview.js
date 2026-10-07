@@ -268,7 +268,7 @@
 
       el('button', {
         class: 'btn btn-ghost btn-sm', text: '🌐 N 网',
-        title: `去 Nexus Mods 搜「${g.name}」的 MOD（在浏览器里打开）`,
+        title: `在内置浏览器打开 N 网搜「${g.name}」的 MOD（下载会直接进这款游戏的 MOD 目录）`,
         onclick: () => openNexus(g)
       }),
 
@@ -498,8 +498,14 @@
               onclick: () => addManual(g)
             }),
         el('button', {
-          class: 'btn btn-ghost btn-sm', text: '🌐 N 网找找',
+          class: 'btn btn-primary btn-sm', text: '🌐 N 网找找（内置浏览器）',
+          title: '在软件内打开 N 网，下载会直接进这款游戏的 MOD 目录',
           onclick: () => openNexus(g)
+        }),
+        el('button', {
+          class: 'btn btn-ghost btn-sm', text: '📂 指定 MOD 目录',
+          title: '自动推断的目录不对时，给这款游戏手动指定一个',
+          onclick: () => pickModDir(g)
         }),
         el('button', {
           class: 'btn btn-ghost btn-sm', text: '↻ 重新扫描',
@@ -634,11 +640,62 @@
     window.App.toast((r && r.error) || '打开创意工坊失败', 'error');
   }
 
-  /** 打开 N 网 */
+  /**
+   * 在**内置浏览器**里打开 N 网找 MOD。
+   *
+   * 为什么不直接丢给系统浏览器：那样下载完文件躺在「下载」目录，
+   * 用户得自己找、自己解压、自己判断该放哪个游戏的哪个子目录 ——
+   * 而 MOD 放错目录**不会报错，只会静默失效**，是最折腾人的一步。
+   * 内置浏览器能把下载直接接管到这款游戏的 MOD 目录。
+   *
+   * 打开前先问一次"会下载到哪"，让用户有机会发现目录不对、改成自己指定的。
+   */
   async function openNexus(g) {
-    const r = await window.API.modOpenNexus({ name: g.name });
-    if (r && r.ok) { window.App.toast('已在浏览器打开 Nexus Mods', 'success'); return; }
+    // 先看一眼会落到哪 —— 认不出的情况要提醒用户
+    let target = null;
+    try {
+      const t = await window.API.modDownloadTarget({ id: g.id });
+      if (t && t.ok) target = t;
+    } catch (_) { /* 拿不到就当没提示，不影响打开 */ }
+
+    if (target && target.ok && target.dir) {
+      window.App.toast(
+        `MOD 将下载到：${target.dir}　（${target.label || ''}）`,
+        target.exists ? 'success' : 'warn',
+        5200
+      );
+    } else if (target && !target.ok) {
+      window.App.toast('没认出这款游戏的 MOD 目录，下载时会让你自己选', 'warn', 4500);
+    }
+
+    const r = await window.API.modBrowse({ id: g.id, name: g.name });
+    if (r && r.ok) { window.App.toast('已在内置浏览器打开 N 网，下载会直接进 MOD 目录', 'success'); return; }
+    // 内置浏览器起不来就退回系统浏览器，别让用户点了没反应
+    const fb = await window.API.modOpenNexus({ name: g.name });
+    if (fb && fb.ok) { window.App.toast('内置浏览器不可用，已用系统浏览器打开', 'warn', 4500); return; }
     window.App.toast((r && r.error) || '打开 N 网失败', 'error');
+  }
+
+  /**
+   * 给这款游戏手动指定 MOD 目录。
+   *
+   * 为什么要有这个入口：自动推断再全也覆盖不到所有游戏，
+   * 尤其是改名过的、绿色版的、或者用户自己有习惯放法的。
+   * 而 MOD 放错目录不会报错、只会静默失效 —— 必须给用户一个能直接改的口子。
+   */
+  async function pickModDir(g) {
+    const cur = await window.API.modDownloadTarget({ id: g.id }).catch(() => null);
+
+    const r = await window.API.modSetModDir({ id: g.id }).catch(() => null);
+    if (!r) { window.App.toast('选择 MOD 目录失败', 'error'); return; }
+    if (r.canceled) return;
+
+    window.App.toast(
+      `已指定「${g.name}」的 MOD 目录：${r.dir}` +
+      (cur && cur.dir && cur.dir !== r.dir ? `（原来是 ${cur.dir}）` : ''),
+      'success',
+      5000
+    );
   }
 
   /** 手动添加 */

@@ -29,6 +29,9 @@ const platforms = require('./src/main/platforms');
 const { createEpicAuth, paintLoginResult } = require('./src/main/epicauth');
 const { createMods, steamWorkshopWebUrl, steamWorkshopClientUrl, nexusSearchUrl } = require('./src/main/mods');
 const uninstall = require('./src/main/uninstall');
+const { createBrowserService } = require('./src/main/browser');
+const modpaths = require('./src/main/modpaths');
+const unzip = require('./src/main/unzip');
 
 /* ==================================================================
  *  全局单例
@@ -40,6 +43,8 @@ let launcher = null;
 let cover = null;
 let epicAuth = null;
 let mods = null;
+/** 内置浏览器服务（懒加载：第一次真正要用时才建） */
+let browser = null;
 
 /** 扫描取消标志（一次只允许一个扫描任务） */
 let scanCancelled = false;
@@ -349,6 +354,15 @@ function createWindow() {
 /** 向渲染进程广播事件 */
 function emit(channel, payload) {
   if (win && !win.isDestroyed()) win.webContents.send(channel, payload);
+}
+
+/**
+ * 主进程给界面弹一条提示。
+ * @param {string} message
+ * @param {'info'|'success'|'warn'|'error'} type
+ */
+function toast(message, type = 'info') {
+  emit('toast', { type, message });
 }
 
 /* ==================================================================
@@ -1399,6 +1413,279 @@ function registerModIpc() {
       return { ok: false, error: '打开 N 网失败：' + (e.message || e) };
     }
   });
+
+  /**
+   * 在**内置浏览器**里打开 N 网（或任意站点）给这款游戏找 MOD。
+   *
+   * 和 mod:openNexus 的区别：那个是丢给系统浏览器，下载完用户自己找文件；
+   * 这个是在软件内打开，下载会被 GameHub 接管，直接落到这款游戏的 MOD 目录。
+   * 所以这里要把 gameId 塞进 context —— 浏览器靠它知道"这个文件该给谁"。
+   */
+  ipcMain.handle('mod:browse', async (_e, args = {}) => {
+    const gameId = String(args.id || '').trim();
+    const g = gameId ? store.findGame(gameId) : null;
+    const name = String(args.name || (g && g.name) || '').trim();
+    if (!name) return { ok: false, error: '没有游戏名，搜不了' };
+
+    const url = args.url || nexusSearchUrl(name);
+    const svc = ensureBrowser();
+    if (!svc) return { ok: false, error: '内置浏览器没能启动' };
+
+    return svc.open(url, {
+      title: `给「${name}」找 MOD`,
+      context: { gameId: gameId || '', gameName: name }
+    });
+  });
+
+  /**
+   * 预览：这款游戏的 MOD 会下载到哪。
+   * 界面在打开浏览器之前会先问一次，把目录显示给用户确认。
+   */
+  ipcMain.handle('mod:downloadTarget', (_e, args = {}) => {
+    const gameId = String(args.id || '').trim();
+    const g = gameId ? store.findGame(gameId) : null;
+    if (!g) return { ok: false, error: '游戏不存在' };
+    const s = store.getSettings();
+    const r = decideModDownloadDir(g, s);
+    return { ok: true, ...r };
+  });
+
+  /** 给某款游戏手动指定 MOD 目录（覆盖自动推断） */
+  ipcMain.handle('mod:setModDir', async (_e, args = {}) => {
+    const gameId = String(args.id || '').trim();
+    if (!gameId) return { ok: false, error: '没有指定游戏' };
+
+    let dir = String(args.dir || '').trim();
+    if (!dir) {
+      // 没传目录就弹一个选择框，默认落在游戏目录里
+      const g = store.findGame(gameId);
+      const r = await dialog.showOpenDialog(win, {
+        title: '选择这款游戏的 MOD 目录',
+        properties: ['openDirectory', 'createDirectory'],
+        defaultPath: (g && g.installDir) || undefined
+      });
+      if (r.canceled || !r.filePaths || !r.filePaths.length) return { ok: false, canceled: true };
+      dir = r.filePaths[0];
+    }
+
+    const s = store.getSettings();
+    const md = s.modDownload || {};
+    const overrides = { ...(md.overrides || {}) };
+    if (dir === '__clear__') delete overrides[gameId];
+    else overrides[gameId] = dir;
+
+    await store.setSettings({ modDownload: { ...md, overrides } });
+    return { ok: true, dir };
+  });
+}
+
+/* ==================================================================
+ *  IPC：内置浏览器（供 browser.html 那个窗口用）
+ * --------------------------------------------------------------------
+ *  这些通道只服务于浏览器窗口自己的工具条，
+ *  能力面刻意做得极窄 —— 详见 preload-browser.js 里的说明。
+ * ================================================================== */
+function registerBrowserIpc() {
+  const findWin = (e) => BrowserWindow.fromWebContents(e.sender);
+
+  ipcMain.handle('browser:minimize', (e) => {
+    const w = findWin(e); if (w) w.minimize();
+  });
+
+  ipcMain.handle('browser:maximize', (e) => {
+    const w = findWin(e);
+    if (!w) return;
+    if (w.isMaximized()) w.unmaximize(); else w.maximize();
+  });
+
+  ipcMain.handle('browser:close', (e) => {
+    const w = findWin(e); if (w) w.close();
+  });
+
+  ipcMain.handle('browser:openExternal', async (_e, url) => {
+    const u = String(url || '').trim();
+    if (!/^https?:\/\//i.test(u)) return { ok: false, error: '不是网页地址' };
+    await shell.openExternal(u);
+    return { ok: true };
+  });
+}
+
+/* ==================================================================
+ *  内置浏览器：初始化与下载落点决策
+ * ================================================================== */
+
+/** 懒加载浏览器服务（第一次用到时才建，省启动开销） */
+function ensureBrowser() {
+  if (browser) return browser;
+  if (!win || win.isDestroyed()) return null;
+
+  browser = createBrowserService({
+    parent: win,
+    onLog: (m) => console.log('[GameHub][浏览器] ' + m),
+    /**
+     * 下载落点决策 —— 整个功能的价值所在。
+     * 浏览器拿到文件，问这里"存哪"，这里按设置 + MOD 目录规则回答。
+     */
+    onDownload: async (info) => {
+      const s = store.getSettings();
+      const md = s.modDownload || {};
+      const ctx = info.context || {};
+      const g = ctx.gameId ? store.findGame(ctx.gameId) : null;
+
+      // ① 固定目录模式
+      if (md.mode === 'custom' && md.customDir) {
+        return { dir: md.customDir };
+      }
+
+      // ② 每次询问模式。默认落在推断出的目录里，省得用户从头找
+      if (md.mode === 'ask') {
+        const guess = g ? decideModDownloadDir(g, s) : null;
+        const base = (guess && guess.ok && guess.dir) || (g && g.installDir) || '';
+        const r = await dialog.showSaveDialog(win, {
+          title: '把 MOD 存到哪',
+          defaultPath: base ? path.join(base, info.filename) : info.filename
+        });
+        if (r.canceled || !r.filePath) return { cancel: true };
+        return { dir: path.dirname(r.filePath) };
+      }
+
+      // ③ 自动模式（默认）：按规则推断这款游戏的 MOD 目录
+      if (g) {
+        const d = decideModDownloadDir(g, s);
+        if (d.ok && d.dir) return { dir: d.dir };
+      }
+
+      // ④ 认不出来 → 退化成询问。**绝不硬塞到一个猜错的地方** ——
+      //    MOD 放错目录不会报错，只会静默失效，那比让用户选一次更糟。
+      const r = await dialog.showSaveDialog(win, {
+        title: g ? `没认出「${g.name}」的 MOD 目录，你选一个` : '把 MOD 存到哪',
+        defaultPath: g && g.installDir ? path.join(g.installDir, info.filename) : info.filename
+      });
+      if (r.canceled || !r.filePath) return { cancel: true };
+      return { dir: path.dirname(r.filePath) };
+    },
+    /**
+     * 窗口页面就绪 → 把「这个窗口的下载会落到哪」推给它的界面层。
+     * 早于这个时机推会丢（页面还没执行到监听那行）。
+     */
+    onReady: (id, rec) => {
+      const s = store.getSettings();
+      const md = s.modDownload || {};
+      const ctx = (rec && rec.context) || {};
+      const g = ctx.gameId ? store.findGame(ctx.gameId) : null;
+
+      let target = null;
+      if (md.mode === 'custom' && md.customDir) {
+        target = { dir: md.customDir, label: '设置里指定的文件夹', source: 'custom' };
+      } else if (md.mode === 'ask') {
+        target = { dir: '', label: '每次下载时询问', source: 'ask' };
+      } else if (g) {
+        const d = decideModDownloadDir(g, s);
+        target = { dir: d.ok ? d.dir : '', label: d.label || '', source: d.source || '', note: d.note || '' };
+      }
+
+      browser.sendTo(id, 'browser:download-target', {
+        gameName: ctx.gameName || (g && g.name) || '',
+        dir: (target && target.dir) || '',
+        label: (target && target.label) || '',
+        source: (target && target.source) || '',
+        note: (target && target.note) || ''
+      });
+    },
+
+    onEvent: (ev) => {
+      // 浏览器侧的动静转发给主界面，方便以后做"下载中心"之类的东西
+      emit('browser:event', ev);
+
+      // 下载完成 → 按设置自动解压到落点目录
+      if (ev && ev.type === 'download-done' && ev.download && ev.download.state === 'completed') {
+        afterDownload(ev.download).catch((e) => {
+          console.warn('[GameHub][浏览器] 下载后处理失败：' + (e && e.message || e));
+        });
+      }
+    }
+  });
+
+  return browser;
+}
+
+/**
+ * 下载完成后的收尾：按需自动解压。
+ *
+ * ── 为什么要自己解压 ──────────────────────────────────────
+ *   N 网等站点的 MOD 几乎都是压缩包，而**放错目录不会报错、只会静默失效**。
+ *  下载已经落对了位置，解压如果还要用户手动来一次，等于白忙一半。
+ *
+ * ── 为什么保留目录结构 ────────────────────────────────────
+ *  不 flatten。MOD 压缩包里的相对结构往往是有意义的
+ *  （比如 CP2077 的 archive/pc/mod、巫师 3 的 modXXX/）。
+ *  平铺会把它们全打散，反而更容易失效。
+ */
+async function afterDownload(dl) {
+  const savePath = String((dl && dl.savePath) || '').trim();
+  if (!savePath) return;
+  try { if (!fs.existsSync(savePath)) return; } catch { return; }
+
+  const s = store.getSettings();
+  const md = s.modDownload || {};
+  if (md.autoExtract === false) {
+    toast(`已保存：${path.basename(savePath)}`, 'success');
+    return;
+  }
+
+  const ext = path.extname(savePath).toLowerCase();
+
+  if (ext === '.zip') {
+    if (!(await unzip.isZipFile(savePath))) {
+      toast(`已保存：${path.basename(savePath)}`, 'success');
+      return;
+    }
+    const dest = path.dirname(savePath);
+    try {
+      const r = await unzip.extractZip(savePath, dest);
+      toast(`MOD 已解压到 ${dest}（${r.count} 个文件）`, 'success');
+    } catch (e) {
+      toast(`已下载但解压失败，请手动解压：${e && e.message || e}`, 'warn');
+    }
+    return;
+  }
+
+  if (ext === '.7z' || ext === '.rar') {
+    // 这两种格式自带依赖太多，不值得为一个边缘功能拖进来。
+    // 文件已经在对的目录了，提示用户就地解压即可。
+    toast(`${path.basename(savePath)} 已下载到 MOD 目录，${ext.slice(1).toUpperCase()} 请就地手动解压`, 'info');
+    return;
+  }
+
+  // 单文件（.esp / .pak / .jar 之类）直接就是 MOD，不用解压
+  toast(`已保存到 ${path.dirname(savePath)}：${path.basename(savePath)}`, 'success');
+}
+
+/**
+ * 按设置与规则算出一款游戏的 MOD 下载目录。
+ * 界面（mod:downloadTarget）和下载回调共用这一份逻辑，避免两边算出不同结果。
+ *
+ * @param {object} g 游戏对象
+ * @param {object} s 设置
+ */
+function decideModDownloadDir(g, s) {
+  const md = (s && s.modDownload) || {};
+  const override = (md.overrides || {})[g.id];
+
+  if (md.mode === 'custom' && md.customDir) {
+    return { ok: true, dir: md.customDir, source: 'custom', label: '设置里指定的文件夹', note: '' };
+  }
+
+  const r = modpaths.resolveModDir(g, { env: process.env, override });
+  return {
+    ok: r.ok,
+    dir: r.dir,
+    exists: r.exists,
+    source: r.source,
+    label: modpaths.sourceLabel(r.source),
+    note: r.note || '',
+    matched: r.matched
+  };
 }
 
 /* ==================================================================
@@ -1587,6 +1874,7 @@ app.whenReady().then(async () => {
   registerScanIpc();
   registerPlatformIpc();
   registerModIpc();
+  registerBrowserIpc();
   registerDialogIpc();
   registerAppearanceIpc();
   registerUninstallIpc();

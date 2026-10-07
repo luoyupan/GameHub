@@ -1,0 +1,183 @@
+/* ============================================================
+   GameHub - 内置浏览器窗口样式  (css/browser.css)
+   ------------------------------------------------------------
+   配色沿用主界面的深色主题，让它看起来是 GameHub 的一部分，
+   而不是突然弹出一个陌生窗口。
+   ============================================================ */
+
+:root {
+  --br-bg: #0e1420;
+  --br-bar: #131b2b;
+  --br-line: rgba(255, 255, 255, 0.08);
+  --br-fg: #e8eef8;
+  --br-dim: #8fa0bb;
+  --br-accent: #4f9cf9;
+  --br-ok: #34d399;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--br-bg);
+  color: var(--br-fg);
+  font: 13px/1.5 "Microsoft YaHei UI", "Microsoft YaHei", "Segoe UI", system-ui, sans-serif;
+  user-select: none;
+}
+
+.br-root { display: flex; flex-direction: column; height: 100%; }
+
+/* ---------------- 标题栏 ---------------- */
+.br-bar {
+  display: flex;
+  align-items: center;
+  height: 34px;
+  flex: 0 0 34px;
+  background: var(--br-bar);
+  border-bottom: 1px solid var(--br-line);
+}
+.br-drag {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  -webkit-app-region: drag;
+  min-width: 0;
+}
+.br-title {
+  font-size: 12.5px;
+  color: var(--br-dim);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.br-winbtns { display: flex; -webkit-app-region: no-drag; }
+.br-wb {
+  width: 44px;
+  height: 34px;
+  border: 0;
+  background: transparent;
+  color: var(--br-dim);
+  font-size: 13px;
+  cursor: pointer;
+}
+.br-wb:hover { background: rgba(255, 255, 255, 0.08); color: var(--br-fg); }
+.br-wb-close:hover { background: #e04b4b; color: #fff; }
+
+/* ---------------- 导航条 ---------------- */
+.br-nav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  flex: 0 0 auto;
+  background: #101828;
+  border-bottom: 1px solid var(--br-line);
+}
+.br-btn {
+  width: 30px;
+  height: 28px;
+  border: 1px solid var(--br-line);
+  border-radius: 6px;
+  background: #182234;
+  color: var(--br-fg);
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+  flex: 0 0 auto;
+}
+.br-btn:hover { background: #1f2b41; }
+.br-btn:disabled { opacity: 0.4; cursor: default; }
+
+.br-addr {
+  flex: 1;
+  min-width: 0;
+  height: 28px;
+  padding: 0 10px;
+  border: 1px solid var(--br-line);
+  border-radius: 14px;
+  background: #0c121e;
+  color: var(--br-fg);
+  font-size: 12.5px;
+  outline: none;
+  user-select: text;
+}
+.br-addr:focus { border-color: var(--br-accent); }
+
+/* ---------------- 下载落点提示 ---------------- */
+/* 这条是重点：N 网页面本身不会告诉你文件会存到哪，
+   在这里常驻显示，用户点下载前就能确认目录对不对。 */
+.br-target {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  flex: 0 0 auto;
+  background: rgba(79, 156, 249, 0.10);
+  border-bottom: 1px solid var(--br-line);
+  font-size: 12px;
+  min-width: 0;
+}
+.br-target-label { color: var(--br-accent); flex: 0 0 auto; font-weight: 600; }
+.br-target-path {
+  flex: 1;
+  min-width: 0;
+  color: var(--br-fg);
+  font-family: Consolas, "Cascadia Mono", monospace;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  user-select: text;
+}
+.br-target-src { flex: 0 0 auto; color: var(--br-dim); font-size: 11px; }
+/* 没有固定落点（每次询问模式）时，路径也用弱化色，别看着像已经定了 */
+.br-target-path.dim { color: var(--br-dim); font-style: italic; }
+
+/* ---------------- 下载进度 ---------------- */
+.br-dl {
+  flex: 0 0 auto;
+  padding: 6px 12px 8px;
+  background: #101828;
+  border-bottom: 1px solid var(--br-line);
+}
+.br-dl[hidden] { display: none; }
+.br-dl-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+.br-dl-name {
+  color: var(--br-fg);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.br-dl-stat { color: var(--br-dim); flex: 0 0 auto; font-variant-numeric: tabular-nums; }
+.br-dl-track {
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+.br-dl-fill {
+  height: 100%;
+  width: 0;
+  border-radius: 2px;
+  background: var(--br-accent);
+  transition: width 0.2s ease;
+}
+.br-dl-fill.done { background: var(--br-ok); }
+
+/* ---------------- 网页区 ---------------- */
+.br-view {
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  background: #fff;
+}
