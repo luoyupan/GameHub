@@ -47,7 +47,9 @@
   /**
    * 在 container 里建一个浏览器面板。
    * @param {HTMLElement} container 面板的挂载点
-   * @param {{url:string, target?:object, context?:object, compact?:boolean}} opts
+   * @param {{url:string, target?:object, context?:object, compact?:boolean, floatable?:boolean}} opts
+   *   floatable（默认 true）：给面板加「浮出」能力 —— 右下角抓手拖一下就能
+   *   脱离文档流变成浮层，自由缩放 / 移动，双击抓手铺满全窗。导航栏形态用不上。
    * @returns {{id:string, el:HTMLElement, webview:HTMLElement, destroy:Function, navigate:Function}}
    */
   function createPane(container, opts = {}) {
@@ -110,6 +112,9 @@
     };
     panes.set(paneId, pane);
 
+    /** 浮层形态下原位置的占位条 —— destroy 时要一并清掉，声明提升到这层 */
+    let fPlaceholder = null;
+
     /* ---- 工具条 ---- */
     root.querySelector('[data-act="back"]').onclick = () => { try { wv.goBack(); } catch (_) { } };
     root.querySelector('[data-act="fwd"]').onclick = () => { try { wv.goForward(); } catch (_) { } };
@@ -127,6 +132,129 @@
       navigate(u);
       wv.focus();
     });
+
+    if (opts.floatable !== false) {
+    /* ================================================================
+     *  浮层能力：从面板里拖出来自由缩放 / 移动
+     * ------------------------------------------------------------
+     *  主人需求：内嵌的网页窗口要能自由拖大，方便看更多信息。
+     *  实现要点（两个坑都在这）：
+     *  ① webview 一旦被移出 DOM 就销毁重载 —— 所以**绝不 reparent**，
+     *     浮层化只是给同一个节点改 position:fixed + 内联几何。
+     *     祖先链（.detail-layer → .detail-panel）没有 transform/filter，
+     *     fixed 的包含块就是视口，可以放心铺满全窗。
+     *  ② 拖拽时鼠标会划过 webview —— 它是独立进程，鼠标事件不冒泡，
+     *     宿主收不到 pointermove 拖拽就断了。拖拽期间给 stage 盖一层
+     *     透明罩（.bh-dragging ::after）把鼠标留在宿主文档里。
+     * ================================================================ */
+    let fMode = 'dock';        // dock=内嵌 | float=自由浮层 | max=铺满全窗
+
+    const MIN_W = 420, MIN_H = 300, EDGE = 16;
+
+    const fBtn = document.createElement('button');
+    fBtn.className = 'bh-btn';
+    fBtn.type = 'button';
+    fBtn.title = '放大浏览';
+    fBtn.textContent = '⤢';
+    root.querySelector('[data-act="ext"]').parentNode.insertBefore(
+      fBtn, root.querySelector('[data-act="ext"]')
+    );
+
+    const grip = document.createElement('div');
+    grip.className = 'bh-grip';
+    grip.title = '拖动调整大小 · 双击铺满全窗';
+    grip.textContent = '◢';
+    root.appendChild(grip);
+
+    const fBar = root.querySelector('.bh-toolbar');
+
+    function fApply(x, y, w, h) {
+      root.style.left = Math.round(Math.max(-rootW() + 120, Math.min(x, innerWidth - 120))) + 'px';
+      root.style.top = Math.round(Math.max(0, Math.min(y, innerHeight - 60))) + 'px';
+      root.style.width = Math.max(MIN_W, Math.round(w)) + 'px';
+      root.style.height = Math.max(MIN_H, Math.round(h)) + 'px';
+    }
+    function rootW() { return root.getBoundingClientRect().width || MIN_W; }
+
+    function fSetMode(m) {
+      fMode = m;
+      root.classList.toggle('is-float', m !== 'dock');
+      fBtn.textContent = m === 'dock' ? '⤢' : '⇲';
+      fBtn.title = m === 'dock' ? '放大浏览' : '收回面板';
+      if (m === 'dock') {
+        ['left', 'top', 'width', 'height'].forEach((p) => root.style.removeProperty(p));
+        if (fPlaceholder) { fPlaceholder.remove(); fPlaceholder = null; }
+      } else {
+        // 原位置留个占位，用户不会找不到"浏览器去哪了"
+        if ((!fPlaceholder || !fPlaceholder.isConnected) && root.parentNode) {
+          fPlaceholder = document.createElement('div');
+          fPlaceholder.className = 'bh-float-ph';
+          fPlaceholder.innerHTML = '<span>🌐 浏览器已浮出</span>';
+          const back = document.createElement('button');
+          back.type = 'button';
+          back.textContent = '点此收回';
+          back.onclick = () => fSetMode('dock');
+          fPlaceholder.appendChild(back);
+          root.parentNode.insertBefore(fPlaceholder, root);
+        }
+      }
+    }
+
+    function fMaximize() {
+      fApply(EDGE, EDGE, innerWidth - EDGE * 2, innerHeight - EDGE * 2);
+      fSetMode('max');
+    }
+
+    /** 通用拖拽：按下起点 + window 级 move/up（拖网页容器必须挂 window） */
+    function fDrag(e, onMove) {
+      e.preventDefault();
+      const sx = e.clientX, sy = e.clientY;
+      root.classList.add('bh-dragging');
+      document.body.style.userSelect = 'none';
+      const move = (ev) => onMove(ev.clientX - sx, ev.clientY - sy);
+      const up = () => {
+        window.removeEventListener('pointermove', move);
+        window.removeEventListener('pointerup', up);
+        root.classList.remove('bh-dragging');
+        document.body.style.userSelect = '';
+      };
+      window.addEventListener('pointermove', move);
+      window.addEventListener('pointerup', up);
+    }
+
+    // 抓手：按住拖 = 缩放（dock 态第一次拖就浮出来）；双击 = 铺满
+    grip.addEventListener('pointerdown', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const r = root.getBoundingClientRect();
+      const baseL = r.left, baseT = r.top, baseW = r.width, baseH = r.height;
+      if (fMode === 'dock') fSetMode('float');
+      fApply(baseL, baseT, baseW, baseH);
+      fDrag(e, (dx, dy) => fApply(baseL, baseT, baseW + dx, baseH + dy));
+    });
+    grip.addEventListener('dblclick', (e) => { e.preventDefault(); fMaximize(); });
+
+    // 工具条空白处：按住拖 = 移动浮层位置（dock 态拖一下也会浮出来）
+    fBar.addEventListener('pointerdown', (e) => {
+      if (e.target.closest('button, input, .bh-target')) return;
+      const r = root.getBoundingClientRect();
+      const baseL = r.left, baseT = r.top;
+      if (fMode === 'dock') {
+        fApply(baseL, baseT, Math.max(r.width, 560), Math.max(r.height, 400));
+        fSetMode('float');
+      } else {
+        fApply(baseL, baseT, r.width, r.height);
+      }
+      const bl = parseFloat(root.style.left), bt = parseFloat(root.style.top);
+      fDrag(e, (dx, dy) => {
+        root.style.left = Math.round(Math.max(-rootW() + 120, Math.min(bl + dx, innerWidth - 120))) + 'px';
+        root.style.top = Math.round(Math.max(0, Math.min(bt + dy, innerHeight - 60))) + 'px';
+      });
+    });
+
+    // ⤢ / ⇲：内嵌 ↔ 铺满一键切换
+    fBtn.onclick = () => { if (fMode === 'dock') fMaximize(); else fSetMode('dock'); };
+    } /* end floatable */
 
     /* ---- webview 事件 ---- */
 
@@ -207,6 +335,7 @@
     function destroy() {
       if (pane.destroyed) return;
       pane.destroyed = true;
+      if (fPlaceholder) fPlaceholder.remove();   // 浮出时原位置留的占位一并清掉
       try { wv.remove(); } catch { }
       root.remove();
       panes.delete(paneId);
@@ -388,7 +517,8 @@
     holder.className = 'bh-nav-holder';
     viewsBox.appendChild(holder);
 
-    const pane = createPane(holder, { url, target: opts.target });
+    // 导航栏形态本身就占满内容区，浮层没意义，关掉
+    const pane = createPane(holder, { url, target: opts.target, floatable: false });
     pane.tabId = opts.tabId || null;
 
     const rec = { pane, btn, holder };

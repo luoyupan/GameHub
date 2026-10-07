@@ -202,6 +202,81 @@
 .mv-bdock .bh-toolbar { border-radius: 10px 10px 0 0; }
 .mv-bdock .bh-target { max-width: 46%; }
 
+/* ---------------- 浮层形态 ----------------
+   从面板里拖出来自由缩放 / 移动。⚠ 绝不 reparent ——
+   webview 被移出 DOM 就销毁重载，浮层化只改同一个节点的定位。 */
+.bh-pane { position: relative; }   /* 给右下角抓手一个定位上下文 */
+.bh-pane.is-float {
+  position: fixed;                 /* 祖先链没有 transform/filter，包含块就是视口 */
+  z-index: 260;                    /* 盖过详情弹窗（.detail-layer 内部上下文） */
+  border: 1px solid var(--accent-line);
+  border-radius: 10px;
+  box-shadow: 0 20px 64px rgba(0, 0, 0, 0.55);
+}
+.bh-pane.is-float .bh-toolbar { border-radius: 9px 9px 0 0; cursor: move; }
+.bh-pane.is-float .bh-toolbar button,
+.bh-pane.is-float .bh-toolbar input,
+.bh-pane.is-float .bh-toolbar .bh-target { cursor: auto; }
+
+/* 右下角抓手：内嵌态也显示 —— 按住往外一拖就浮出来变大 */
+.bh-grip {
+  position: absolute;
+  right: 1px;
+  bottom: 1px;
+  width: 22px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: var(--text-3);
+  background: var(--bg-3);
+  border: 1px solid var(--line-2);
+  border-right: none;
+  border-bottom: none;
+  border-radius: 8px 0 8px 0;
+  cursor: nwse-resize;
+  z-index: 10;
+  opacity: 0.7;
+  transition: opacity 0.15s ease, color 0.15s ease;
+  user-select: none;
+}
+.bh-grip:hover { opacity: 1; color: var(--text); }
+
+/* 拖拽中给 stage 盖一层透明罩：
+   webview 是独立进程、鼠标事件不冒泡，不盖罩的话拖拽经过网页就断 */
+.bh-pane.bh-dragging .bh-stage::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 9;
+}
+
+/* 浮出后原位置留的占位条，免得用户找不到"浏览器去哪了" */
+.bh-float-ph {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 64px;
+  margin: 10px 0 4px;
+  border: 1px dashed var(--line-2);
+  border-radius: 10px;
+  color: var(--text-3);
+  font-size: 12.5px;
+}
+.bh-float-ph button {
+  border: 1px solid var(--line-2);
+  border-radius: 6px;
+  background: var(--bg-3);
+  color: var(--text);
+  padding: 3px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.bh-float-ph button:hover { background: var(--bg-4); }
+
 /* ---------------- 导航栏里的浏览器标签 ----------------
    ⚠ 刻意不用 .tb-nav-btn 类：app.js 会给那个类的按钮绑
    「回游戏库」的点击事件，混用会把浏览器标签点没。 */
