@@ -50,14 +50,27 @@ class FakeItem {
 function fakeWC(id) { return { id }; }
 
 class FakeSession {
-  constructor() { this.handlers = {}; }
+  constructor() {
+    this.handlers = {};
+    /* 验证通行证要往 session 里写 cookie */
+    this.cookies = {
+      store: [],
+      set: async (c) => { this.cookies.store.push(c); }
+    };
+    /* Client Hints 头注入（Cloudflare 卡验证的修复点） */
+    this.webRequest = {
+      handlers: {},
+      onBeforeSendHeaders: (cb) => { this.webRequest.handlers['onBeforeSendHeaders'] = cb; }
+    };
+  }
   on(ev, cb) { (this.handlers[ev] || (this.handlers[ev] = [])).push(cb); return this; }
   fire(ev, ...args) { (this.handlers[ev] || []).forEach((cb) => cb({}, ...args)); }
 }
 
 const fakeElectron = {
   session: { fromPartition: () => new FakeSession() },
-  shell: { openExternal: async () => { } }
+  shell: { openExternal: async () => { } },
+  app: { on: () => { } }   // browser.js 会挂 web-contents-created（注入 userAgentData）
 };
 
 // 必须在 require('../src/main/browser') 之前拦截
@@ -67,7 +80,8 @@ Module._load = function (request, parent, isMain) {
   return origLoad.apply(this, arguments);
 };
 
-const { createBrowserTabs, SESSION_PARTITION } = require('../src/main/browser');
+const { createBrowserTabs, SESSION_PARTITION, CHROME_FULL, CHROME_MAJOR } =
+  require('../src/main/browser');
 
 let pass = 0, fail = 0;
 const failures = [];
@@ -148,6 +162,54 @@ async function main() {
     const r = svc.open('https://example.com/');
     assert.strictEqual(svc.navigate(r.id, 'file:///x').ok, false);
     assert.strictEqual(svc.navigate(r.id, 'https://other.example.com/').ok, true);
+  });
+
+  /* ---------------- 1b. Cloudflare 验证相关 ---------------- */
+  console.log('-- 人机验证（Client Hints 头 / 通行证注入）--');
+
+  await ta('Client Hints 头补成自洽的 Chrome', async () => {
+    const svc = createBrowserTabs({});
+    const h = svc.session.webRequest.handlers['onBeforeSendHeaders'];
+    assert.ok(h, '请求头钩子必须挂上');
+    let out = null;
+    h({
+      requestHeaders: {
+        'Sec-CH-UA': '"Not?A_Brand";v="99", "Chromium";v="130"',
+        'accept-language': 'zh-CN,zh-Hans-CN'
+      }
+    }, (r) => { out = r.requestHeaders; });
+    assert.ok(out, '回调必须给出 requestHeaders');
+
+    const keys = Object.keys(out);
+    const chua = out[keys.find((k) => k.toLowerCase() === 'sec-ch-ua')];
+    assert.ok(/Google Chrome/.test(chua), 'sec-ch-ua 必须含 Google Chrome（UA 自称 Chrome 却不含它就是卡验证的根因），实际：' + chua);
+    assert.strictEqual(keys.filter((k) => k.toLowerCase() === 'sec-ch-ua').length, 1, '不能留下大小写不同的重复头');
+
+    // ⚠ 纯 Node 下 process.versions.chrome 不存在，必须比对实现里真正用的值
+    assert.ok(chua.includes(`v="${CHROME_MAJOR}"`), `版本号要与实现用的 ${CHROME_MAJOR} 一致，实际头：${chua}`);
+    const full = out[Object.keys(out).find((k) => k.toLowerCase() === 'sec-ch-ua-full-version-list')];
+    assert.ok(full && full.includes(CHROME_FULL), '完整版本号也要一致');
+  });
+
+  await ta('setCookie 解析整串 Cookie，控制属性不算 cookie', async () => {
+    const svc = createBrowserTabs({});
+    const r = await svc.setCookie(
+      'https://www.nexusmods.com/skyrimspecialedition',
+      'cf_clearance=abc123; Path=/; Secure; HttpOnly; __cf_bm=xyz'
+    );
+    assert.strictEqual(r.ok, true);
+    assert.deepStrictEqual(r.names, ['cf_clearance', '__cf_bm']);
+    assert.strictEqual(svc.session.cookies.store.length, 2);
+    assert.strictEqual(svc.session.cookies.store[0].url, 'https://www.nexusmods.com', 'domain 由 url 推');
+    assert.ok(!svc.session.cookies.store.some((c) => /^(path|secure|httponly)$/i.test(c.name)), '控制属性不能被当成 cookie 写进去');
+  });
+
+  await ta('setCookie 拒绝空输入 / 非法地址', async () => {
+    const svc = createBrowserTabs({});
+    assert.strictEqual((await svc.setCookie('https://x.com/', '   ')).ok, false, '空 Cookie');
+    assert.strictEqual((await svc.setCookie('', 'a=b')).ok, false, '没地址');
+    assert.strictEqual((await svc.setCookie('nxm://skyrim/mods/1', 'a=b')).ok, false, '非 http 地址');
+    assert.strictEqual((await svc.setCookie('https://x.com/', 'Path=/; Secure')).ok, false, '只有控制属性');
   });
 
   t('tab-opened / tab-closed 事件上报', () => {

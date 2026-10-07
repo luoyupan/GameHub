@@ -188,7 +188,9 @@ contextBridge.exposeInMainWorld('GameHub', {
     /** 关掉服务里的一个标签（渲染层收起内嵌浏览器时调） */
     closeTab: (tabId) => ipcRenderer.invoke('browser:closeTab', String(tabId || '')),
     /** 把单个链接丢给系统浏览器打开（工具条的 ↗ 按钮） */
-    openExternal: (url) => ipcRenderer.invoke('browser:openExternal', url)
+    openExternal: (url) => ipcRenderer.invoke('browser:openExternal', url),
+    /** 写入验证 Cookie（系统浏览器过完 Cloudflare 后搬通行证过来） */
+    setCookie: (args) => ipcRenderer.invoke('browser:setCookie', args || {})
   },
 
   /* ---------------- 隐藏空间 ---------------- */

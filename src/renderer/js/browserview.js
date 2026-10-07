@@ -64,9 +64,27 @@
       '  <button class="bh-btn" data-act="reload" title="刷新">⟳</button>' +
       '  <input class="bh-addr" type="text" spellcheck="false" placeholder="输入网址后回车" />' +
       '  <button class="bh-btn" data-act="ext" title="用系统浏览器打开">↗</button>' +
+      '  <button class="bh-btn" data-act="cf" title="验证通行证（站点要求人机验证时用）">🛡</button>' +
       '  <div class="bh-target" title="按各游戏的 MOD 目录规则自动落位">' +
       '    <span class="bh-target-label">MOD 将下载到</span>' +
       '    <span class="bh-target-path">（未指定）</span>' +
+      '  </div>' +
+      '</div>' +
+      '<div class="bh-cf" hidden>' +
+      '  <div class="bh-cf-t">🛡 站点要求进行人机验证</div>' +
+      '  <div class="bh-cf-d">' +
+      '    内嵌浏览器过不了 Cloudflare 的验证（它认得 Electron 的特征，实测等 60 秒也不会放行）。' +
+      '    办法是<b>在你自己的浏览器里过一次</b>，把通行证搬回来：' +
+      '  </div>' +
+      '  <ol class="bh-cf-steps">' +
+      '    <li>点工具条 <b>↗</b> 用系统浏览器打开这个站点，把验证过了</li>' +
+      '    <li>按 <b>F12</b> → Application（应用）→ Cookies → 找到 <b>cf_clearance</b>，复制它的值</li>' +
+      '    <li>粘到下面（<code>cf_clearance=xxxx</code> 或整串 Cookie 都行）→ 点「写入并刷新」</li>' +
+      '  </ol>' +
+      '  <div class="bh-cf-row">' +
+      '    <input class="bh-cf-input" type="text" spellcheck="false" placeholder="cf_clearance=xxxxxxxx 或整串 Cookie" />' +
+      '    <button class="btn btn-ghost btn-sm bh-cf-ok">写入并刷新</button>' +
+      '    <button class="btn btn-ghost btn-sm bh-cf-hide">收起</button>' +
       '  </div>' +
       '</div>' +
       '<div class="bh-dl" hidden>' +
@@ -121,6 +139,42 @@
     root.querySelector('[data-act="reload"]').onclick = () => { try { wv.reload(); } catch (_) { } };
     root.querySelector('[data-act="ext"]').onclick = () => {
       if (pane.url) window.API.browserOpenExternal(pane.url);
+    };
+
+    /* ---- 人机验证通行证 ----
+     * Cloudflare 的验证内嵌浏览器就是过不去（实测等 60 秒仍在验证页、
+     * cookie 为空）。给用户一条确定的路：系统浏览器过完，把 cf_clearance
+     * 搬进这个 session，之后下载接管 / MOD 自动落位还能照常用。
+     * 检测到验证页时自动展开说明，省得用户自己发现问题。 */
+    const cfBox = root.querySelector('.bh-cf');
+    const cfInput = root.querySelector('.bh-cf-input');
+    const CF_RE = /just a moment|checking your browser|attention required|verify you are|请稍候|正在进行安全验证|人机验证|安全验证/i;
+
+    function showCf() {
+      cfBox.hidden = false;
+    }
+
+    root.querySelector('[data-act="cf"]').onclick = () => {
+      cfBox.hidden = !cfBox.hidden;
+      if (!cfBox.hidden) { try { cfInput.focus(); } catch { } }
+    };
+    root.querySelector('.bh-cf-hide').onclick = () => { cfBox.hidden = true; };
+    root.querySelector('.bh-cf-ok').onclick = async () => {
+      const v = String(cfInput.value || '').trim();
+      if (!v) return;
+      const r = await window.API.browserSetCookie({ url: pane.url, cookie: v }).catch(() => null);
+      if (r && r.ok) {
+        cfBox.hidden = true;
+        cfInput.value = '';
+        navigate(pane.url);
+        if (window.App && window.App.toast) {
+          window.App.toast('通行证已写入，正在刷新…', 'success', 3000);
+        }
+      } else {
+        if (window.App && window.App.toast) {
+          window.App.toast((r && r.error) || '写入失败', 'error', 4000);
+        }
+      }
     };
 
     const addr = root.querySelector('.bh-addr');
@@ -267,7 +321,25 @@
 
     wv.addEventListener('did-navigate', (e) => {
       if (e && e.url) { pane.url = e.url; addr.value = e.url; }
+      checkChallenge();
     });
+
+    /* 撞上 Cloudflare 验证页时自动展开说明 —— 用户不用自己猜为什么白屏/转圈 */
+    wv.addEventListener('page-title-updated', (e) => {
+      if (CF_RE.test(String((e && e.title) || ''))) showCf();
+    });
+
+    function checkChallenge() {
+      // 标题不一定变（有的挑战页标题是正常站名），所以再读一次页面文本
+      setTimeout(() => {
+        try {
+          wv.executeJavaScript(
+            'document.title + " | " + (document.body ? document.body.innerText : "").slice(0, 300)',
+            true
+          ).then((t) => { if (CF_RE.test(String(t || ''))) showCf(); }).catch(() => { });
+        } catch { /* 拿不到就算了，用户还能手动点 🛡 */ }
+      }, 1500);
+    }
     wv.addEventListener('did-navigate-in-page', (e) => {
       if (e && e.url) { pane.url = e.url; addr.value = e.url; }
     });

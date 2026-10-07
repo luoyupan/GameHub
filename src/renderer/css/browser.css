@@ -138,6 +138,53 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* ---------------- 人机验证通行证（Cloudflare 过不去时的出路） ---------------- */
+.bh-cf {
+  flex: 0 0 auto;
+  padding: 10px 12px;
+  background: var(--accent-soft);
+  border-bottom: 1px solid var(--accent-line);
+}
+.bh-cf[hidden] { display: none; }
+.bh-cf-t {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.bh-cf-d { font-size: 12px; color: var(--text-2, var(--text)); line-height: 1.6; }
+.bh-cf-steps {
+  margin: 6px 0 8px 18px;
+  padding: 0;
+  font-size: 11.5px;
+  color: var(--text-3);
+  line-height: 1.7;
+}
+.bh-cf-steps b { color: var(--text); font-weight: 600; }
+.bh-cf-steps code {
+  padding: 1px 4px;
+  border-radius: 4px;
+  background: var(--bg-4);
+  font-family: Consolas, "Cascadia Mono", monospace;
+  font-size: 11px;
+}
+.bh-cf-row { display: flex; align-items: center; gap: 6px; }
+.bh-cf-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 26px;
+  padding: 0 10px;
+  border: 1px solid var(--line-2);
+  border-radius: 13px;
+  background: var(--bg-1);
+  color: var(--text);
+  font-size: 12px;
+  font-family: Consolas, "Cascadia Mono", monospace;
+  outline: none;
+}
+.bh-cf-input:focus { border-color: var(--accent-line); }
+.bh-cf-input::placeholder { color: var(--text-3); font-family: inherit; }
+
 /* ---------------- 浏览器面板（两种形态共用） ---------------- */
 .bh-pane {
   display: flex;

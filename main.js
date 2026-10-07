@@ -1535,6 +1535,21 @@ function registerBrowserIpc() {
     return svc.close(String(tabId || ''));
   });
 
+  /**
+   * 把用户在系统浏览器里拿到的验证 Cookie（主要是 Cloudflare 的
+   * cf_clearance）塞进内嵌浏览器的 session，然后刷新页面。
+   *
+   * 为什么要有这条路：Cloudflare 的人机验证在内嵌浏览器里经常就是过不去
+   * （Electron 的自动化特征它认得），但用户自己的 Chrome/Edge 一定能过。
+   * 过完之后把那张通行证搬过来，内嵌浏览器就能直接进站 ——
+   * 下载接管 / MOD 自动落位这些能力也就还能用上。
+   */
+  ipcMain.handle('browser:setCookie', async (_e, args = {}) => {
+    const svc = ensureBrowser();
+    if (!svc) return { ok: false, error: '浏览器服务没起来' };
+    return svc.setCookie(String(args.url || ''), String(args.cookie || ''));
+  });
+
   ipcMain.handle('browser:openExternal', async (_e, url) => {
     const u = String(url || '').trim();
     if (!/^https?:\/\//i.test(u)) return { ok: false, error: '不是网页地址' };

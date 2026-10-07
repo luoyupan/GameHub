@@ -140,6 +140,8 @@
     browserCloseTab: (tabId) => safe(raw.browser.closeTab, tabId),
     /** 把链接丢给系统浏览器打开 */
     browserOpenExternal: (url) => safe(raw.browser.openExternal, url),
+    /** 写入验证 Cookie（Cloudflare cf_clearance 之类） */
+    browserSetCookie: (args) => safe(raw.browser.setCookie, args || {}),
 
     /* ---------------- 隐藏空间 ---------------- */
     hiddenStatus: () => safe(raw.hidden.status),

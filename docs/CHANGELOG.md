@@ -4,6 +4,49 @@
 
 ---
 
+## [1.1.4] - 2026-10-07
+
+### 修复：Cloudflare 人机验证过不去（附一条确定的出路）
+
+现象：N 网点开就卡在「请稍候… / Just a moment…」，转圈不放行。
+
+**根因（用 `tools/dev/cf-probe.js` 实测出来的，不是猜的）**：我们为了躲
+Cloudflare 对 Electron UA 的发难，把 UA 清洗成了普通 Chrome；但 Electron 发出的
+Client Hints 还是自己的 ——
+
+```
+navigator.userAgentData.brands = [ {Not?A_Brand,99}, {Chromium,130} ]   ← 没有 Google Chrome
+sec-ch-ua: "Not?A_Brand";v="99", "Chromium";v="130"
+User-Agent: ... Chrome/130.0.6723.191 ...                                ← 却自称 Chrome
+```
+
+「自称 Chrome 但 brands 里没有 Google Chrome」正是 Cloudflare 判定
+「伪装浏览器 / 自动化」的强特征。
+
+**做了两层修正**（版本号统一取 `process.versions.chrome`，避免 UA 与 CH 各说各话）：
+
+1. 请求头层：`session.webRequest.onBeforeSendHeaders` 补齐 `sec-ch-ua` 系列
+2. 页面 JS 层：走 CDP `Page.addScriptToEvaluateOnNewDocument` 在**主世界**覆盖
+   `navigator.userAgentData`（preload 是隔离世界，改不到页面的 navigator）
+
+**但实测仍过不去** —— 等 60 秒依旧停在验证页、cookie 为空。Cloudflare 对
+Electron 的识别不止 Client Hints 一项，靠伪装很难彻底解决。所以补了一条
+**确定的出路**：
+
+- 工具条新增 **🛡** 按钮；撞上验证页时**自动展开**引导
+- 按引导在系统浏览器里过验证 → F12 复制 `cf_clearance` → 粘回输入框 →
+  写入内嵌 session 并刷新，之后下载接管 / MOD 自动落位照常可用
+- 支持粘单条 `cf_clearance=xxx`，也支持整串 Cookie（控制属性会自动剔除）
+
+### 测试
+
+- 新增 `tools/dev/cf-probe.js`：真机读一遍浏览器指纹（WebGL / UA / userAgentData /
+  webdriver / plugins），并判定是否被 challenge —— 以后再遇到"过不去"不用靠猜
+- `npm test` 274 项全绿（浏览器服务契约测试 17 → 20：Client Hints 头自洽、
+  setCookie 解析与拒绝各 1~2 项）
+
+---
+
 ## [1.1.3] - 2026-10-07
 
 ### 变更：内嵌浏览器可自由拖动变大
