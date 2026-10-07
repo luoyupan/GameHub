@@ -204,6 +204,15 @@ async function main() {
     assert.ok(!svc.session.cookies.store.some((c) => /^(path|secure|httponly)$/i.test(c.name)), '控制属性不能被当成 cookie 写进去');
   });
 
+  await ta('setCookie 纯值形态（DevTools Cookie Value 框复制的就是它）', async () => {
+    const svc = createBrowserTabs({});
+    const r = await svc.setCookie('https://www.nexusmods.com/', 'M4ilU2VFsRZ7k6lDNa6b72shq');
+    assert.strictEqual(r.ok, true, '只有值没有 = 号要当作 cf_clearance');
+    assert.deepStrictEqual(r.names, ['cf_clearance']);
+    assert.strictEqual(svc.session.cookies.store[0].name, 'cf_clearance');
+    assert.strictEqual(svc.session.cookies.store[0].value, 'M4ilU2VFsRZ7k6lDNa6b72shq');
+  });
+
   await ta('setCookie 拒绝空输入 / 非法地址', async () => {
     const svc = createBrowserTabs({});
     assert.strictEqual((await svc.setCookie('https://x.com/', '   ')).ok, false, '空 Cookie');

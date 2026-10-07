@@ -1,6 +1,6 @@
 {
   "name": "gamehub",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "GameHub - 本地游戏集合启动器（Steam 风格游戏库）",
   "main": "main.js",
   "author": "GameHub",

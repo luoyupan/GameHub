@@ -279,6 +279,24 @@ class BrowserTabsService {
     const text = String(raw || '').trim();
     if (!text) return { ok: false, error: 'Cookie 是空的' };
 
+    /* DevTools 的 Cookie Value 框复制出来的**只有值、没有 name=** ——
+       这种最常见（用户在底部大文本框里 Ctrl+A 全选的就是它），
+       直接当作 cf_clearance 处理 */
+    if (!text.includes('=')) {
+      try {
+        await this.session.cookies.set({
+          url: u.origin,
+          name: 'cf_clearance',
+          value: text,
+          sameSite: 'no_restriction'
+        });
+        this.log('[browser] 写入验证 Cookie：cf_clearance（纯值形态）');
+        return { ok: true, names: ['cf_clearance'] };
+      } catch (e) {
+        return { ok: false, error: '写入失败：' + (e && e.message) };
+      }
+    }
+
     /* 用户常把整串 Cookie 头连控制属性一起复制进来，这些不是 cookie 本体 */
     const SKIP = /^(path|domain|expires|max-age|secure|httponly|samesite|priority|partitioned)$/i;
     const names = [];

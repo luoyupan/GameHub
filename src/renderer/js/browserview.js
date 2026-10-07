@@ -82,7 +82,7 @@
       '    <li>粘到下面（<code>cf_clearance=xxxx</code> 或整串 Cookie 都行）→ 点「写入并刷新」</li>' +
       '  </ol>' +
       '  <div class="bh-cf-row">' +
-      '    <input class="bh-cf-input" type="text" spellcheck="false" placeholder="cf_clearance=xxxxxxxx 或整串 Cookie" />' +
+      '    <input class="bh-cf-input" type="text" spellcheck="false" placeholder="粘 cf_clearance 的值即可（带不带 cf_clearance= 前缀都行）" />' +
       '    <button class="btn btn-ghost btn-sm bh-cf-ok">写入并刷新</button>' +
       '    <button class="btn btn-ghost btn-sm bh-cf-hide">收起</button>' +
       '  </div>' +
