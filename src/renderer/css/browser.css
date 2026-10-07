@@ -138,8 +138,15 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* ---------------- webview 区 ---------------- */
-.bh-views {
+/* ---------------- 浏览器面板（两种形态共用） ---------------- */
+.bh-pane {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: var(--bg-2);
+  overflow: hidden;
+}
+.bh-stage {
   position: relative;
   flex: 1 1 auto;
   min-height: 0;
@@ -153,6 +160,47 @@
   border: none;
 }
 .bh-view[hidden] { display: none; }
+
+/* 加载失败 / 渲染进程崩溃：给错误页，绝不白屏装死 */
+.bh-error {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: var(--bg-2);
+  padding: 24px;
+  text-align: center;
+}
+.bh-error[hidden] { display: none; }
+.bh-error-t { font-size: 15px; font-weight: 700; color: var(--text); }
+.bh-error-d { font-size: 12px; color: var(--text-3); word-break: break-all; max-width: 480px; }
+.bh-error .btn { margin-top: 4px; }
+
+/* ---------------- 导航栏标签页形态的宿主 ---------------- */
+.bh-views {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+.bh-nav-holder { position: absolute; inset: 0; display: flex; }
+.bh-nav-holder[hidden] { display: none; }
+.bh-nav-holder .bh-pane { flex: 1 1 auto; }
+
+/* ---------------- MOD 管理里的内嵌形态 ---------------- */
+/* 就地展开：浏览器长在 MOD 管理区块里，不跳出去 */
+.mv-bdock {
+  height: 520px;
+  margin: 10px 0 4px;
+  border: 1px solid var(--line-2);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+.mv-bdock .bh-toolbar { border-radius: 10px 10px 0 0; }
+.mv-bdock .bh-target { max-width: 46%; }
 
 /* ---------------- 导航栏里的浏览器标签 ----------------
    ⚠ 刻意不用 .tb-nav-btn 类：app.js 会给那个类的按钮绑

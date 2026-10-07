@@ -178,13 +178,15 @@ contextBridge.exposeInMainWorld('GameHub', {
     setModDir: (args) => ipcRenderer.invoke('mod:setModDir', args || {})
   },
 
-  /* ---------------- 内置浏览器（导航栏标签页） ---------------- */
+  /* ---------------- 内置浏览器（MOD 管理内嵌 / 导航栏标签页） ---------------- */
   browser: {
     /**
      * 渲染层报告：标签 tabId 的 webview 挂上来了，guest 的
      * webContents id 是 wcId。下载钩子按它反查归属，必须登记。
      */
     attach: (args) => ipcRenderer.invoke('browser:attach', args || {}),
+    /** 关掉服务里的一个标签（渲染层收起内嵌浏览器时调） */
+    closeTab: (tabId) => ipcRenderer.invoke('browser:closeTab', String(tabId || '')),
     /** 把单个链接丢给系统浏览器打开（工具条的 ↗ 按钮） */
     openExternal: (url) => ipcRenderer.invoke('browser:openExternal', url)
   },

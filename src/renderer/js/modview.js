@@ -79,6 +79,9 @@
     // 换游戏就重置筛选 —— 见上面模块状态的说明
     if (state.gameId !== g.id) {
       state = { ...state, gameId: g.id, tag: '', error: '', data: null, loading: false };
+      // 换游戏时收起上一个游戏开着的内嵌浏览器（上下文都换了，页面留着没意义）
+      state.browser = null;
+      if (window.BrowserTabs) window.BrowserTabs.modClose();
     }
 
     state.container = el('div', { class: 'pfd-mod' });
@@ -140,6 +143,15 @@
     host.innerHTML = '';
 
     host.appendChild(toolbar(g));
+
+    /* ---- 内嵌浏览器（主人定的：不跳出去，就嵌在 MOD 管理里）----
+     * 开着的时候占据 MOD 列表的位置；面板元素是持久复用的，
+     * 断连会自动重建，挂进去之后 modResume 恢复上次地址。 */
+    if (state.browser === g.id && window.BrowserTabs) {
+      host.appendChild(window.BrowserTabs.modElement(g));
+      window.BrowserTabs.modResume();
+      return;   // 浏览器面板就占这一块，MOD 列表先不画
+    }
 
     if (state.loading) {
       host.appendChild(el('div', { class: 'pfd-mod-empty' }, [
@@ -267,9 +279,10 @@
         : null,
 
       el('button', {
-        class: 'btn btn-ghost btn-sm', text: '🌐 N 网',
-        title: `在内置浏览器打开 N 网搜「${g.name}」的 MOD（下载会直接进这款游戏的 MOD 目录）`,
-        onclick: () => openNexus(g)
+        class: 'btn btn-ghost btn-sm pfd-mod-nnbtn',
+        text: state.browser === g.id ? '🌐 收起 N 网' : '🌐 N 网',
+        title: `在 MOD 管理里直接打开 N 网搜「${g.name}」（下载会直接进这款游戏的 MOD 目录）`,
+        onclick: () => toggleBrowser(g)
       }),
 
       K.spacer(),
@@ -498,9 +511,9 @@
               onclick: () => addManual(g)
             }),
         el('button', {
-          class: 'btn btn-primary btn-sm', text: '🌐 N 网找找（内置浏览器）',
-          title: '在软件内打开 N 网，下载会直接进这款游戏的 MOD 目录',
-          onclick: () => openNexus(g)
+          class: 'btn btn-primary btn-sm', text: '🌐 N 网找找',
+          title: '就在这个区块里打开 N 网，下载会直接进这款游戏的 MOD 目录',
+          onclick: () => toggleBrowser(g)
         }),
         el('button', {
           class: 'btn btn-ghost btn-sm', text: '📂 指定 MOD 目录',
@@ -650,28 +663,32 @@
    *
    * 打开前先问一次"会下载到哪"，让用户有机会发现目录不对、改成自己指定的。
    */
-  async function openNexus(g) {
-    // 主进程把「打开哪、会下到哪」一起算好；目录认不出时 target.dir 为空，
-    // 下载时会退化成弹窗让你选，绝不会硬放到猜错的地方
+  /**
+   * 在 MOD 管理区块里开关内嵌浏览器（点「🌐 N 网」）。
+   *
+   * 为什么嵌在这里：主人反馈跳到整个内容区太突兀 —— 就地展开，
+   * 浏览器就长在 MOD 管理区块里，点「收起 N 网」恢复 MOD 列表。
+   */
+  async function toggleBrowser(g) {
+    // 已开着 → 收起，恢复 MOD 列表
+    if (state.browser === g.id) {
+      state.browser = null;
+      window.BrowserTabs.modClose();
+      paint(state.container, g);
+      return;
+    }
+
+    // 主进程把「打开哪、会下到哪、标签 id」一起算好；
+    // 目录认不出时 target.dir 为空，下载时会退化成弹窗让你选，绝不硬放
     const r = await window.API.modBrowse({ id: g.id, name: g.name });
     if (!r || !r.ok) {
-      // 内置浏览器起不来就退回系统浏览器，别让用户点了没反应
-      const fb = await window.API.modOpenNexus({ name: g.name });
-      if (fb && fb.ok) { window.App.toast('内置浏览器不可用，已用系统浏览器打开', 'warn', 4500); return; }
       window.App.toast((r && r.error) || '打开 N 网失败', 'error');
       return;
     }
 
-    // 开在主界面顶部导航栏里（不弹独立窗口），下载会被接管到这款游戏的 MOD 目录
-    window.BrowserTabs.open({
-      url: r.url,
-      title: r.title || g.name,
-      context: { gameId: g.id, gameName: g.name },
-      target: r.target || null
-    });
-    if (r.target && r.target.dir) {
-      window.App.toast(`MOD 将下载到：${r.target.dir}`, r.target.exists === false ? 'warn' : 'success', 4500);
-    }
+    state.browser = g.id;
+    paint(state.container, g);
+    window.BrowserTabs.modOpen(g, { url: r.url, target: r.target, tabId: r.tabId });
   }
 
   /**

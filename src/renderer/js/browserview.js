@@ -1,21 +1,25 @@
 /**
  * ============================================================
- *  GameHub - 内置浏览器·导航栏标签页  (js/browserview.js)
+ *  GameHub - 内置浏览器  (js/browserview.js)
  * ------------------------------------------------------------
- *  【为什么从独立弹窗改成标签页】
- *    v1 弹一个独立 BrowserWindow，实际用下来反馈很直接：
- *    不要额外弹窗，要集合到主界面顶部导航栏里。所以：
+ *  两种形态，共用一套「面板」实现（createPane）：
  *
- *      · 顶部导航栏动态插入浏览器标签（🌐 标题 ✕）
- *      · 内容区盖一层 #browserHost，里面每个标签一个 <webview>
- *      · 下载落点 / 解压仍是主进程的事（见 src/main/browser.js）
+ *   ① MOD 管理面板内嵌（主人定的：不要跳出去，太突兀）
+ *      点 MOD 管理里的「N 网」，浏览器直接嵌在区块里打开，
+ *      工具条 + 页面都在详情弹窗内部。
  *
- *  【职责边界】
- *    这个文件只管「标签和显示」：开 / 关 / 激活 / 工具条 / 进度条。
- *    该存到哪、怎么解压是主进程按 MOD 规则算的，这里不掺和。
+ *   ② 导航栏标签页
+ *      在顶部导航栏插「🌐 标题 ✕」标签，页面盖在内容区上。
+ *      供以后其他入口使用。
  *
- *  ⚠ webview 的 partition 必须写 persist:gamehub-browser，
- *    与主进程 SESSION_PARTITION 一致，否则下载钩子收不到。
+ *  ── 白屏问题的三个源头（都修了）────────────────────────
+ *    1. src 在 webview 挂进 DOM 之前设置 → 初始导航被丢弃，页面停在
+ *       about:blank（白色）。必须先 appendChild 再设 src。
+ *    2. `nodeintegration="false"` 这个属性**写了就等于 true**
+ *       （布尔属性只看存在与否，不看值）—— 不但要删掉，还是个安全洞。
+ *    3. Electron 的 UA 带 `Electron/x.y.z` 尾巴，N 网这类走 Cloudflare
+ *       的站点可能据此发难 —— 清洗成普通 Chrome UA。
+ *    另外加载失败 / 渲染进程崩溃时显示错误页 + 重试按钮，不再白屏。
  * ============================================================
  */
 (function () {
@@ -24,206 +28,201 @@
   const PARTITION = 'persist:gamehub-browser';
 
   const $ = (id) => document.getElementById(id);
-  const host = $('browserHost');
-  const viewsBox = $('bhViews');
-  const navBar = document.querySelector('.titlebar-nav');
-  const contentEl = $('content');
 
-  /** tabId → { id, title, url, context, target, webview, btn } */
-  const tabs = new Map();
-  let activeId = null;
+  /** paneId → pane；下载进度事件按 tabId 路由到对应面板 */
+  const panes = new Map();
   let seq = 0;
 
-  /* ================================================================
-   *  显示 / 隐藏
-   * ================================================================ */
-
-  function showHost() {
-    host.hidden = false;
-    // 盖住内容区头部和游戏墙 —— 不靠 z-index 硬压，直接把底下两层收起来，
-    // 免得和「更多选项」那套层叠上下文打架（那坑踩过一次了）
-    contentEl.classList.add('browser-active');
-    syncNavButtons();
-  }
-
-  /** 回到游戏库视图（点侧栏 / 顶部「游戏库」时调用） */
-  function hideAll() {
-    host.hidden = true;
-    contentEl.classList.remove('browser-active');
-    for (const t of tabs.values()) t.btn.classList.remove('active');
+  /** 清洗 UA：去掉 Electron 尾巴，伪装成普通 Chrome（有些站点会针对 Electron UA 使绊子） */
+  function cleanUA() {
+    return (navigator.userAgent || '')
+      .replace(/\sElectron\/\S+/, '')
+      .replace(/\sGameHub\/\S+/, '');
   }
 
   /* ================================================================
-   *  标签条（插在顶部导航栏里）
-   * ================================================================ */
-
-  function buildTabButton(t) {
-    const btn = document.createElement('button');
-    btn.className = 'bh-tab';
-    btn.type = 'button';
-    btn.title = t.title || t.url;
-    btn.innerHTML =
-      '<span class="bh-tab-icon">🌐</span>' +
-      '<span class="bh-tab-title"></span>' +
-      '<span class="bh-tab-close" title="关闭标签">✕</span>';
-    btn.querySelector('.bh-tab-title').textContent = t.title || '新建标签';
-
-    btn.onclick = () => activate(t.id);
-    // ✕ 是关闭，别把点击事件冒泡成"激活标签"
-    btn.querySelector('.bh-tab-close').onclick = (e) => {
-      e.stopPropagation();
-      close(t.id);
-    };
-    return btn;
-  }
-
-  function setTabTitle(t, title) {
-    t.title = title || t.title;
-    const el = t.btn.querySelector('.bh-tab-title');
-    if (el) el.textContent = t.title || '正在加载…';
-    t.btn.title = t.title || t.url;
-  }
-
-  /* ================================================================
-   *  开 / 关 / 激活
+   *  面板核心：工具条 + webview + 状态
    * ================================================================ */
 
   /**
-   * 开一个浏览器标签。
-   * @param {{url:string, title?:string, context?:object, target?:object}} opts
-   *  target 是主进程算好的下载落点预览（mod:browse 返回的），只管显示。
+   * 在 container 里建一个浏览器面板。
+   * @param {HTMLElement} container 面板的挂载点
+   * @param {{url:string, target?:object, context?:object, compact?:boolean}} opts
+   * @returns {{id:string, el:HTMLElement, webview:HTMLElement, destroy:Function, navigate:Function}}
    */
-  function open(opts = {}) {
-    const url = String(opts.url || '').trim();
-    if (!/^https?:\/\//i.test(url)) return { ok: false, error: '不支持的地址' };
+  function createPane(container, opts = {}) {
+    const paneId = 'pane' + (++seq);
 
-    const id = 'bt' + (++seq);
-    const t = {
-      id,
-      url,
-      title: opts.title || '',
-      context: opts.context || null,
-      target: opts.target || null,
-      webview: null,
-      btn: null
-    };
+    const root = document.createElement('div');
+    root.className = 'bh-pane' + (opts.compact ? ' bh-pane-compact' : '');
+    root.innerHTML =
+      '<div class="bh-toolbar">' +
+      '  <button class="bh-btn" data-act="back" title="后退">‹</button>' +
+      '  <button class="bh-btn" data-act="fwd" title="前进">›</button>' +
+      '  <button class="bh-btn" data-act="reload" title="刷新">⟳</button>' +
+      '  <input class="bh-addr" type="text" spellcheck="false" placeholder="输入网址后回车" />' +
+      '  <button class="bh-btn" data-act="ext" title="用系统浏览器打开">↗</button>' +
+      '  <div class="bh-target" title="按各游戏的 MOD 目录规则自动落位">' +
+      '    <span class="bh-target-label">MOD 将下载到</span>' +
+      '    <span class="bh-target-path">（未指定）</span>' +
+      '  </div>' +
+      '</div>' +
+      '<div class="bh-dl" hidden>' +
+      '  <span class="bh-dl-name"></span>' +
+      '  <div class="bh-dl-track"><div class="bh-dl-fill"></div></div>' +
+      '  <span class="bh-dl-stat"></span>' +
+      '</div>' +
+      '<div class="bh-stage">' +
+      '  <div class="bh-error" hidden></div>' +
+      '</div>';
 
-    // 标签按钮插到导航栏（游戏平台按钮后面）
-    t.btn = buildTabButton(t);
-    navBar.appendChild(t.btn);
+    const stage = root.querySelector('.bh-stage');
+    const errBox = root.querySelector('.bh-error');
 
-    // webview：一个标签一个，切走时隐藏不销毁，回来状态还在
+    /**
+     * ⚠ 白屏修复 ①：webview 必须先挂进 DOM、再设 src。
+     *   反过来的话初始导航会被丢掉，guest 停在 about:blank —— 白屏。
+     * ⚠ 白屏修复 ②：绝对不要写 nodeintegration="false" ——
+     *   布尔属性只看在不在，写了这个属性 nodeIntegration 反而是开的。
+     *   默认就是 false，什么都不写才对。
+     */
     const wv = document.createElement('webview');
+    wv.className = 'bh-view';
     wv.setAttribute('partition', PARTITION);
     wv.setAttribute('allowpopups', 'false');
-    wv.setAttribute('nodeintegration', 'false');
     wv.setAttribute('webpreferences', 'contextIsolation=true,spellcheck=false');
-    wv.classList.add('bh-view');
-    wv.hidden = true;
-    wv.src = url;
-    viewsBox.appendChild(wv);
-    t.webview = wv;
+    // ⚠ 白屏修复 ③：清洗 UA（N 网这类 Cloudflare 站点对 Electron UA 不友好）
+    wv.setAttribute('useragent', cleanUA());
+    stage.appendChild(wv);
 
-    // webview 挂上后立刻向主进程登记 guest id ——
-    // 下载钩子按它反查这条下载属于哪个标签（不带 gameId 就不知道该给谁）
-    wv.addEventListener('did-attach', () => {
-      try {
-        window.API.browserAttach({ tabId: id, wcId: wv.getWebContentsId() });
-      } catch (_) { /* 老版本没有这个 API 就算了，落点会退化成询问 */ }
-    });
+    const pane = {
+      id: paneId,
+      el: root,
+      webview: wv,
+      url: opts.url || '',
+      target: opts.target || null,
+      tabId: null,          // 主进程登记后回填
+      started: false,       // 是否已经导航过（重建后据此恢复上次地址）
+      destroyed: false,
+      navigate,
+      setTarget,
+      destroy
+    };
+    panes.set(paneId, pane);
 
-    tabs.set(id, t);
-    activate(id);
-    return { ok: true, id };
-  }
-
-  function activate(id) {
-    const t = tabs.get(id);
-    if (!t) return;
-    activeId = id;
-
-    for (const [tid, rec] of tabs) {
-      rec.webview.hidden = tid !== id;
-      rec.btn.classList.toggle('active', tid === id);
-    }
-    t.webview.hidden = false;
-    showHost();
-
-    // 工具条跟着切
-    $('bhAddr').value = t.webview.getAttribute('src') === 'about:blank' ? '' : (t.url || '');
-    paintTarget(t);
-  }
-
-  function close(id) {
-    const t = tabs.get(id);
-    if (!t) return;
-    try { if (t.webview) t.webview.remove(); } catch { /* 已销毁就算了 */ }
-    t.btn.remove();
-    tabs.delete(id);
-
-    if (activeId === id) {
-      activeId = null;
-      // 关的是当前标签 → 剩下还有标签就切过去，没有就回游戏库
-      const next = tabs.keys().next();
-      if (!next.done) activate(next.value);
-      else hideAll();
-    }
-  }
-
-  /* ================================================================
-   *  工具条
-   * ================================================================ */
-
-  function activeTab() { return tabs.get(activeId) || null; }
-
-  function bindToolbar() {
-    $('bhBack').onclick = () => { const t = activeTab(); if (t) { try { t.webview.goBack(); } catch (_) { } } };
-    $('bhFwd').onclick = () => { const t = activeTab(); if (t) { try { t.webview.goForward(); } catch (_) { } } };
-    $('bhReload').onclick = () => { const t = activeTab(); if (t) { try { t.webview.reload(); } catch (_) { } } };
-
-    $('bhExt').onclick = () => {
-      const t = activeTab();
-      const u = t ? t.url : '';
-      if (u) window.API.browserOpenExternal(u);
+    /* ---- 工具条 ---- */
+    root.querySelector('[data-act="back"]').onclick = () => { try { wv.goBack(); } catch (_) { } };
+    root.querySelector('[data-act="fwd"]').onclick = () => { try { wv.goForward(); } catch (_) { } };
+    root.querySelector('[data-act="reload"]').onclick = () => { try { wv.reload(); } catch (_) { } };
+    root.querySelector('[data-act="ext"]').onclick = () => {
+      if (pane.url) window.API.browserOpenExternal(pane.url);
     };
 
-    // 没写协议就按 https 处理，省得用户输一大串
-    $('bhAddr').addEventListener('keydown', (e) => {
+    const addr = root.querySelector('.bh-addr');
+    addr.addEventListener('keydown', (e) => {
       if (e.key !== 'Enter') return;
-      const t = activeTab();
-      if (!t) return;
-      let u = $('bhAddr').value.trim();
+      let u = addr.value.trim();
       if (!u) return;
       if (!/^https?:\/\//i.test(u)) u = 'https://' + u;
-      t.url = u;
-      t.webview.src = u;
-      t.webview.focus();
+      navigate(u);
+      wv.focus();
     });
-  }
 
-  /** 「MOD 将下载到」徽标 —— 主进程把目录算好带过来了，这里只管显示 */
-  function paintTarget(t) {
-    const pathEl = $('bhTargetPath');
-    const box = $('bhTarget');
-    const d = t && t.target;
-    if (d && d.dir) {
-      pathEl.textContent = d.dir;
-      pathEl.classList.remove('dim');
-      box.title = (d.label ? d.label + '\n' : '') + d.dir + (d.note ? '\n' + d.note : '');
-    } else if (d) {
-      // 「每次问我」模式没有固定目录，也说清楚，别显示成"（未指定）"让人不安
-      pathEl.textContent = '每次下载时让我选';
-      pathEl.classList.add('dim');
-      box.title = d.label || '';
-    } else {
-      pathEl.textContent = '（未指定）';
-      pathEl.classList.add('dim');
-      box.title = '';
+    /* ---- webview 事件 ---- */
+
+    // 挂上后立刻登记 guest id —— 下载钩子按它反查这条下载属于谁
+    wv.addEventListener('did-attach', () => {
+      try {
+        window.API.browserAttach({ tabId: pane.tabId, wcId: wv.getWebContentsId() });
+      } catch (_) { /* 拿不到就退化成询问，不崩 */ }
+    });
+
+    wv.addEventListener('did-navigate', (e) => {
+      if (e && e.url) { pane.url = e.url; addr.value = e.url; }
+    });
+    wv.addEventListener('did-navigate-in-page', (e) => {
+      if (e && e.url) { pane.url = e.url; addr.value = e.url; }
+    });
+
+    // 加载失败要说话，不能白屏装死（404 之外的内嵌错误都在这）
+    wv.addEventListener('did-fail-load', (e) => {
+      // errorCode -3 (ERR_ABORTED) 多是正常跳转被打断，不用吓用户
+      if (!e || e.errorCode === -3 || e.isMainFrame === false) return;
+      showError(`页面加载失败（${e.errorDescription || e.errorCode}）`, e.errorCode);
+    });
+    wv.addEventListener('render-process-gone', (e) => {
+      const reason = (e && e.detail && e.detail.reason) || 'unknown';
+      showError('页面进程退出了（' + reason + '）', '');
+    });
+
+    function showError(msg, code) {
+      errBox.hidden = false;
+      errBox.innerHTML =
+        '<div class="bh-error-t">😵 打不开这个页面</div>' +
+        '<div class="bh-error-d"></div>' +
+        '<button class="btn btn-ghost btn-sm bh-error-retry">↻ 重试</button>' +
+        '<button class="btn btn-ghost btn-sm bh-error-ext">用系统浏览器打开</button>';
+      errBox.querySelector('.bh-error-d').textContent =
+        msg + (pane.url ? '　·　' + pane.url : '');
+      errBox.querySelector('.bh-error-retry').onclick = () => {
+        errBox.hidden = true;
+        navigate(pane.url);
+      };
+      errBox.querySelector('.bh-error-ext').onclick = () => {
+        if (pane.url) window.API.browserOpenExternal(pane.url);
+      };
+      void code;
     }
+
+    function navigate(u) {
+      if (!/^https?:\/\//i.test(String(u || ''))) return;
+      pane.url = u;
+      pane.started = true;
+      errBox.hidden = true;
+      addr.value = u;
+      // src 赋值即导航（webview 已在 DOM 里，白屏源头已除）
+      wv.src = u;
+    }
+
+    function setTarget(t) {
+      pane.target = t || pane.target;
+      const pathEl = root.querySelector('.bh-target-path');
+      const box = root.querySelector('.bh-target');
+      const d = pane.target;
+      if (d && d.dir) {
+        pathEl.textContent = d.dir;
+        pathEl.classList.remove('dim');
+        box.title = (d.label ? d.label + '\n' : '') + d.dir + (d.note ? '\n' + d.note : '');
+      } else if (d) {
+        pathEl.textContent = '每次下载时让我选';
+        pathEl.classList.add('dim');
+        box.title = d.label || '';
+      } else {
+        pathEl.textContent = '（未指定）';
+        pathEl.classList.add('dim');
+        box.title = '';
+      }
+    }
+
+    function destroy() {
+      if (pane.destroyed) return;
+      pane.destroyed = true;
+      try { wv.remove(); } catch { }
+      root.remove();
+      panes.delete(paneId);
+    }
+
+    /* ---- 先挂进容器（容器必须已在 DOM 里），最后才导航 ----
+     * 顺序是白屏的关键：src 设在挂载前，初始导航会被丢弃。 */
+    container.appendChild(root);
+    setTarget(opts.target);
+    if (opts.url) navigate(opts.url);
+
+    return pane;
   }
 
   /* ================================================================
-   *  下载进度
+   *  下载进度：按 tabId 路由到对应面板
    * ================================================================ */
 
   function fmt(bytes) {
@@ -234,55 +233,202 @@
     return (i === 0 ? v : v.toFixed(1)) + ' ' + u[i];
   }
 
-  function bindDownloadEvents() {
-    window.GameHub.on('browser:event', (ev) => {
-      if (!ev || typeof ev.type !== 'string') return;
+  window.GameHub.on('browser:event', (ev) => {
+    if (!ev || typeof ev.type !== 'string') return;
+    if (ev.type !== 'download' && ev.type !== 'download-done') return;
 
-      if (ev.type === 'download') {
-        const box = $('bhDl');
-        box.hidden = false;
-        $('bhDlName').textContent = ev.filename || '';
+    // 找到这条下载对应的面板（tabId 是主进程按 guest id 反查出来的）
+    const pane = [...panes.values()].find((p) => p.tabId && p.tabId === ev.tabId);
+    if (!pane || pane.destroyed) return;
+    const root = pane.el;
+    const box = root.querySelector('.bh-dl');
+    box.hidden = false;
+    root.querySelector('.bh-dl-name').textContent = ev.filename || '';
 
-        if (ev.state === 'progressing') {
-          const pct = ev.total ? Math.min(100, Math.round((ev.received / ev.total) * 100)) : 0;
-          $('bhDlStat').textContent = `${fmt(ev.received)} / ${fmt(ev.total)}　${pct}%`;
-          $('bhDlFill').style.width = pct + '%';
-          $('bhDlFill').classList.remove('done');
-        } else if (ev.state === 'completed') {
-          $('bhDlStat').textContent = '完成　' + fmt(ev.total || ev.received);
-          $('bhDlFill').style.width = '100%';
-          $('bhDlFill').classList.add('done');
-          // 落点和解压结果由主进程 toast，进度条 3 秒后收起
-          setTimeout(() => { box.hidden = true; }, 3000);
-        } else if (ev.state === 'cancelled') {
-          $('bhDlStat').textContent = '已取消';
-          setTimeout(() => { box.hidden = true; }, 2000);
-        } else {
-          $('bhDlStat').textContent = '中断 / 失败';
-        }
-        return;
-      }
+    if (ev.state === 'progressing') {
+      const pct = ev.total ? Math.min(100, Math.round((ev.received / ev.total) * 100)) : 0;
+      root.querySelector('.bh-dl-stat').textContent = `${fmt(ev.received)} / ${fmt(ev.total)}　${pct}%`;
+      root.querySelector('.bh-dl-fill').style.width = pct + '%';
+      root.querySelector('.bh-dl-fill').classList.remove('done');
+    } else if (ev.state === 'completed') {
+      root.querySelector('.bh-dl-stat').textContent = '完成　' + fmt(ev.total || ev.received);
+      root.querySelector('.bh-dl-fill').style.width = '100%';
+      root.querySelector('.bh-dl-fill').classList.add('done');
+      // 落点 / 解压结果由主进程 toast，进度条 3 秒后收起
+      setTimeout(() => { box.hidden = true; }, 3000);
+    } else if (ev.state === 'cancelled') {
+      root.querySelector('.bh-dl-stat').textContent = '已取消';
+      setTimeout(() => { box.hidden = true; }, 2000);
+    } else {
+      root.querySelector('.bh-dl-stat').textContent = '中断 / 失败';
+    }
+  });
 
-      if (ev.type === 'download-done') {
-        // 主进程的 download-done 事件里带了终态，进度条交给上面的 'download'
-        // 分支收尾就行，这里只兜一层（万一中间漏了一条 updated）
-        if (ev.state !== 'completed' && ev.state !== 'cancelled') {
-          $('bhDlStat').textContent = '中断 / 失败';
-        }
-      }
-    });
+  /* ================================================================
+   *  形态一：MOD 管理面板内嵌（modview.js 用）
+   * ================================================================ */
+
+  let modPane = null;     // 当前内嵌面板
+  let modGameId = null;   // 面板属于哪个游戏
+  let modTabId = null;    // 服务里登记的标签 id（下载归属）
+  let modLastUrl = '';    // 上次浏览的地址（面板被重挂/重建后恢复用）
+
+  /**
+   * 取（或建）MOD 管理里那个内嵌浏览器元素。
+   *
+   * ⚠ webview 被移出 DOM 就销毁 —— 而这里的老家（MOD 区块）在
+   *   排序 / 刷新时会整体重画。所以面板是**模块级持久**的，
+   *   断连（isConnected=false）时自动重建，恢复到上次地址；
+   *   重挂后 modview 要调 modResume() 才会真正导航。
+   *
+   * @param {object} g 游戏（判断是不是同一款，换游戏就重开）
+   * @returns {HTMLElement}
+   */
+  function modElement(g) {
+    if (!modPane || modGameId !== g.id || modPane.destroyed || !modPane.el.isConnected) {
+      if (modPane) modPane.destroy();
+      // ⚠ 容器必须是「已经在 DOM 里」的元素 —— 但此刻它还没有，
+      //   所以这里不能带 url，等 modview append 之后由 modResume 导航
+      modPane = createPane(document.createElement('div'), { compact: true });
+      modPane.el.classList.add('mv-bdock');
+      modPane.tabId = modTabId;   // 复用服务里登记的标签，下载归属不断
+      modGameId = g.id;
+    }
+    return modPane.el;
+  }
+
+  /**
+   * 面板挂进 DOM 之后的恢复 / 首航。
+   * modview 在 append 后调；首次打开走 modOpen，重挂走这里恢复上次地址。
+   */
+  function modResume() {
+    if (modPane && !modPane.started && modLastUrl) modPane.navigate(modLastUrl);
+  }
+
+  /**
+   * 在内嵌面板里打开一个地址。
+   * @param {object} g 游戏
+   * @param {{url:string, target?:object, tabId?:string}} opts tabId 来自 mod:browse
+   */
+  function modOpen(g, opts = {}) {
+    modElement(g); // 确保面板存在
+    if (!modPane) return;
+    modTabId = opts.tabId || modTabId;
+    modPane.tabId = modTabId;
+    modLastUrl = opts.url || modLastUrl;
+    if (opts.target) modLastTarget = opts.target;
+    modPane.navigate(opts.url);
+    modPane.setTarget(opts.target || modLastTarget);
+  }
+
+  let modLastTarget = null;
+
+  /** 收起内嵌面板（同时关掉服务里的标签） */
+  function modClose() {
+    if (modPane) { modPane.destroy(); modPane = null; }
+    modGameId = null;
+    if (modTabId) {
+      try { window.API.browserCloseTab(modTabId); } catch (_) { }
+      modTabId = null;
+    }
   }
 
   /* ================================================================
-   *  与游戏库视图互斥
+   *  形态二：导航栏标签页（保留给其他入口）
    * ================================================================ */
 
-  function syncNavButtons() {
-    // 浏览器标签激活时，顶部「游戏库 / 游戏平台」两个按钮不亮
-    if (activeId) {
-      document.querySelectorAll('.titlebar-nav .tb-nav-btn').forEach((n) => {
-        n.classList.remove('active');
-      });
+  const navTabs = new Map();   // tabId → { pane, btn }
+  let navBar = null;
+  let navActive = null;
+  let contentEl = null;
+
+  function ensureNavBar() {
+    if (!navBar) navBar = document.querySelector('.titlebar-nav');
+    if (!contentEl) contentEl = $('content');
+    return navBar;
+  }
+
+  function showNavHost() {
+    const host = $('browserHost');
+    if (!host) return;
+    host.hidden = false;
+    // 不靠 z-index 硬压：把内容区头部和游戏墙收起来（弹出层层级的坑踩过）
+    contentEl.classList.add('browser-active');
+    document.querySelectorAll('.titlebar-nav .tb-nav-btn').forEach((n) => n.classList.remove('active'));
+  }
+
+  /** 切回游戏库视图时收起（app.js 的 goto 调） */
+  function hideAll() {
+    const host = $('browserHost');
+    if (host) host.hidden = true;
+    if (contentEl) contentEl.classList.remove('browser-active');
+    for (const t of navTabs.values()) t.btn.classList.remove('active');
+    navActive = null;
+  }
+
+  function openNav(opts = {}) {
+    const url = String(opts.url || '').trim();
+    if (!/^https?:\/\//i.test(url)) return { ok: false, error: '不支持的地址' };
+
+    ensureNavBar();
+    const host = $('browserHost');
+    const viewsBox = $('bhViews');
+    if (!host || !viewsBox) return { ok: false, error: '浏览器宿主不存在' };
+
+    const btn = document.createElement('button');
+    btn.className = 'bh-tab';
+    btn.type = 'button';
+    btn.innerHTML =
+      '<span class="bh-tab-icon">🌐</span>' +
+      '<span class="bh-tab-title"></span>' +
+      '<span class="bh-tab-close" title="关闭标签">✕</span>';
+    navBar.appendChild(btn);
+
+    const holder = document.createElement('div');
+    holder.className = 'bh-nav-holder';
+    viewsBox.appendChild(holder);
+
+    const pane = createPane(holder, { url, target: opts.target });
+    pane.tabId = opts.tabId || null;
+
+    const rec = { pane, btn, holder };
+    const paneId = pane.id;
+    navTabs.set(paneId, rec);
+
+    btn.querySelector('.bh-tab-title').textContent = opts.title || '正在加载…';
+    btn.onclick = () => activateNav(paneId);
+    btn.querySelector('.bh-tab-close').onclick = (e) => {
+      e.stopPropagation();
+      closeNav(paneId);
+    };
+
+    activateNav(paneId);
+    return { ok: true, id: paneId };
+  }
+
+  function activateNav(paneId) {
+    const rec = navTabs.get(paneId);
+    if (!rec) return;
+    navActive = paneId;
+    for (const [id, r] of navTabs) {
+      r.holder.hidden = id !== paneId;
+      r.btn.classList.toggle('active', id === paneId);
+    }
+    showNavHost();
+  }
+
+  function closeNav(paneId) {
+    const rec = navTabs.get(paneId);
+    if (!rec) return;
+    rec.pane.destroy();
+    rec.btn.remove();
+    rec.holder.remove();
+    navTabs.delete(paneId);
+    if (navActive === paneId) {
+      navActive = null;
+      const next = navTabs.keys().next();
+      if (!next.done) activateNav(next.value);
+      else hideAll();
     }
   }
 
@@ -290,19 +436,14 @@
    *  启动
    * ================================================================ */
 
-  bindToolbar();
-  bindDownloadEvents();
-
-  /**
-   * 暴露给外面（modview.js 点「N 网找找」时调）。
-   * app.js 的 goto() 也会调 hideAll() —— 切回游戏库时收起浏览器。
-   */
   window.BrowserTabs = {
-    open,
-    close,
-    activate,
-    hideAll,
-    /** 当前是否开着标签 */
-    get count() { return tabs.size; }
+    /** MOD 管理内嵌形态 */
+    modElement,
+    modResume,
+    modOpen,
+    modClose,
+    /** 导航栏标签页形态 */
+    open: openNav,
+    hideAll
   };
 })();

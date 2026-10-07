@@ -298,6 +298,10 @@ function createWindow() {
       contextIsolation: true,           // 安全：隔离页面与 Node 环境
       nodeIntegration: false,
       sandbox: false,
+      // 内置浏览器（MOD 管理里内嵌的 N 网）用 <webview> 承载网页。
+      // ⚠ 不开这个，webview 标签整个是死的 —— 页面永远白屏
+      //   （露出的是面板的白色底，看起来就像"网页打不开"）。
+      webviewTag: true,
       spellcheck: false
     }
   });
@@ -1415,13 +1419,14 @@ function registerModIpc() {
   });
 
   /**
-   * 在**内置浏览器**（主界面导航栏里的标签页）里打开 N 网给这款游戏找 MOD。
+   * 在**内置浏览器**里打开 N 网给这款游戏找 MOD。
    *
    * 和 mod:openNexus 的区别：那个是丢给系统浏览器，下载完用户自己找文件；
    * 这个在软件内打开，下载会被 GameHub 接管，直接落到这款游戏的 MOD 目录。
    *
-   * 这里只负责把「打开哪、会下到哪」算好返回，webview 由渲染层创建
-   * （v1 是独立弹窗，实际用下来不要弹窗、要集合进导航栏 —— 见 browser.js 头注释）。
+   * 这里把地址算好、在浏览器服务里**登记一个标签**（下载归属靠它），
+   * 再把「打开哪、会下到哪、标签 id」一起返回；webview 由渲染层创建
+   * （嵌在 MOD 管理面板里，不弹独立窗口 —— 见 browser.js 头注释）。
    */
   ipcMain.handle('mod:browse', async (_e, args = {}) => {
     const gameId = String(args.id || '').trim();
@@ -1438,10 +1443,23 @@ function registerModIpc() {
       ? { ok: true, dir: md.customDir, label: '设置里指定的文件夹', note: '' }
       : (g ? decideModDownloadDir(g, s) : { ok: false });
 
+    // 在服务里登记标签 —— 下载钩子靠 tabId 反查 context 里的 gameId，
+    // 不登记的话内嵌模式下下载会拿不到归属（退化成询问）
+    const svc = ensureBrowser();
+    let tabId = null;
+    if (svc) {
+      const r = svc.open(url, {
+        title: `给「${name}」找 MOD`,
+        context: { gameId: gameId || '', gameName: name }
+      });
+      if (r.ok) tabId = r.id;
+    }
+
     return {
       ok: true,
       url,
       title: `给「${name}」找 MOD`,
+      tabId,
       target: {
         dir: (d && d.ok && d.dir) || '',
         label: (d && d.label) || '',
@@ -1508,6 +1526,13 @@ function registerBrowserIpc() {
     const svc = ensureBrowser();
     if (!svc) return { ok: false, error: '浏览器服务没起来' };
     return svc.attach(String(args.tabId || ''), Number(args.wcId));
+  });
+
+  /** 渲染层收起内嵌浏览器时，顺手关掉服务里的标签（清掉归属映射） */
+  ipcMain.handle('browser:closeTab', (_e, tabId) => {
+    const svc = ensureBrowser();
+    if (!svc) return { ok: false };
+    return svc.close(String(tabId || ''));
   });
 
   ipcMain.handle('browser:openExternal', async (_e, url) => {

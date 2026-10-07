@@ -133,9 +133,11 @@
     /** 手动指定这款游戏的 MOD 目录（不传 dir 会弹选择框） */
     modSetModDir: (args) => safe(raw.mod.setModDir, args || {}),
 
-    /* ---------------- 内置浏览器（导航栏标签页） ---------------- */
+    /* ---------------- 内置浏览器（MOD 管理内嵌 / 导航栏标签页） ---------------- */
     /** 登记标签的 webview guest id，下载钩子按它反查归属 */
     browserAttach: (args) => safe(raw.browser.attach, args || {}),
+    /** 关掉服务里的一个标签 */
+    browserCloseTab: (tabId) => safe(raw.browser.closeTab, tabId),
     /** 把链接丢给系统浏览器打开 */
     browserOpenExternal: (url) => safe(raw.browser.openExternal, url),
 
