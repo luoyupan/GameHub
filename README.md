@@ -6,7 +6,7 @@
 
 ## 📦 下载
 
-**[GameHub v1.1.2 — 便携版 · 单文件免安装（71 MB）](https://github.com/luoyupan/GameHub/releases/latest)**
+**[GameHub v1.2.0 — 便携版 · 单文件免安装（71 MB）](https://github.com/luoyupan/GameHub/releases/latest)**
 
 双击即用，无需安装，卸载直接删文件。首次启动若被 SmartScreen 拦截，
 点「更多信息 → 仍要运行」即可（个人项目未做代码签名）。
