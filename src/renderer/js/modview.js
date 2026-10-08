@@ -244,12 +244,13 @@
 
       /* ---- 添加 MOD ----
        * 主人定的规则：Steam 游戏点它就是去创意工坊订阅；
-       * 非 Steam 游戏没有工坊可去，所以只能自己选文件夹。 */
+       * 非 Steam 游戏没有工坊可去，所以只能自己选文件夹。
+       * ⚠ 走的是 **Steam 客户端**（不是浏览器）—— 订阅动作只能在客户端里做。 */
       isSteam
         ? el('button', {
             class: 'btn btn-primary btn-sm',
             text: '➕ 添加 MOD',
-            title: `到 Steam 创意工坊给「${g.name}」找 MOD（订阅后会自动装到本地）`,
+            title: `在 Steam 客户端里给「${g.name}」打开创意工坊（在那里订阅，会自动装到本地）`,
             onclick: () => openWorkshop(g)
           })
         : el('button', {
@@ -269,11 +270,11 @@
           })
         : null,
 
-      // Steam 客户端里的工坊页（订阅要在客户端点，网页版只能看）
+      // 网页版（少数时候想在浏览器里翻，比如要看评论区、要复制链接）
       isSteam
         ? el('button', {
-            class: 'btn btn-ghost btn-sm', text: '🛠 创意工坊',
-            title: '在 Steam 客户端里打开创意工坊（订阅/取消订阅要在客户端里做）',
+            class: 'btn btn-ghost btn-sm', text: '🌐 网页版',
+            title: '在浏览器里打开创意工坊网页（只能看，订阅还是要回 Steam 客户端）',
             onclick: () => openWorkshop(g, true)
           })
         : null,
@@ -517,6 +518,7 @@
         isSteam
           ? el('button', {
               class: 'btn btn-primary btn-sm', text: '🛠 去创意工坊看看',
+              title: '在 Steam 客户端里打开这款游戏的创意工坊',
               onclick: () => openWorkshop(g)
             })
           : el('button', {
@@ -652,14 +654,21 @@
     });
   }
 
-  /** 打开 Steam 创意工坊（默认网页版；client=true 走 Steam 客户端） */
-  async function openWorkshop(g, client) {
-    const r = await window.API.modOpenWorkshop({ appId: g.steamAppId, client: !!client });
+  /**
+   * 打开 Steam 创意工坊。
+   *
+   * ⚠ 主人定的规则：**默认走 Steam 客户端**，不跳浏览器 ——
+   *   订阅 / 取消订阅 / 自动下载本来就只能在 Steam 客户端里做，
+   *   网页版只能"看"，点订阅还得跳回客户端，多绕一圈。
+   *   想用浏览器看详情，显式传 web=true（界面上留了「🌐 网页版」这个口子）。
+   */
+  async function openWorkshop(g, web) {
+    const r = await window.API.modOpenWorkshop({ appId: g.steamAppId, web: !!web });
     if (r && r.ok) {
       if (r.fellBack) {
-        window.App.toast('Steam 客户端没响应（可能没装或没运行），已在浏览器里打开创意工坊', 'warn', 7000);
+        window.App.toast('没检测到 Steam 客户端，已改用浏览器打开创意工坊', 'warn', 7000);
       } else {
-        window.App.toast(client ? '正在用 Steam 客户端打开创意工坊…' : '已在浏览器打开创意工坊', 'success');
+        window.App.toast(web ? '已在浏览器打开创意工坊' : '正在用 Steam 客户端打开创意工坊…', 'success');
       }
       return;
     }

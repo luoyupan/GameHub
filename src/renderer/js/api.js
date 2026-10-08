@@ -122,7 +122,10 @@
     /** 只是从 GameHub 的列表里去掉，不碰磁盘文件 */
     modForget: (args) => safe(raw.mod.forget, args || {}),
     modReveal: (args) => safe(raw.mod.reveal, args || {}),
-    /** 打开 Steam 创意工坊：args.client=true 走 Steam 客户端，否则走网页 */
+    /**
+     * 打开 Steam 创意工坊。**默认走 Steam 客户端**（订阅只能在客户端里做）；
+     * args.web=true 才走浏览器。没检测到 Steam 客户端会自动退到网页版（返回 fellBack:true）。
+     */
     modOpenWorkshop: (args) => safe(raw.mod.openWorkshop, args || {}),
     /** 打开 N 网（Nexus Mods）的游戏搜索页 */
     modOpenNexus: (args) => safe(raw.mod.openNexus, args || {}),

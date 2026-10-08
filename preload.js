@@ -167,6 +167,10 @@ contextBridge.exposeInMainWorld('GameHub', {
     addManual: (args) => ipcRenderer.invoke('mod:addManual', args || {}),
     forget: (args) => ipcRenderer.invoke('mod:forget', args || {}),
     reveal: (args) => ipcRenderer.invoke('mod:reveal', args || {}),
+    /**
+     * 打开 Steam 创意工坊。**默认走 Steam 客户端**（steam://），不跳浏览器；
+     * 传 web:true 才走网页。没检测到 Steam 客户端时会自动退到网页版。
+     */
     openWorkshop: (args) => ipcRenderer.invoke('mod:openWorkshop', args || {}),
     openNexus: (args) => ipcRenderer.invoke('mod:openNexus', args || {}),
     /**

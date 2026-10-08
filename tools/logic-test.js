@@ -1533,6 +1533,9 @@ t('Steam 创意工坊地址：网页版 + 客户端版都要有', () => {
   // 客户端版的 protocol 拼错就没有任何反应，所以固定住
   assert.strictEqual(MODS.steamWorkshopClientUrl('1206560'),
     'steam://url/SteamWorkshopPage/1206560');
+  // 必须是 steam:// 而不是 http —— 主人的要求：点工坊要进 Steam 客户端，别跳浏览器
+  assert.ok(MODS.steamWorkshopClientUrl('1206560').startsWith('steam://'),
+    '客户端版必须走 steam:// 协议，不能是网页地址');
 });
 
 t('路径指纹：同一路径稳定、不同路径不同', () => {

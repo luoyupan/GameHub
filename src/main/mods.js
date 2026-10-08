@@ -436,9 +436,18 @@ function steamWorkshopWebUrl(appId) {
 }
 
 /**
- * 唤起 Steam 客户端的创意工坊页。
- * ⚠ 走的是 Steam 客户端自己的 protocol，Steam 没运行时不会有任何反应 ——
- *   所以界面上要同时给一个网页版入口，别让用户点了没动静还不知道为什么。
+ * 唤起 **Steam 客户端里**的创意工坊页（主人的要求：不要跳外部浏览器）。
+ *
+ * 为什么用它而不是网页：订阅 / 退订 / 自动下载这些动作**只有客户端能做**，
+ * 网页版点订阅最后还是要把你弹回客户端 —— 多绕一圈。
+ *
+ * ⚠ 两个坑：
+ *   1. `shell.openExternal('steam://…')` 在没装 Steam 的机器上**不会抛错**，
+ *      Windows 只会弹"你要用什么程序打开它"。所以调用方必须自己先查一遍
+ *      Steam 装没装（`platforms._internals.Steam.findInstall()`），
+ *      不能靠 try/catch 判断成败。
+ *   2. 万一哪天这个 protocol 换了，备选是
+ *      `steam://openurl/` + 网页地址 —— 也是在 Steam 里开，只是走内置浏览器。
  */
 function steamWorkshopClientUrl(appId) {
   return 'steam://url/SteamWorkshopPage/' + encodeURIComponent(String(appId || ''));

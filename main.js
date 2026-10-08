@@ -1392,22 +1392,45 @@ function registerModIpc() {
    *   · 非 Steam 游戏 → 只能自己添加
    * 所以这里按有没有 steamAppId 分两条路。
    */
+  /**
+   * 打开 Steam 创意工坊。
+   *
+   * ⚠ 主人的要求：**默认走 Steam 客户端，不要跳浏览器** ——
+   *   订阅 / 退订 / 自动下载这些动作只有客户端能做，网页版只能看，
+   *   点了订阅还得跳回客户端，等于让人绕一圈。
+   *   只有明确要网页版（args.web = true）才开浏览器。
+   *
+   * 为什么先查一遍 Steam 装没装：`shell.openExternal('steam://…')` 在没装 Steam 的机器上
+   * **不会抛错** —— Windows 只会弹一个"你要用什么程序打开它"的系统框，
+   * 用户点了半天没反应。所以这里主动检测一次，没装就直接开网页并如实告知。
+   */
   ipcMain.handle('mod:openWorkshop', async (_e, args = {}) => {
     const appId = String(args.appId || '').trim();
     if (!appId) return { ok: false, error: '这款游戏没有 Steam AppID，去不了创意工坊' };
-    const url = args.client ? steamWorkshopClientUrl(appId) : steamWorkshopWebUrl(appId);
+
+    const web = steamWorkshopWebUrl(appId);
+    const client = steamWorkshopClientUrl(appId);
+
+    if (args.web === true) {
+      try { await shell.openExternal(web); return { ok: true, url: web, via: 'web' }; }
+      catch (e) { return { ok: false, error: '打不开链接：' + (e.message || e) }; }
+    }
+
+    // 先确认 Steam 客户端在不在 —— 有就走 steam://，没有才退网页
+    let steamDir = '';
+    try { steamDir = await platforms._internals.Steam.findInstall(); } catch { steamDir = ''; }
+    if (!steamDir) {
+      try { await shell.openExternal(web); return { ok: true, url: web, via: 'web', fellBack: true }; }
+      catch (e) { return { ok: false, error: '没检测到 Steam 客户端，浏览器也打不开：' + (e.message || e) }; }
+    }
+
     try {
-      await shell.openExternal(url);
-      return { ok: true, url };
+      await shell.openExternal(client);
+      return { ok: true, url: client, via: 'client' };
     } catch (e) {
-      // steam:// 没装客户端时会抛错 —— 退回网页版，别让用户点了没反应
-      if (args.client) {
-        try {
-          await shell.openExternal(steamWorkshopWebUrl(appId));
-          return { ok: true, url: steamWorkshopWebUrl(appId), fellBack: true };
-        } catch { /* 继续往外报错 */ }
-      }
-      return { ok: false, error: '打不开链接：' + (e.message || e) };
+      // steam:// 协议没注册成功 —— 退回网页版，别让用户点了没反应
+      try { await shell.openExternal(web); return { ok: true, url: web, via: 'web', fellBack: true }; }
+      catch { return { ok: false, error: '打不开链接：' + (e.message || e) }; }
     }
   });
 
