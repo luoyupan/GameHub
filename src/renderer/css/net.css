@@ -87,6 +87,21 @@
   font-weight: 700;
 }
 
+/* ---------------- 坦诚书（界面上的那行警告） ---------------- */
+.net-notice {
+  display: flex;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 1px solid var(--warn-soft);
+  border-radius: 12px;
+  background: var(--warn-soft);
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--text-2);
+}
+.nn-icon { flex: none; color: var(--warn); }
+.nn-text b { color: var(--text); }
+
 /* ---------------- 通用卡片 ---------------- */
 .net-card {
   display: flex;

@@ -145,6 +145,7 @@
     const side = el('div', { class: 'net-side' });
 
     main.appendChild(modePicker());
+    main.appendChild(testNotice());
     if (room && room.active) main.appendChild(roomReadyCard());
     else main.appendChild(formCard());
     main.appendChild(logCard());
@@ -185,6 +186,19 @@
       ])
     ]));
     return el('div', { class: 'net-modes' }, cards);
+  }
+
+  /* ---------------- 坦诚书：这功能没经过真实网络验证 ----------------
+   * 写在界面上而不只是文档里 —— 文档没人翻，但每个来用联机的人都会看到这一行。
+   * 提前说清楚"连不上是正常的"，比事后让人以为是自己配置错了要强。 */
+  function testNotice() {
+    return el('div', { class: 'net-notice' }, [
+      el('span', { class: 'nn-icon', text: '⚠' }),
+      el('span', { class: 'nn-text' }, [
+        el('b', { text: '联机功能没有经过真实网络验证。' }),
+        document.createTextNode('它只在一台机器的 127.0.0.1 上跑通过，没在两台真实电脑、跨运营商的环境里试过，也没测过任何一款真实游戏 —— 连不上、延迟高、隧道不通都是正常现象，欢迎提。有问题请把下面的「联机日志」贴出来。')
+      ])
+    ]);
   }
 
   /* ---------------- 表单区 ---------------- */
