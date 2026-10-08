@@ -35,3 +35,6 @@ desktop.ini
 .env
 .env.local
 live.out
+
+# ---- API 兜底推送的临时目录 ----
+.tmp-push/
